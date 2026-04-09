@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Certified Architect — Exam Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a24;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0ede8;
+  --muted: #7a7890;
+  --accent: #c8a97e;
+  --accent2: #7e9cc8;
+  --green: #6dbf8f;
+  --red: #bf6d6d;
+  --glow: rgba(200,169,126,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---- NOISE OVERLAY ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(16px);
+}
+
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* ---- HERO ---- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 6rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,169,126,0.08) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  pointer-events: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(200,169,126,0.3);
+  padding: 6px 14px;
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.6s ease both;
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 3rem;
+  font-weight: 300;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #0a0a0f;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 13px 28px;
+  border-radius: 2px;
+  border: 1px solid var(--border2);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-secondary:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- STATS ---- */
+.stats {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 0;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.stat {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.stat:last-child { border-right: none; }
+
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3rem;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ---- SECTION ---- */
+section {
+  position: relative;
+  padding: 6rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+
+.section-body {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.75;
+}
+
+/* ---- EXAM CARDS ---- */
+.exam-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 700px) {
+  .exam-grid { grid-template-columns: 1fr; }
+  nav { padding: 1rem 1.5rem; }
+  section { padding: 4rem 1.5rem; }
+  .stat { padding: 2rem 1rem; }
+}
+
+.exam-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: border-color 0.25s, transform 0.25s;
+  overflow: hidden;
+}
+
+.exam-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.exam-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.exam-card:hover::before { opacity: 1; }
+
+.exam-card-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.exam-card-tag::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.exam-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.exam-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.exam-card-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+.card-arrow {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 1.25rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.exam-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+
+/* ---- DOMAINS ---- */
+.domain-list {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.domain-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.domain-item:last-child { border-bottom: none; }
+.domain-item:hover { background: var(--surface); }
+
+.domain-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  min-width: 24px;
+}
+
+.domain-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.domain-pct {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.domain-bar-bg {
+  width: 80px;
+  height: 3px;
+  background: var(--border2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.domain-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* ---- RESOURCES ---- */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.resource-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: border-color 0.2s;
+}
+
+.resource-card:hover { border-color: var(--border2); }
+
+.resource-card h4 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.resource-card p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.resource-card .rc-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent2);
+  margin-top: 10px;
+  display: block;
+  letter-spacing: 0.05em;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.footer-right {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---- DIVIDER ---- */
+.full-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">CCA Foundations</a>
+  <ul class="nav-links">
+    <li><a href="#exams">Exams</a></li>
+    <li><a href="#domains">Domains</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:1">
+    <div class="badge">Exam Prep · Claude Certified Architect</div>
+    <h1 class="hero-title">Pass the<br><em>Foundations</em><br>Certification</h1>
+    <p class="hero-sub">Two full mock exams built from the official exam guide. Practice and proctored modes. All 5 domains. All 6 scenarios.</p>
+    <div class="hero-actions">
+      <a href="practice.html" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Practice exam
+      </a>
+      <a href="proctored.html" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Proctored exam
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-num">80</span>
+    <span class="stat-label">Total questions</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">5</span>
+    <span class="stat-label">Domains covered</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">6</span>
+    <span class="stat-label">Exam scenarios</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">720</span>
+    <span class="stat-label">Passing score</span>
+  </div>
+</div>
+
+<!-- EXAMS -->
+<section id="exams">
+  <span class="section-tag">Mock exams</span>
+  <h2 class="section-title">Two ways to prepare</h2>
+  <p class="section-body">Start with practice mode to learn the patterns, then lock in with the full proctored simulation before exam day.</p>
+
+  <div class="exam-grid">
+    <a href="practice.html" class="exam-card">
+      <div class="exam-card-tag">Practice mode</div>
+      <h3>Untimed practice exam</h3>
+      <p>20 questions with instant explanations after each answer. Filter by domain. Jump between questions freely. Great for learning which reasoning patterns the exam rewards.</p>
+      <div class="exam-card-meta">
+        <span class="meta-pill">20 questions</span>
+        <span class="meta-pill">No time limit</span>
+        <span class="meta-pill">Instant feedback</span>
+        <span class="meta-pill">Domain filter</span>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a href="proctored.html" class="exam-card">
+      <div class="exam-card-tag">Proctored mode</div>
+      <h3>Full proctored simulation</h3>
+      <p>60 questions in 120 minutes. Countdown timer auto-submits. No external resources. Flag questions for review. Matches the real exam format exactly.</p>
+      <div class="exam-card-meta">
+        <span class="meta-pill">60 questions</span>
+        <span class="meta-pill">120 min timer</span>
+        <span class="meta-pill">Auto-submit</span>
+        <span class="meta-pill">Scaled score</span>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- DOMAINS -->
+<section id="domains">
+  <span class="section-tag">Content outline</span>
+  <h2 class="section-title">What's tested</h2>
+  <p class="section-body">The exam weights domains by their real-world importance to solution architects building production Claude applications.</p>
+
+  <div class="domain-list">
+    <div class="domain-item">
+      <span class="domain-num">D1</span>
+      <span class="domain-name">Agentic Architecture &amp; Orchestration</span>
+      <div class="domain-bar-bg"><div class="domain-bar" style="width:27%"></div></div>
+      <span class="domain-pct">27%</span>
+    </div>
+    <div class="domain-item">
+      <span class="domain-num">D2</span>
+      <span class="domain-name">Tool Design &amp; MCP Integration</span>
+      <div class="domain-bar-bg"><div class="domain-bar" style="width:18%"></div></div>
+      <span class="domain-pct">18%</span>
+    </div>
+    <div class="domain-item">
+      <span class="domain-num">D3</span>
+      <span class="domain-name">Claude Code Configuration &amp; Workflows</span>
+      <div class="domain-bar-bg"><div class="domain-bar" style="width:20%"></div></div>
+      <span class="domain-pct">20%</span>
+    </div>
+    <div class="domain-item">
+      <span class="domain-num">D4</span>
+      <span class="domain-name">Prompt Engineering &amp; Structured Output</span>
+      <div class="domain-bar-bg"><div class="domain-bar" style="width:20%"></div></div>
+      <span class="domain-pct">20%</span>
+    </div>
+    <div class="domain-item">
+      <span class="domain-num">D5</span>
+      <span class="domain-name">Context Management &amp; Reliability</span>
+      <div class="domain-bar-bg"><div class="domain-bar" style="width:15%"></div></div>
+      <span class="domain-pct">15%</span>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- RESOURCES -->
+<section id="resources">
+  <span class="section-tag">Study materials</span>
+  <h2 class="section-title">Official documentation</h2>
+  <p class="section-body">Everything on the exam comes from Anthropic's official docs. These are the highest-signal resources to read alongside the mock exams.</p>
+
+  <div class="resource-grid">
+    <a href="https://docs.anthropic.com/en/docs/agents-and-tools/build-effective-agents" target="_blank" class="resource-card">
+      <h4>Building effective agents</h4>
+      <p>Agentic loops, tool use, orchestration patterns, and reliability design.</p>
+      <span class="rc-link">docs.anthropic.com →</span>
+    </a>
+    <a href="https://docs.anthropic.com/en/docs/agent-sdk" target="_blank" class="resource-card">
+      <h4>Claude Agent SDK</h4>
+      <p>Subagent spawning, hooks, session management, stop_reason handling.</p>
+      <span class="rc-link">docs.anthropic.com →</span>
+    </a>
+    <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" class="resource-card">
+      <h4>Claude Code docs</h4>
+      <p>CLAUDE.md hierarchy, path-scoped rules, slash commands, skills, plan mode.</p>
+      <span class="rc-link">docs.anthropic.com →</span>
+    </a>
+    <a href="https://docs.anthropic.com/en/docs/agents-and-tools/mcp" target="_blank" class="resource-card">
+      <h4>Model Context Protocol</h4>
+      <p>Tool and resource design, .mcp.json config, error patterns, server scoping.</p>
+      <span class="rc-link">docs.anthropic.com →</span>
+    </a>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/batch-processing" target="_blank" class="resource-card">
+      <h4>Message Batches API</h4>
+      <p>50% cost savings, 24-hour window, custom_id correlation, failure handling.</p>
+      <span class="rc-link">docs.anthropic.com →</span>
+    </a>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" class="resource-card">
+      <h4>Prompt engineering guide</h4>
+      <p>Few-shot examples, structured output via tool_use, JSON schemas.</p>
+      <span class="rc-link">docs.anthropic.com →</span>
+    </a>
+    <a href="https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F8lsy243ftffjjy1cx9lm3o2bw%2Fpublic%2F1773274827%2FClaude+Certified+Architect+%E2%80%93+Foundations+Certification+Exam+Guide.pdf" target="_blank" class="resource-card">
+      <h4>Official exam guide (PDF)</h4>
+      <p>All domains, task statements, sample questions, and preparation exercises.</p>
+      <span class="rc-link">Download PDF →</span>
+    </a>
+    <a href="https://anthropic.skilljar.com/claude-certified-architect-foundations-access-request" target="_blank" class="resource-card">
+      <h4>Register for the real exam</h4>
+      <p>The official proctored exam on Skilljar. 60 questions, 120 minutes, scaled scoring.</p>
+      <span class="rc-link">skilljar.com →</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-left">CCA Foundations Prep · Unofficial study resource</span>
+  <span class="footer-right">Not affiliated with Anthropic · Based on the official exam guide</span>
+</footer>
+
+</body>
+</html>
