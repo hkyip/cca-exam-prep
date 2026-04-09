@@ -514,6 +514,15 @@ footer {
 .footer-right {
   font-size: 12px;
   color: var(--muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  justify-content: flex-end;
+}
+
+.footer-right .footer-disclaimer-note {
+  color: var(--muted);
 }
 
 /* ---- DIVIDER ---- */
@@ -523,6 +532,7 @@ footer {
   margin: 0;
 }
 </style>
+<link rel="stylesheet" href="disclaimer-modal.css">
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -530,6 +540,7 @@ footer {
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "w9178he6sz");
 </script>
+<script src="disclaimer-modal.js" defer></script>
 </head>
 <body>
 
@@ -540,6 +551,7 @@ footer {
     <li><a href="study-guide.html">Study Guide</a></li>
     <li><a href="#domains">Domains</a></li>
     <li><a href="#resources">Resources</a></li>
+    <li><button type="button" class="js-open-disclaimer">Disclaimer</button></li>
   </ul>
 </nav>
 
@@ -719,7 +731,10 @@ footer {
 
 <footer>
   <span class="footer-left">CCA Foundations Prep · Unofficial study resource</span>
-  <span class="footer-right">Not affiliated with Anthropic · Based on the official exam guide</span>
+  <span class="footer-right">
+    <button type="button" class="js-open-disclaimer">Disclaimer</button>
+    <span class="footer-disclaimer-note">Not affiliated with Anthropic · Based on the official exam guide</span>
+  </span>
 </footer>
 
 </body>
