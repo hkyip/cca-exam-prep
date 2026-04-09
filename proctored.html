@@ -1040,16 +1040,23 @@
       }
 
       function beginExam() {
-        state.phase = "exam";
-        state.current = 0;
-        state.answers = {};
-        state.submitted = {};
-        state.flagged = new Set();
-        state.timeLeft = TOTAL_TIME;
-        state.done = false;
-        state.timedOut = false;
-        render();
-        startTimer();
+        function go() {
+          state.phase = "exam";
+          state.current = 0;
+          state.answers = {};
+          state.submitted = {};
+          state.flagged = new Set();
+          state.timeLeft = TOTAL_TIME;
+          state.done = false;
+          state.timedOut = false;
+          render();
+          startTimer();
+        }
+        if (typeof window.ccaEnsureDisclaimerAcknowledged === "function") {
+          window.ccaEnsureDisclaimerAcknowledged(go);
+        } else {
+          go();
+        }
       }
 
       function examHTML() {

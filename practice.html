@@ -126,13 +126,20 @@
       }
 
       function startExam() {
-        state.queue = getQueue();
-        state.current = 0;
-        state.answers = {};
-        state.submitted = {};
-        state.flagged = new Set();
-        state.phase = "exam";
-        render();
+        function go() {
+          state.queue = getQueue();
+          state.current = 0;
+          state.answers = {};
+          state.submitted = {};
+          state.flagged = new Set();
+          state.phase = "exam";
+          render();
+        }
+        if (typeof window.ccaEnsureDisclaimerAcknowledged === "function") {
+          window.ccaEnsureDisclaimerAcknowledged(go);
+        } else {
+          go();
+        }
       }
 
       function examHTML() {

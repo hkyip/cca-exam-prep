@@ -45,6 +45,7 @@
   function init() {
     var overlay = buildModal();
     document.body.appendChild(overlay);
+    var pendingExamCallback = null;
 
     var ack = overlay.querySelector('#cca-disclaimer-ack');
     if (ack) {
@@ -53,6 +54,13 @@
           sessionStorage.setItem(STORAGE_KEY, '1');
         } catch (e) {}
         closeModal(overlay);
+        if (pendingExamCallback) {
+          var cb = pendingExamCallback;
+          pendingExamCallback = null;
+          try {
+            cb();
+          } catch (err) {}
+        }
       });
     }
 
@@ -63,13 +71,17 @@
       });
     });
 
-    try {
-      if (!sessionStorage.getItem(STORAGE_KEY)) {
-        openModal(overlay);
-      }
-    } catch (e) {
+    window.ccaEnsureDisclaimerAcknowledged = function (callback) {
+      if (typeof callback !== 'function') callback = function () {};
+      try {
+        if (sessionStorage.getItem(STORAGE_KEY)) {
+          callback();
+          return;
+        }
+      } catch (e) {}
+      pendingExamCallback = callback;
       openModal(overlay);
-    }
+    };
   }
 
   if (document.readyState === 'loading') {
