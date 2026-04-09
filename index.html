@@ -523,6 +523,13 @@ footer {
   margin: 0;
 }
 </style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w9178he6sz");
+</script>
 </head>
 <body>
 
@@ -530,6 +537,7 @@ footer {
   <a class="nav-logo" href="index.html">CCA Foundations</a>
   <ul class="nav-links">
     <li><a href="#exams">Exams</a></li>
+    <li><a href="study-guide.html">Study Guide</a></li>
     <li><a href="#domains">Domains</a></li>
     <li><a href="#resources">Resources</a></li>
   </ul>
@@ -547,6 +555,10 @@ footer {
       <a href="practice.html" class="btn-primary">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         Practice exam
+      </a>
+      <a href="study-guide.html" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Study guide
       </a>
       <a href="proctored.html" class="btn-secondary">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -658,49 +670,49 @@ footer {
 <!-- RESOURCES -->
 <section id="resources">
   <span class="section-tag">Study materials</span>
-  <h2 class="section-title">Official documentation</h2>
-  <p class="section-body">Everything on the exam comes from Anthropic's official docs. These are the highest-signal resources to read alongside the mock exams.</p>
+  <h2 class="section-title">On-site reference topics</h2>
+  <p class="section-body">All study write-ups live on this site in the Study Guide. Open a topic below—no external links required.</p>
 
   <div class="resource-grid">
-    <a href="https://docs.anthropic.com/en/docs/agents-and-tools/build-effective-agents" target="_blank" class="resource-card">
+    <a href="study-guide.html#agents" class="resource-card">
       <h4>Building effective agents</h4>
       <p>Agentic loops, tool use, orchestration patterns, and reliability design.</p>
-      <span class="rc-link">docs.anthropic.com →</span>
+      <span class="rc-link">Study guide →</span>
     </a>
-    <a href="https://docs.anthropic.com/en/docs/agent-sdk" target="_blank" class="resource-card">
+    <a href="study-guide.html#agent-sdk" class="resource-card">
       <h4>Claude Agent SDK</h4>
       <p>Subagent spawning, hooks, session management, stop_reason handling.</p>
-      <span class="rc-link">docs.anthropic.com →</span>
+      <span class="rc-link">Study guide →</span>
     </a>
-    <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" class="resource-card">
-      <h4>Claude Code docs</h4>
+    <a href="study-guide.html#claude-code" class="resource-card">
+      <h4>Claude Code</h4>
       <p>CLAUDE.md hierarchy, path-scoped rules, slash commands, skills, plan mode.</p>
-      <span class="rc-link">docs.anthropic.com →</span>
+      <span class="rc-link">Study guide →</span>
     </a>
-    <a href="https://docs.anthropic.com/en/docs/agents-and-tools/mcp" target="_blank" class="resource-card">
+    <a href="study-guide.html#mcp" class="resource-card">
       <h4>Model Context Protocol</h4>
       <p>Tool and resource design, .mcp.json config, error patterns, server scoping.</p>
-      <span class="rc-link">docs.anthropic.com →</span>
+      <span class="rc-link">Study guide →</span>
     </a>
-    <a href="https://docs.anthropic.com/en/docs/build-with-claude/batch-processing" target="_blank" class="resource-card">
+    <a href="study-guide.html#batches" class="resource-card">
       <h4>Message Batches API</h4>
-      <p>50% cost savings, 24-hour window, custom_id correlation, failure handling.</p>
-      <span class="rc-link">docs.anthropic.com →</span>
+      <p>Async batches, 24-hour window, custom_id correlation, failure handling.</p>
+      <span class="rc-link">Study guide →</span>
     </a>
-    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" class="resource-card">
-      <h4>Prompt engineering guide</h4>
+    <a href="study-guide.html#prompt-engineering" class="resource-card">
+      <h4>Prompt engineering and structured output</h4>
       <p>Few-shot examples, structured output via tool_use, JSON schemas.</p>
-      <span class="rc-link">docs.anthropic.com →</span>
+      <span class="rc-link">Study guide →</span>
     </a>
-    <a href="https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F8lsy243ftffjjy1cx9lm3o2bw%2Fpublic%2F1773274827%2FClaude+Certified+Architect+%E2%80%93+Foundations+Certification+Exam+Guide.pdf" target="_blank" class="resource-card">
-      <h4>Official exam guide (PDF)</h4>
-      <p>All domains, task statements, sample questions, and preparation exercises.</p>
-      <span class="rc-link">Download PDF →</span>
+    <a href="study-guide.html#exam-outline" class="resource-card">
+      <h4>Exam outline summary</h4>
+      <p>Domains, format, and how this prep site maps to the exam scope.</p>
+      <span class="rc-link">Study guide →</span>
     </a>
-    <a href="https://anthropic.skilljar.com/claude-certified-architect-foundations-access-request" target="_blank" class="resource-card">
-      <h4>Register for the real exam</h4>
-      <p>The official proctored exam on Skilljar. 60 questions, 120 minutes, scaled scoring.</p>
-      <span class="rc-link">skilljar.com →</span>
+    <a href="study-guide.html#certification" class="resource-card">
+      <h4>Certification and the live exam</h4>
+      <p>What the live proctored exam is; registering through the official program.</p>
+      <span class="rc-link">Study guide →</span>
     </a>
   </div>
 </section>
