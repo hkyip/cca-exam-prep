@@ -1,74 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Practice Exam — CCA Foundations</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="exam-shared.css">
-<link rel="stylesheet" href="disclaimer-modal.css">
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w9178he6sz");
-</script>
-<script src="disclaimer-modal.js" defer></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Practice Exam — CCA Foundations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="exam-shared.css" />
+    <link rel="stylesheet" href="disclaimer-modal.css" />
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "w9178he6sz");
+    </script>
+    <script src="disclaimer-modal.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-logo" href="index.html">CCA Foundations</a>
+      <div class="nav-disclaimer-wrap">
+        <a class="nav-back" href="index.html"> Back to home </a>
+      </div>
+    </nav>
 
-<nav>
-  <a class="nav-logo" href="index.html">CCA Foundations</a>
-  <div class="nav-disclaimer-wrap">
-    <a class="nav-github" href="https://github.com/hkyip/cca-exam-prep" target="_blank" rel="noopener noreferrer" aria-label="Star cca-exam-prep on GitHub">
-      
-      GitHub
-    </a>
-    <a class="nav-back" href="index.html">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to home
-    </a>
-  </div>
-</nav>
+    <main>
+      <div id="root"></div>
+    </main>
 
-<main>
-  <div id="root"></div>
-</main>
+    <script src="questions-practice.js"></script>
+    <script>
+      let state = {
+        phase: "intro",
+        current: 0,
+        answers: {},
+        submitted: {},
+        flagged: new Set(),
+        filter: "all",
+      };
 
-<script src="questions-practice.js"></script>
-<script>
-let state = {
-  phase: 'intro',
-  current: 0,
-  answers: {},
-  submitted: {},
-  flagged: new Set(),
-  filter: 'all'
-};
+      const DOMAIN_NAMES = {
+        1: "Agentic Architecture",
+        2: "Tool Design & MCP",
+        3: "Claude Code Config",
+        4: "Prompt Eng & Output",
+        5: "Context & Reliability",
+      };
+      const DOMAIN_COLORS = {
+        1: "#378ADD",
+        2: "#1D9E75",
+        3: "#BA7517",
+        4: "#7F77DD",
+        5: "#D85A30",
+      };
 
-const DOMAIN_NAMES = {1:'Agentic Architecture',2:'Tool Design & MCP',3:'Claude Code Config',4:'Prompt Eng & Output',5:'Context & Reliability'};
-const DOMAIN_COLORS = {1:'#378ADD',2:'#1D9E75',3:'#BA7517',4:'#7F77DD',5:'#D85A30'};
+      function getQueue() {
+        if (state.filter === "all") return PRACTICE_Q.map((_, i) => i);
+        const d = parseInt(state.filter);
+        return PRACTICE_Q.map((q, i) => (q.d === d ? i : -1)).filter(
+          (x) => x >= 0,
+        );
+      }
 
-function getQueue() {
-  if (state.filter === 'all') return PRACTICE_Q.map((_,i) => i);
-  const d = parseInt(state.filter);
-  return PRACTICE_Q.map((q,i) => q.d === d ? i : -1).filter(x => x >= 0);
-}
+      function render() {
+        const root = document.getElementById("root");
+        if (state.phase === "intro") root.innerHTML = introHTML();
+        else if (state.phase === "exam") root.innerHTML = examHTML();
+        else root.innerHTML = resultsHTML();
+        attachHandlers();
+      }
 
-function render() {
-  const root = document.getElementById('root');
-  if (state.phase === 'intro') root.innerHTML = introHTML();
-  else if (state.phase === 'exam') root.innerHTML = examHTML();
-  else root.innerHTML = resultsHTML();
-  attachHandlers();
-}
-
-function introHTML() {
-  const queue = getQueue();
-  return `
+      function introHTML() {
+        const queue = getQueue();
+        return `
   <div class="intro-card" style="margin-top:1.5rem">
     <div class="intro-icon">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
@@ -77,17 +96,21 @@ function introHTML() {
     <p class="subtitle">Untimed · instant explanations · filter by domain</p>
 
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
-      ${['all','1','2','3','4','5'].map(f => `
-        <button onclick="setFilter('${f}')" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;border:1px solid ${state.filter===f?'rgba(200,169,126,0.5)':'var(--border)'};background:${state.filter===f?'rgba(200,169,126,0.08)':'transparent'};color:${state.filter===f?'var(--accent)':'var(--muted)'};cursor:pointer;transition:all 0.15s">
-          ${f==='all'?'All domains':'D'+f}
-        </button>`).join('')}
+      ${["all", "1", "2", "3", "4", "5"]
+        .map(
+          (f) => `
+        <button onclick="setFilter('${f}')" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;border:1px solid ${state.filter === f ? "rgba(200,169,126,0.5)" : "var(--border)"};background:${state.filter === f ? "rgba(200,169,126,0.08)" : "transparent"};color:${state.filter === f ? "var(--accent)" : "var(--muted)"};cursor:pointer;transition:all 0.15s">
+          ${f === "all" ? "All domains" : "D" + f}
+        </button>`,
+        )
+        .join("")}
     </div>
 
     <div class="rules-box">
       <div class="rule-row"><span class="rule-label">Questions</span><span class="rule-val">${queue.length}</span></div>
       <div class="rule-row"><span class="rule-label">Time limit</span><span class="rule-val">None</span></div>
       <div class="rule-row"><span class="rule-label">Feedback</span><span class="rule-val">Instant per answer</span></div>
-      <div class="rule-row"><span class="rule-label">Domains</span><span class="rule-val">${state.filter==='all'?'All 5':'Domain '+state.filter+' only'}</span></div>
+      <div class="rule-row"><span class="rule-label">Domains</span><span class="rule-val">${state.filter === "all" ? "All 5" : "Domain " + state.filter + " only"}</span></div>
     </div>
 
     <button class="btn-start" onclick="startExam()">
@@ -95,56 +118,71 @@ function introHTML() {
       Start practice
     </button>
   </div>`;
-}
+      }
 
-function setFilter(f) {
-  state.filter = f;
-  render();
-}
+      function setFilter(f) {
+        state.filter = f;
+        render();
+      }
 
-function startExam() {
-  state.queue = getQueue();
-  state.current = 0;
-  state.answers = {};
-  state.submitted = {};
-  state.flagged = new Set();
-  state.phase = 'exam';
-  render();
-}
+      function startExam() {
+        state.queue = getQueue();
+        state.current = 0;
+        state.answers = {};
+        state.submitted = {};
+        state.flagged = new Set();
+        state.phase = "exam";
+        render();
+      }
 
-function examHTML() {
-  const qi = state.queue[state.current];
-  const q = PRACTICE_Q[qi];
-  const total = state.queue.length;
-  const answered = Object.keys(state.answers).length;
-  const correct = Object.keys(state.submitted).filter(k => state.answers[state.queue[parseInt(k)]] === PRACTICE_Q[state.queue[parseInt(k)]].c).length;
-  const isSub = state.submitted[state.current] !== undefined;
-  const isFlagged = state.flagged.has(state.current);
+      function examHTML() {
+        const qi = state.queue[state.current];
+        const q = PRACTICE_Q[qi];
+        const total = state.queue.length;
+        const answered = Object.keys(state.answers).length;
+        const correct = Object.keys(state.submitted).filter(
+          (k) =>
+            state.answers[state.queue[parseInt(k)]] ===
+            PRACTICE_Q[state.queue[parseInt(k)]].c,
+        ).length;
+        const isSub = state.submitted[state.current] !== undefined;
+        const isFlagged = state.flagged.has(state.current);
 
-  const qnavHTML = state.queue.map((qi2, i) => {
-    let cls = 'qn';
-    if (i === state.current) cls += ' current';
-    else if (state.submitted[i] !== undefined) {
-      cls += state.answers[state.queue[i]] === PRACTICE_Q[state.queue[i]].c ? ' correct-nav' : ' wrong-nav';
-    } else if (state.answers[state.queue[i]] !== undefined) cls += ' answered';
-    else if (state.flagged.has(i)) cls += ' flagged-nav';
-    return `<button class="${cls}" onclick="goTo(${i})">${i+1}</button>`;
-  }).join('');
+        const qnavHTML = state.queue
+          .map((qi2, i) => {
+            let cls = "qn";
+            if (i === state.current) cls += " current";
+            else if (state.submitted[i] !== undefined) {
+              cls +=
+                state.answers[state.queue[i]] === PRACTICE_Q[state.queue[i]].c
+                  ? " correct-nav"
+                  : " wrong-nav";
+            } else if (state.answers[state.queue[i]] !== undefined)
+              cls += " answered";
+            else if (state.flagged.has(i)) cls += " flagged-nav";
+            return `<button class="${cls}" onclick="goTo(${i})">${i + 1}</button>`;
+          })
+          .join("");
 
-  const optsHTML = q.opts.map((o, i) => {
-    let cls = 'opt';
-    if (isSub) {
-      if (i === q.c) cls += ' correct';
-      else if (state.answers[state.current] === i) cls += ' wrong';
-    } else {
-      if (state.answers[state.current] === i) cls += ' sel';
-    }
-    return `<button class="${cls}" onclick="pick(${i})" ${isSub?'disabled':''}><span class="opt-letter">${String.fromCharCode(65+i)}.</span><span>${o.replace(/`([^`]+)`/g,'<code>$1</code>')}</span></button>`;
-  }).join('');
+        const optsHTML = q.opts
+          .map((o, i) => {
+            let cls = "opt";
+            if (isSub) {
+              if (i === q.c) cls += " correct";
+              else if (state.answers[state.current] === i) cls += " wrong";
+            } else {
+              if (state.answers[state.current] === i) cls += " sel";
+            }
+            return `<button class="${cls}" onclick="pick(${i})" ${isSub ? "disabled" : ""}><span class="opt-letter">${String.fromCharCode(65 + i)}.</span><span>${o.replace(/`([^`]+)`/g, "<code>$1</code>")}</span></button>`;
+          })
+          .join("");
 
-  const expCls = 'exp' + (isSub?' show':'') + (isSub && state.answers[state.current] !== q.c?' bad':'');
+        const expCls =
+          "exp" +
+          (isSub ? " show" : "") +
+          (isSub && state.answers[state.current] !== q.c ? " bad" : "");
 
-  return `
+        return `
   <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0;margin-bottom:0.75rem;gap:1rem;flex-wrap:wrap">
     <div style="display:flex;gap:16px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">
       <span>Answered: <strong style="color:var(--text)">${answered}/${total}</strong></span>
@@ -159,78 +197,94 @@ function examHTML() {
     <div class="q-top">
       <div>
         <span class="scenario-pill ${q.sc}">${q.s}</span>
-        <div class="q-meta">Q${state.current+1} of ${total} &nbsp;·&nbsp; Domain ${q.d}</div>
+        <div class="q-meta">Q${state.current + 1} of ${total} &nbsp;·&nbsp; Domain ${q.d}</div>
       </div>
-      <button class="flag-btn ${isFlagged?'flagged':''}" onclick="toggleFlag()">${isFlagged?'Flagged':'Flag'}</button>
+      <button class="flag-btn ${isFlagged ? "flagged" : ""}" onclick="toggleFlag()">${isFlagged ? "Flagged" : "Flag"}</button>
     </div>
-    <div class="q-text">${q.q.replace(/`([^`]+)`/g,'<code>$1</code>')}</div>
+    <div class="q-text">${q.q.replace(/`([^`]+)`/g, "<code>$1</code>")}</div>
     <div class="opts">${optsHTML}</div>
     <div class="${expCls}">
-      <div class="exp-hdr">${isSub?(state.answers[state.current]===q.c?'Correct':'Incorrect — correct: '+String.fromCharCode(65+q.c)):'Explanation'}</div>
+      <div class="exp-hdr">${isSub ? (state.answers[state.current] === q.c ? "Correct" : "Incorrect — correct: " + String.fromCharCode(65 + q.c)) : "Explanation"}</div>
       ${q.exp}
     </div>
     <div class="nav-row">
-      <button class="btn btn-submit-ans" onclick="submitOne()" ${(state.answers[state.current]===undefined||isSub)?'disabled':''}>${isSub?'Submitted':'Submit answer'}</button>
-      ${state.current>0?`<button class="btn" onclick="goTo(${state.current-1})">← Prev</button>`:''}
-      ${state.current<total-1?`<button class="btn" onclick="goTo(${state.current+1})" ${!isSub?'disabled':''}>Next →</button>`:
-        `<button class="btn btn-submit-ans" onclick="showResults()" ${!isSub?'disabled':''}>View results →</button>`}
+      <button class="btn btn-submit-ans" onclick="submitOne()" ${state.answers[state.current] === undefined || isSub ? "disabled" : ""}>${isSub ? "Submitted" : "Submit answer"}</button>
+      ${state.current > 0 ? `<button class="btn" onclick="goTo(${state.current - 1})">← Prev</button>` : ""}
+      ${
+        state.current < total - 1
+          ? `<button class="btn" onclick="goTo(${state.current + 1})" ${!isSub ? "disabled" : ""}>Next →</button>`
+          : `<button class="btn btn-submit-ans" onclick="showResults()" ${!isSub ? "disabled" : ""}>View results →</button>`
+      }
       <button class="skip-link" onclick="skip()">skip</button>
     </div>
   </div>`;
-}
+      }
 
-function resultsHTML() {
-  const total = state.queue.length;
-  const correct = state.queue.filter((qi,i) => state.answers[i] === PRACTICE_Q[qi].c).length;
-  const skipped = state.queue.filter((qi,i) => state.answers[i] === undefined).length;
-  const pct = Math.round(correct/total*100);
-  const scaled = Math.round(100+(correct/total)*900);
-  const pass = scaled >= 720;
+      function resultsHTML() {
+        const total = state.queue.length;
+        const correct = state.queue.filter(
+          (qi, i) => state.answers[i] === PRACTICE_Q[qi].c,
+        ).length;
+        const skipped = state.queue.filter(
+          (qi, i) => state.answers[i] === undefined,
+        ).length;
+        const pct = Math.round((correct / total) * 100);
+        const scaled = Math.round(100 + (correct / total) * 900);
+        const pass = scaled >= 720;
 
-  const dMap = {};
-  state.queue.forEach((qi,i) => {
-    const d = PRACTICE_Q[qi].d;
-    if (!dMap[d]) dMap[d] = {c:0,t:0};
-    dMap[d].t++;
-    if (state.answers[i]===PRACTICE_Q[qi].c) dMap[d].c++;
-  });
+        const dMap = {};
+        state.queue.forEach((qi, i) => {
+          const d = PRACTICE_Q[qi].d;
+          if (!dMap[d]) dMap[d] = { c: 0, t: 0 };
+          dMap[d].t++;
+          if (state.answers[i] === PRACTICE_Q[qi].c) dMap[d].c++;
+        });
 
-  return `
+        return `
   <div style="margin-top:1rem">
     <div class="score-grid">
-      <div class="score-cell"><span class="score-num" style="color:${pass?'var(--green)':'var(--red)'}">${correct}/${total}</span><span class="score-lbl">Score</span></div>
-      <div class="score-cell"><span class="score-num" style="color:${pass?'var(--green)':'var(--red)'}">${scaled}</span><span class="score-lbl">Scaled</span></div>
-      <div class="score-cell"><span class="score-num" style="color:${pass?'var(--green)':'var(--red)'};">${pass?'Pass':'Fail'}</span><span class="score-lbl">Result</span></div>
+      <div class="score-cell"><span class="score-num" style="color:${pass ? "var(--green)" : "var(--red)"}">${correct}/${total}</span><span class="score-lbl">Score</span></div>
+      <div class="score-cell"><span class="score-num" style="color:${pass ? "var(--green)" : "var(--red)"}">${scaled}</span><span class="score-lbl">Scaled</span></div>
+      <div class="score-cell"><span class="score-num" style="color:${pass ? "var(--green)" : "var(--red)"};">${pass ? "Pass" : "Fail"}</span><span class="score-lbl">Result</span></div>
       <div class="score-cell"><span class="score-num" style="font-size:2rem">${skipped}</span><span class="score-lbl">Skipped</span></div>
     </div>
 
     <div class="domain-breakdown">
       <div class="db-header">Performance by domain</div>
-      ${Object.entries(dMap).map(([d,s]) => `
+      ${Object.entries(dMap)
+        .map(
+          ([d, s]) => `
         <div class="db-row">
-          <div class="db-label">D${d}: ${DOMAIN_NAMES[d]||''}</div>
-          <div class="db-bar-bg"><div class="db-bar" style="width:${Math.round(s.c/s.t*100)}%;background:${DOMAIN_COLORS[d]||'#888'}"></div></div>
-          <div class="db-pct">${s.c}/${s.t} (${Math.round(s.c/s.t*100)}%)</div>
-        </div>`).join('')}
+          <div class="db-label">D${d}: ${DOMAIN_NAMES[d] || ""}</div>
+          <div class="db-bar-bg"><div class="db-bar" style="width:${Math.round((s.c / s.t) * 100)}%;background:${DOMAIN_COLORS[d] || "#888"}"></div></div>
+          <div class="db-pct">${s.c}/${s.t} (${Math.round((s.c / s.t) * 100)}%)</div>
+        </div>`,
+        )
+        .join("")}
     </div>
 
     <div class="review-section">
       <div class="db-header">Question review</div>
-      ${state.queue.map((qi,i) => {
-        const q = PRACTICE_Q[qi];
-        const ans = state.answers[i];
-        const ok = ans === q.c;
-        const skip = ans === undefined;
-        return `<div class="review-item">
-          <div class="ri ${skip?'ri-skip':ok?'ri-correct':'ri-wrong'}">${skip?'—':ok?'✓':'✗'}</div>
+      ${state.queue
+        .map((qi, i) => {
+          const q = PRACTICE_Q[qi];
+          const ans = state.answers[i];
+          const ok = ans === q.c;
+          const skip = ans === undefined;
+          return `<div class="review-item">
+          <div class="ri ${skip ? "ri-skip" : ok ? "ri-correct" : "ri-wrong"}">${skip ? "—" : ok ? "✓" : "✗"}</div>
           <div class="ri-body">
-            <div class="ri-meta">Q${i+1} · D${q.d} · ${q.s}</div>
-            <div class="ri-q">${q.q.replace(/<code>|<\/code>/g,'').replace(/`([^`]+)`/g,'$1').substring(0,100)}…</div>
-            ${!ok&&!skip?`<div class="ri-correction">Your: ${ans!==undefined?String.fromCharCode(65+ans):'—'} &nbsp;·&nbsp; Correct: ${String.fromCharCode(65+q.c)}</div>`:''}
-            ${ok?`<div class="ri-ok">Correct</div>`:''}
+            <div class="ri-meta">Q${i + 1} · D${q.d} · ${q.s}</div>
+            <div class="ri-q">${q.q
+              .replace(/<code>|<\/code>/g, "")
+              .replace(/`([^`]+)`/g, "$1")
+              .substring(0, 100)}…</div>
+            ${!ok && !skip ? `<div class="ri-correction">Your: ${ans !== undefined ? String.fromCharCode(65 + ans) : "—"} &nbsp;·&nbsp; Correct: ${String.fromCharCode(65 + q.c)}</div>` : ""}
+            ${ok ? `<div class="ri-ok">Correct</div>` : ""}
           </div>
         </div>`;
-      }).join('')}
+        })
+        .join("")}
     </div>
 
     <div style="display:flex;gap:1rem;flex-wrap:wrap">
@@ -238,53 +292,63 @@ function resultsHTML() {
       <a href="proctored.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:2px;border:1px solid rgba(200,169,126,0.3);background:rgba(200,169,126,0.06);color:var(--accent);font-family:'Outfit',sans-serif;font-size:13px;text-decoration:none;margin-top:1.5rem">Try the proctored exam →</a>
     </div>
   </div>`;
-}
+      }
 
-function pick(i) {
-  if (state.submitted[state.current] !== undefined) return;
-  state.answers[state.current] = i;
-  document.querySelectorAll('.opt').forEach((el,idx) => {
-    el.className = 'opt' + (idx===i?' sel':'');
-  });
-  document.querySelector('.btn-submit-ans').disabled = false;
-}
+      function pick(i) {
+        if (state.submitted[state.current] !== undefined) return;
+        state.answers[state.current] = i;
+        document.querySelectorAll(".opt").forEach((el, idx) => {
+          el.className = "opt" + (idx === i ? " sel" : "");
+        });
+        document.querySelector(".btn-submit-ans").disabled = false;
+      }
 
-function submitOne() {
-  if (state.answers[state.current] === undefined) return;
-  if (state.submitted[state.current] !== undefined) return;
-  state.submitted[state.current] = true;
-  render();
-}
+      function submitOne() {
+        if (state.answers[state.current] === undefined) return;
+        if (state.submitted[state.current] !== undefined) return;
+        state.submitted[state.current] = true;
+        render();
+      }
 
-function skip() {
-  state.submitted[state.current] = true;
-  if (state.current < state.queue.length - 1) goTo(state.current + 1);
-  else showResults();
-}
+      function skip() {
+        state.submitted[state.current] = true;
+        if (state.current < state.queue.length - 1) goTo(state.current + 1);
+        else showResults();
+      }
 
-function toggleFlag() {
-  if (state.flagged.has(state.current)) state.flagged.delete(state.current);
-  else state.flagged.add(state.current);
-  render();
-}
+      function toggleFlag() {
+        if (state.flagged.has(state.current))
+          state.flagged.delete(state.current);
+        else state.flagged.add(state.current);
+        render();
+      }
 
-function goTo(i) { state.current = i; render(); }
-function showResults() { state.phase = 'results'; render(); }
-function resetExam() { state.phase = 'intro'; render(); }
+      function goTo(i) {
+        state.current = i;
+        render();
+      }
+      function showResults() {
+        state.phase = "results";
+        render();
+      }
+      function resetExam() {
+        state.phase = "intro";
+        render();
+      }
 
-function attachHandlers() {
-  window.setFilter = setFilter;
-  window.startExam = startExam;
-  window.pick = pick;
-  window.submitOne = submitOne;
-  window.skip = skip;
-  window.toggleFlag = toggleFlag;
-  window.goTo = goTo;
-  window.showResults = showResults;
-  window.resetExam = resetExam;
-}
+      function attachHandlers() {
+        window.setFilter = setFilter;
+        window.startExam = startExam;
+        window.pick = pick;
+        window.submitOne = submitOne;
+        window.skip = skip;
+        window.toggleFlag = toggleFlag;
+        window.goTo = goTo;
+        window.showResults = showResults;
+        window.resetExam = resetExam;
+      }
 
-render();
-</script>
-</body>
+      render();
+    </script>
+  </body>
 </html>
