@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Study Guide — CCA Foundations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -152,6 +152,8 @@
         padding: 0.7rem 0.85rem;
         font-size: 13px;
         line-height: 1.5;
+        overflow-wrap: anywhere;
+        word-break: break-word;
       }
 
       .resource-list a:hover {
@@ -209,6 +211,31 @@
         display: block;
         padding: 0.65rem 0.85rem;
       }
+
+      @media (max-width: 640px) {
+        .guide-hero {
+          padding: 1.5rem 1.1rem;
+        }
+
+        .guide-card {
+          padding: 1.25rem 1rem;
+        }
+
+        .domain-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .anchor-link,
+        .topic-toc .toc-item {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+        }
+
+        .topic-toc .toc-item {
+          display: flex;
+        }
+      }
     </style>
     <link rel="stylesheet" href="disclaimer-modal.css" />
     <script type="text/javascript">
@@ -246,7 +273,6 @@
           </svg>
           GitHub
         </a>
-        <button type="button" class="js-open-disclaimer">Disclaimer</button>
         <a class="nav-back" href="index.html">
           <svg
             width="12"

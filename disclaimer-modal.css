@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
+  padding: max(1.25rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) max(1.25rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
   background: rgba(10, 10, 15, 0.82);
   backdrop-filter: blur(10px);
   opacity: 0;
@@ -154,25 +154,6 @@ a.nav-github:hover {
 a.nav-github svg {
   flex-shrink: 0;
   opacity: 0.95;
-}
-
-/* Home page nav: match .nav-links link style */
-.nav-links button.js-open-disclaimer {
-  font-family: 'Outfit', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--muted, #7a7890);
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.2s;
-}
-
-.nav-links button.js-open-disclaimer:hover {
-  color: var(--text, #f0ede8);
 }
 
 footer .js-open-disclaimer {

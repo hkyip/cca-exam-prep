@@ -1,837 +1,1058 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude Certified Architect — Exam Prep</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0a0a0f;
-  --surface: #111118;
-  --surface2: #1a1a24;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --text: #f0ede8;
-  --muted: #7a7890;
-  --accent: #c8a97e;
-  --accent2: #7e9cc8;
-  --green: #6dbf8f;
-  --red: #bf6d6d;
-  --glow: rgba(200,169,126,0.15);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  line-height: 1.6;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ---- NOISE OVERLAY ---- */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.4;
-}
-
-/* ---- NAV ---- */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem max(1.5rem, env(safe-area-inset-right)) 1.25rem max(1.5rem, env(safe-area-inset-left));
-  padding-top: max(1.25rem, env(safe-area-inset-top));
-  border-bottom: 1px solid var(--border);
-  background: rgba(10,10,15,0.85);
-  backdrop-filter: blur(16px);
-}
-
-.nav-logo {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  row-gap: 0.5rem;
-}
-
-.nav-links a {
-  font-size: 13px;
-  color: var(--muted);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--text); }
-
-/* ---- HERO ---- */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8rem max(1.25rem, env(safe-area-inset-right)) 6rem max(1.25rem, env(safe-area-inset-left));
-  padding-top: max(8rem, calc(4rem + env(safe-area-inset-top)));
-  text-align: center;
-  overflow: hidden;
-}
-
-.hero-glow {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,169,126,0.08) 0%, transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  pointer-events: none;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  border: 1px solid rgba(200,169,126,0.3);
-  padding: 6px 14px;
-  border-radius: 2px;
-  margin-bottom: 2rem;
-  animation: fadeUp 0.6s ease both;
-}
-
-.badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2s ease infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-
-.hero-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(3rem, 8vw, 6rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  animation: fadeUp 0.6s 0.1s ease both;
-}
-
-.hero-title em {
-  font-style: italic;
-  color: var(--accent);
-}
-
-.hero-sub {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: var(--muted);
-  max-width: 520px;
-  margin: 0 auto 3rem;
-  font-weight: 300;
-  animation: fadeUp 0.6s 0.2s ease both;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fadeUp 0.6s 0.3s ease both;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--accent);
-  color: #0a0a0f;
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 14px 28px;
-  border-radius: 2px;
-  text-decoration: none;
-  transition: opacity 0.2s, transform 0.2s;
-  letter-spacing: 0.02em;
-}
-
-.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  padding: 13px 28px;
-  border-radius: 2px;
-  border: 1px solid var(--border2);
-  text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.btn-secondary:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ---- STATS ---- */
-.stats {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  margin: 0;
-  animation: fadeUp 0.6s 0.4s ease both;
-}
-
-.stat {
-  padding: 2.5rem 2rem;
-  text-align: center;
-  border-right: 1px solid var(--border);
-}
-
-.stat:last-child { border-right: none; }
-
-.stat-num {
-  font-family: 'DM Serif Display', serif;
-  font-size: 3rem;
-  color: var(--accent);
-  display: block;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-/* ---- SECTION ---- */
-section {
-  position: relative;
-  padding: 6rem max(3rem, env(safe-area-inset-right)) 6rem max(3rem, env(safe-area-inset-left));
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.section-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.1;
-  margin-bottom: 1.25rem;
-}
-
-.section-body {
-  font-size: 15px;
-  color: var(--muted);
-  max-width: 560px;
-  line-height: 1.75;
-}
-
-/* ---- EXAM CARDS ---- */
-.exam-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-@media (max-width: 900px) {
-  nav {
-    padding: 1rem 1.5rem;
-    gap: 0.75rem;
-    align-items: flex-start;
-  }
-  .nav-links {
-    gap: 1rem 1.25rem;
-    justify-content: flex-end;
-  }
-}
-
-@media (max-width: 700px) {
-  .exam-grid { grid-template-columns: 1fr; }
-  nav {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .nav-logo { align-self: flex-start; }
-  .nav-links {
-    width: 100%;
-    justify-content: flex-start;
-    gap: 0.65rem 1rem;
-  }
-  section { padding: 4rem 1.25rem; }
-  .stat { padding: 2rem 1rem; }
-  .hero { padding: 7rem 1.25rem 4rem; }
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .hero-actions .btn-primary,
-  .hero-actions .btn-secondary {
-    justify-content: center;
-  }
-  footer {
-    padding: 2rem 1.25rem;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .footer-right {
-    justify-content: flex-start;
-  }
-}
-
-/* Stats: clean 2×2 borders on narrow screens */
-@media (max-width: 520px) {
-  .stats {
-    grid-template-columns: 1fr 1fr;
-  }
-  .stat {
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1.5rem 0.75rem;
-  }
-  .stat:nth-child(2n) { border-right: none; }
-  .stat:nth-last-child(-n+2) { border-bottom: none; }
-  .stat-num { font-size: 2.25rem; }
-}
-
-/* Domain row: stack on small phones */
-@media (max-width: 560px) {
-  .domain-item {
-    flex-wrap: wrap;
-    align-items: flex-start;
-    padding: 1rem 1.1rem;
-    gap: 0.65rem 1rem;
-  }
-  .domain-name {
-    flex: 1 1 100%;
-    order: 0;
-  }
-  .domain-num { order: -1; }
-  .domain-bar-bg {
-    flex: 1;
-    min-width: 0;
-    width: auto;
-  }
-  .domain-pct { margin-left: auto; }
-}
-
-@media (max-width: 400px) {
-  .resource-grid {
-    grid-template-columns: 1fr;
-  }
-  .exam-card { padding: 1.5rem; }
-  .exam-card .card-arrow { bottom: 1.25rem; right: 1.25rem; }
-}
-
-.exam-card {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 2rem;
-  text-decoration: none;
-  color: var(--text);
-  display: block;
-  transition: border-color 0.25s, transform 0.25s;
-  overflow: hidden;
-}
-
-.exam-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.exam-card:hover { border-color: var(--border2); transform: translateY(-3px); }
-.exam-card:hover::before { opacity: 1; }
-
-.exam-card-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.exam-card-tag::before {
-  content: '';
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.exam-card h3 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
-}
-
-.exam-card p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.65;
-  margin-bottom: 1.5rem;
-}
-
-.exam-card-meta {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.meta-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  padding: 4px 10px;
-  border-radius: 2px;
-}
-
-.card-arrow {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 1.25rem;
-  color: var(--accent);
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.exam-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
-
-/* ---- DOMAINS ---- */
-.domain-list {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.domain-item {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.25rem 1.75rem;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s;
-}
-
-.domain-item:last-child { border-bottom: none; }
-.domain-item:hover { background: var(--surface); }
-
-.domain-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--accent);
-  min-width: 24px;
-}
-
-.domain-name {
-  flex: 1;
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.domain-pct {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.domain-bar-bg {
-  width: 80px;
-  height: 3px;
-  background: var(--border2);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.domain-bar {
-  height: 100%;
-  border-radius: 2px;
-  background: var(--accent);
-}
-
-/* ---- RESOURCES ---- */
-.resource-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin-top: 3rem;
-}
-
-.resource-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1.5rem;
-  text-decoration: none;
-  color: var(--text);
-  display: block;
-  transition: border-color 0.2s;
-}
-
-.resource-card:hover { border-color: var(--border2); }
-
-.resource-card h4 {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-
-.resource-card p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.resource-card .rc-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--accent2);
-  margin-top: 10px;
-  display: block;
-  letter-spacing: 0.05em;
-}
-
-/* ---- FOOTER ---- */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 2.5rem max(3rem, env(safe-area-inset-right)) 2.5rem max(3rem, env(safe-area-inset-left));
-  padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.footer-left {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-}
-
-.footer-right {
-  font-size: 12px;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.75rem;
-  justify-content: flex-end;
-}
-
-.footer-right .footer-disclaimer-note {
-  color: var(--muted);
-}
-
-/* ---- DIVIDER ---- */
-.full-divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0;
-}
-</style>
-<link rel="stylesheet" href="disclaimer-modal.css">
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w9178he6sz");
-</script>
-<script src="disclaimer-modal.js" defer></script>
-</head>
-<body>
-
-<nav>
-  <a class="nav-logo" href="index.html">CCA Foundations</a>
-  <ul class="nav-links">
-    <li><a href="#exams">Exams</a></li>
-    <li><a href="study-guide.html">Study Guide</a></li>
-    <li><a href="#domains">Domains</a></li>
-    <li><a href="#resources">Resources</a></li>
-    <li>
-      <a class="nav-github" href="https://github.com/hkyip/cca-exam-prep" target="_blank" rel="noopener noreferrer" aria-label="Star cca-exam-prep on GitHub">
-        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-        GitHub
-      </a>
-    </li>
-    <li><button type="button" class="js-open-disclaimer">Disclaimer</button></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div style="position:relative;z-index:1">
-    <div class="badge">Exam Prep · Claude Certified Architect</div>
-    <h1 class="hero-title">Pass the<br><em>Foundations</em><br>Certification</h1>
-    <p class="hero-sub">Two full mock exams built from the official exam guide. Practice and proctored modes. All 5 domains. All 6 scenarios.</p>
-    <div class="hero-actions">
-      <a href="practice.html" class="btn-primary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Practice exam
-      </a>
-      <a href="study-guide.html" class="btn-secondary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        Study guide
-      </a>
-      <a href="proctored.html" class="btn-secondary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Proctored exam
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <span class="stat-num">80</span>
-    <span class="stat-label">Total questions</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">5</span>
-    <span class="stat-label">Domains covered</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">6</span>
-    <span class="stat-label">Exam scenarios</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">720</span>
-    <span class="stat-label">Passing score</span>
-  </div>
-</div>
-
-<!-- EXAMS -->
-<section id="exams">
-  <span class="section-tag">Mock exams</span>
-  <h2 class="section-title">Two ways to prepare</h2>
-  <p class="section-body">Start with practice mode to learn the patterns, then lock in with the full proctored simulation before exam day.</p>
-
-  <div class="exam-grid">
-    <a href="practice.html" class="exam-card">
-      <div class="exam-card-tag">Practice mode</div>
-      <h3>Untimed practice exam</h3>
-      <p>20 questions with instant explanations after each answer. Filter by domain. Jump between questions freely. Great for learning which reasoning patterns the exam rewards.</p>
-      <div class="exam-card-meta">
-        <span class="meta-pill">20 questions</span>
-        <span class="meta-pill">No time limit</span>
-        <span class="meta-pill">Instant feedback</span>
-        <span class="meta-pill">Domain filter</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Claude Certified Architect — Exam Prep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --surface: #111118;
+        --surface2: #1a1a24;
+        --border: rgba(255, 255, 255, 0.07);
+        --border2: rgba(255, 255, 255, 0.12);
+        --text: #f0ede8;
+        --muted: #7a7890;
+        --accent: #c8a97e;
+        --accent2: #7e9cc8;
+        --green: #6dbf8f;
+        --red: #bf6d6d;
+        --glow: rgba(200, 169, 126, 0.15);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Outfit", sans-serif;
+        font-weight: 300;
+        line-height: 1.6;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* ---- NOISE OVERLAY ---- */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.4;
+      }
+
+      /* ---- NAV ---- */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem max(1.5rem, env(safe-area-inset-right)) 1.25rem
+          max(1.5rem, env(safe-area-inset-left));
+        padding-top: max(1.25rem, env(safe-area-inset-top));
+        border-bottom: 1px solid var(--border);
+        background: rgba(10, 10, 15, 0.85);
+        backdrop-filter: blur(16px);
+      }
+
+      .nav-logo {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        row-gap: 0.5rem;
+      }
+
+      .nav-links a {
+        font-size: 13px;
+        color: var(--muted);
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      /* ---- HERO ---- */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem max(1.25rem, env(safe-area-inset-right)) 6rem
+          max(1.25rem, env(safe-area-inset-left));
+        padding-top: max(8rem, calc(4rem + env(safe-area-inset-top)));
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .hero-glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(200, 169, 126, 0.08) 0%,
+          transparent 70%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+          );
+        background-size: 60px 60px;
+        mask-image: radial-gradient(
+          ellipse at center,
+          black 30%,
+          transparent 80%
+        );
+        pointer-events: none;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid rgba(200, 169, 126, 0.3);
+        padding: 6px 14px;
+        border-radius: 2px;
+        margin-bottom: 2rem;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .badge::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2s ease infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+
+      .hero-title {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+        animation: fadeUp 0.6s 0.1s ease both;
+      }
+
+      .hero-title em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .hero-sub {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: var(--muted);
+        max-width: 520px;
+        margin: 0 auto 3rem;
+        font-weight: 300;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s 0.3s ease both;
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--accent);
+        color: #0a0a0f;
+        font-family: "Outfit", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 14px 28px;
+        border-radius: 2px;
+        text-decoration: none;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        letter-spacing: 0.02em;
+      }
+
+      .btn-primary:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: var(--text);
+        font-family: "Outfit", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 13px 28px;
+        border-radius: 2px;
+        border: 1px solid var(--border2);
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+
+      .btn-secondary:hover {
+        border-color: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ---- STATS ---- */
+      .stats {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        margin: 0;
+        animation: fadeUp 0.6s 0.4s ease both;
+      }
+
+      .stat {
+        padding: 2.5rem 2rem;
+        text-align: center;
+        border-right: 1px solid var(--border);
+      }
+
+      .stat:last-child {
+        border-right: none;
+      }
+
+      .stat-num {
+        font-family: "DM Serif Display", serif;
+        font-size: 3rem;
+        color: var(--accent);
+        display: block;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* ---- SECTION ---- */
+      section {
+        position: relative;
+        padding: 6rem max(3rem, env(safe-area-inset-right)) 6rem
+          max(3rem, env(safe-area-inset-left));
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .section-tag {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.1;
+        margin-bottom: 1.25rem;
+      }
+
+      .section-body {
+        font-size: 15px;
+        color: var(--muted);
+        max-width: 560px;
+        line-height: 1.75;
+      }
+
+      /* ---- EXAM CARDS ---- */
+      .exam-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          padding: 1rem max(1.5rem, env(safe-area-inset-right)) 1rem
+            max(1.5rem, env(safe-area-inset-left));
+          padding-top: max(1rem, env(safe-area-inset-top));
+          gap: 0.75rem;
+          align-items: flex-start;
+        }
+        .nav-links {
+          gap: 1rem 1.25rem;
+          justify-content: flex-end;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .exam-grid {
+          grid-template-columns: 1fr;
+        }
+        nav {
+          flex-direction: column;
+          align-items: stretch;
+          padding: 1rem max(1.25rem, env(safe-area-inset-right)) 1rem
+            max(1.25rem, env(safe-area-inset-left));
+          padding-top: max(1rem, env(safe-area-inset-top));
+        }
+        .nav-logo {
+          align-self: flex-start;
+        }
+        .nav-links {
+          width: 100%;
+          justify-content: flex-start;
+          gap: 0.65rem 1rem;
+        }
+        section {
+          padding: 4rem max(1.25rem, env(safe-area-inset-right)) 4rem
+            max(1.25rem, env(safe-area-inset-left));
+        }
+        .stat {
+          padding: 2rem 1rem;
+        }
+        .hero {
+          padding: 7rem max(1.25rem, env(safe-area-inset-right)) 4rem
+            max(1.25rem, env(safe-area-inset-left));
+          padding-top: max(7rem, calc(3.5rem + env(safe-area-inset-top)));
+        }
+        .hero-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .hero-actions .btn-primary,
+        .hero-actions .btn-secondary {
+          justify-content: center;
+        }
+        footer {
+          padding: 2rem max(1.25rem, env(safe-area-inset-right)) 2rem
+            max(1.25rem, env(safe-area-inset-left));
+          padding-bottom: max(2rem, env(safe-area-inset-bottom));
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .footer-right {
+          justify-content: flex-start;
+        }
+      }
+
+      /* Stats: 2×2 grid and cell borders on phones / small tablets */
+      @media (max-width: 640px) {
+        .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stat {
+          border-right: 1px solid var(--border);
+          border-bottom: 1px solid var(--border);
+          padding: 1.5rem 0.75rem;
+        }
+        .stat:nth-child(2n) {
+          border-right: none;
+        }
+        .stat:nth-last-child(-n + 2) {
+          border-bottom: none;
+        }
+        .stat-num {
+          font-size: 2.25rem;
+        }
+      }
+
+      /* Domain row: stack on small phones */
+      @media (max-width: 560px) {
+        .domain-item {
+          flex-wrap: wrap;
+          align-items: flex-start;
+          padding: 1rem 1.1rem;
+          gap: 0.65rem 1rem;
+        }
+        .domain-name {
+          flex: 1 1 100%;
+          order: 0;
+        }
+        .domain-num {
+          order: -1;
+        }
+        .domain-bar-bg {
+          flex: 1;
+          min-width: 0;
+          width: auto;
+        }
+        .domain-pct {
+          margin-left: auto;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .resource-grid {
+          grid-template-columns: 1fr;
+        }
+        .exam-card {
+          padding: 1.5rem;
+        }
+        .exam-card .card-arrow {
+          bottom: 1.25rem;
+          right: 1.25rem;
+        }
+      }
+
+      .exam-card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 2rem;
+        text-decoration: none;
+        color: var(--text);
+        display: block;
+        transition:
+          border-color 0.25s,
+          transform 0.25s;
+        overflow: hidden;
+      }
+
+      .exam-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .exam-card:hover {
+        border-color: var(--border2);
+        transform: translateY(-3px);
+      }
+      .exam-card:hover::before {
+        opacity: 1;
+      }
+
+      .exam-card-tag {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .exam-card-tag::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .exam-card h3 {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+      }
+
+      .exam-card p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.65;
+        margin-bottom: 1.5rem;
+      }
+
+      .exam-card-meta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .meta-pill {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        padding: 4px 10px;
+        border-radius: 2px;
+      }
+
+      .card-arrow {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        font-size: 1.25rem;
+        color: var(--accent);
+        opacity: 0;
+        transform: translateX(-6px);
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+      }
+
+      .exam-card:hover .card-arrow {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* ---- DOMAINS ---- */
+      .domain-list {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .domain-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.25rem 1.75rem;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.2s;
+      }
+
+      .domain-item:last-child {
+        border-bottom: none;
+      }
+      .domain-item:hover {
+        background: var(--surface);
+      }
+
+      .domain-num {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--accent);
+        min-width: 24px;
+      }
+
+      .domain-name {
+        flex: 1;
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      .domain-pct {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .domain-bar-bg {
+        width: 80px;
+        height: 3px;
+        background: var(--border2);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .domain-bar {
+        height: 100%;
+        border-radius: 2px;
+        background: var(--accent);
+      }
+
+      /* ---- RESOURCES ---- */
+      .resource-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+        margin-top: 3rem;
+      }
+
+      .resource-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 1.5rem;
+        text-decoration: none;
+        color: var(--text);
+        display: block;
+        transition: border-color 0.2s;
+      }
+
+      .resource-card:hover {
+        border-color: var(--border2);
+      }
+
+      .resource-card h4 {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+
+      .resource-card p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .resource-card .rc-link {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        color: var(--accent2);
+        margin-top: 10px;
+        display: block;
+        letter-spacing: 0.05em;
+      }
+
+      /* ---- FOOTER ---- */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 2.5rem max(3rem, env(safe-area-inset-right)) 2.5rem
+          max(3rem, env(safe-area-inset-left));
+        padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-left {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+
+      .footer-right {
+        font-size: 12px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.75rem;
+        justify-content: flex-end;
+      }
+
+      .footer-right .footer-disclaimer-note {
+        color: var(--muted);
+      }
+
+      /* ---- DIVIDER ---- */
+      .full-divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 0;
+      }
+    </style>
+    <link rel="stylesheet" href="disclaimer-modal.css" />
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "w9178he6sz");
+    </script>
+    <script src="disclaimer-modal.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-logo" href="index.html">CCA Foundations</a>
+      <ul class="nav-links">
+        <li><a href="#exams">Exams</a></li>
+        <li><a href="study-guide.html">Study Guide</a></li>
+        <li><a href="#domains">Domains</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li>
+          <a
+            class="nav-github"
+            href="https://github.com/hkyip/cca-exam-prep"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Star cca-exam-prep on GitHub"
+          >
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div style="position: relative; z-index: 1">
+        <div class="badge">Exam Prep · Claude Certified Architect</div>
+        <h1 class="hero-title">
+          Pass the<br /><em>Foundations</em><br />Certification
+        </h1>
+        <p class="hero-sub">
+          Two full mock exams built from the official exam guide. Practice and
+          proctored modes. All 5 domains. All 6 scenarios.
+        </p>
+        <div class="hero-actions">
+          <a href="practice.html" class="btn-primary">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            Practice exam
+          </a>
+          <a href="study-guide.html" class="btn-secondary">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path
+                d="M6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5A2.5 2.5 0 0 1 6.5 2z"
+              />
+            </svg>
+            Study guide
+          </a>
+          <a href="proctored.html" class="btn-secondary">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            Proctored exam
+          </a>
+        </div>
       </div>
-      <div class="card-arrow">→</div>
-    </a>
+    </div>
 
-    <a href="proctored.html" class="exam-card">
-      <div class="exam-card-tag">Proctored mode</div>
-      <h3>Full proctored simulation</h3>
-      <p>60 questions in 120 minutes. Countdown timer auto-submits. No external resources. Flag questions for review. Matches the real exam format exactly.</p>
-      <div class="exam-card-meta">
-        <span class="meta-pill">60 questions</span>
-        <span class="meta-pill">120 min timer</span>
-        <span class="meta-pill">Auto-submit</span>
-        <span class="meta-pill">Scaled score</span>
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">80</span>
+        <span class="stat-label">Total questions</span>
       </div>
-      <div class="card-arrow">→</div>
-    </a>
-  </div>
-</section>
-
-<hr class="full-divider">
-
-<!-- DOMAINS -->
-<section id="domains">
-  <span class="section-tag">Content outline</span>
-  <h2 class="section-title">What's tested</h2>
-  <p class="section-body">The exam weights domains by their real-world importance to solution architects building production Claude applications.</p>
-
-  <div class="domain-list">
-    <div class="domain-item">
-      <span class="domain-num">D1</span>
-      <span class="domain-name">Agentic Architecture &amp; Orchestration</span>
-      <div class="domain-bar-bg"><div class="domain-bar" style="width:27%"></div></div>
-      <span class="domain-pct">27%</span>
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">Domains covered</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">6</span>
+        <span class="stat-label">Exam scenarios</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">720</span>
+        <span class="stat-label">Passing score</span>
+      </div>
     </div>
-    <div class="domain-item">
-      <span class="domain-num">D2</span>
-      <span class="domain-name">Tool Design &amp; MCP Integration</span>
-      <div class="domain-bar-bg"><div class="domain-bar" style="width:18%"></div></div>
-      <span class="domain-pct">18%</span>
-    </div>
-    <div class="domain-item">
-      <span class="domain-num">D3</span>
-      <span class="domain-name">Claude Code Configuration &amp; Workflows</span>
-      <div class="domain-bar-bg"><div class="domain-bar" style="width:20%"></div></div>
-      <span class="domain-pct">20%</span>
-    </div>
-    <div class="domain-item">
-      <span class="domain-num">D4</span>
-      <span class="domain-name">Prompt Engineering &amp; Structured Output</span>
-      <div class="domain-bar-bg"><div class="domain-bar" style="width:20%"></div></div>
-      <span class="domain-pct">20%</span>
-    </div>
-    <div class="domain-item">
-      <span class="domain-num">D5</span>
-      <span class="domain-name">Context Management &amp; Reliability</span>
-      <div class="domain-bar-bg"><div class="domain-bar" style="width:15%"></div></div>
-      <span class="domain-pct">15%</span>
-    </div>
-  </div>
-</section>
 
-<hr class="full-divider">
+    <!-- EXAMS -->
+    <section id="exams">
+      <span class="section-tag">Mock exams</span>
+      <h2 class="section-title">Two ways to prepare</h2>
+      <p class="section-body">
+        Start with practice mode to learn the patterns, then lock in with the
+        full proctored simulation before exam day.
+      </p>
 
-<!-- RESOURCES -->
-<section id="resources">
-  <span class="section-tag">Study materials</span>
-  <h2 class="section-title">On-site reference topics</h2>
-  <p class="section-body">All study write-ups live on this site in the Study Guide. Open a topic below—no external links required.</p>
+      <div class="exam-grid">
+        <a href="practice.html" class="exam-card">
+          <div class="exam-card-tag">Practice mode</div>
+          <h3>Untimed practice exam</h3>
+          <p>
+            20 questions with instant explanations after each answer. Filter by
+            domain. Jump between questions freely. Great for learning which
+            reasoning patterns the exam rewards.
+          </p>
+          <div class="exam-card-meta">
+            <span class="meta-pill">20 questions</span>
+            <span class="meta-pill">No time limit</span>
+            <span class="meta-pill">Instant feedback</span>
+            <span class="meta-pill">Domain filter</span>
+          </div>
+          <div class="card-arrow">→</div>
+        </a>
 
-  <div class="resource-grid">
-    <a href="study-guide.html#agents" class="resource-card">
-      <h4>Building effective agents</h4>
-      <p>Agentic loops, tool use, orchestration patterns, and reliability design.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-    <a href="study-guide.html#agent-sdk" class="resource-card">
-      <h4>Claude Agent SDK</h4>
-      <p>Subagent spawning, hooks, session management, stop_reason handling.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-    <a href="study-guide.html#claude-code" class="resource-card">
-      <h4>Claude Code</h4>
-      <p>CLAUDE.md hierarchy, path-scoped rules, slash commands, skills, plan mode.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-    <a href="study-guide.html#mcp" class="resource-card">
-      <h4>Model Context Protocol</h4>
-      <p>Tool and resource design, .mcp.json config, error patterns, server scoping.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-    <a href="study-guide.html#batches" class="resource-card">
-      <h4>Message Batches API</h4>
-      <p>Async batches, 24-hour window, custom_id correlation, failure handling.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-    <a href="study-guide.html#prompt-engineering" class="resource-card">
-      <h4>Prompt engineering and structured output</h4>
-      <p>Few-shot examples, structured output via tool_use, JSON schemas.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-    <a href="study-guide.html#exam-outline" class="resource-card">
-      <h4>Exam outline summary</h4>
-      <p>Domains, format, and how this prep site maps to the exam scope.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-    <a href="study-guide.html#certification" class="resource-card">
-      <h4>Certification and the live exam</h4>
-      <p>What the live proctored exam is; registering through the official program.</p>
-      <span class="rc-link">Study guide →</span>
-    </a>
-  </div>
-</section>
+        <a href="proctored.html" class="exam-card">
+          <div class="exam-card-tag">Proctored mode</div>
+          <h3>Full proctored simulation</h3>
+          <p>
+            60 questions in 120 minutes. Countdown timer auto-submits. No
+            external resources. Flag questions for review. Matches the real exam
+            format exactly.
+          </p>
+          <div class="exam-card-meta">
+            <span class="meta-pill">60 questions</span>
+            <span class="meta-pill">120 min timer</span>
+            <span class="meta-pill">Auto-submit</span>
+            <span class="meta-pill">Scaled score</span>
+          </div>
+          <div class="card-arrow">→</div>
+        </a>
+      </div>
+    </section>
 
-<footer>
-  <span class="footer-left">CCA Foundations Prep · Unofficial study resource</span>
-  <span class="footer-right">
-    <button type="button" class="js-open-disclaimer">Disclaimer</button>
-    <span class="footer-disclaimer-note">Not affiliated with Anthropic · Based on the official exam guide</span>
-  </span>
-</footer>
+    <hr class="full-divider" />
 
-</body>
+    <!-- DOMAINS -->
+    <section id="domains">
+      <span class="section-tag">Content outline</span>
+      <h2 class="section-title">What's tested</h2>
+      <p class="section-body">
+        The exam weights domains by their real-world importance to solution
+        architects building production Claude applications.
+      </p>
+
+      <div class="domain-list">
+        <div class="domain-item">
+          <span class="domain-num">D1</span>
+          <span class="domain-name"
+            >Agentic Architecture &amp; Orchestration</span
+          >
+          <div class="domain-bar-bg">
+            <div class="domain-bar" style="width: 27%"></div>
+          </div>
+          <span class="domain-pct">27%</span>
+        </div>
+        <div class="domain-item">
+          <span class="domain-num">D2</span>
+          <span class="domain-name">Tool Design &amp; MCP Integration</span>
+          <div class="domain-bar-bg">
+            <div class="domain-bar" style="width: 18%"></div>
+          </div>
+          <span class="domain-pct">18%</span>
+        </div>
+        <div class="domain-item">
+          <span class="domain-num">D3</span>
+          <span class="domain-name"
+            >Claude Code Configuration &amp; Workflows</span
+          >
+          <div class="domain-bar-bg">
+            <div class="domain-bar" style="width: 20%"></div>
+          </div>
+          <span class="domain-pct">20%</span>
+        </div>
+        <div class="domain-item">
+          <span class="domain-num">D4</span>
+          <span class="domain-name"
+            >Prompt Engineering &amp; Structured Output</span
+          >
+          <div class="domain-bar-bg">
+            <div class="domain-bar" style="width: 20%"></div>
+          </div>
+          <span class="domain-pct">20%</span>
+        </div>
+        <div class="domain-item">
+          <span class="domain-num">D5</span>
+          <span class="domain-name">Context Management &amp; Reliability</span>
+          <div class="domain-bar-bg">
+            <div class="domain-bar" style="width: 15%"></div>
+          </div>
+          <span class="domain-pct">15%</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="full-divider" />
+
+    <!-- RESOURCES -->
+    <section id="resources">
+      <span class="section-tag">Study materials</span>
+      <h2 class="section-title">On-site reference topics</h2>
+      <p class="section-body">
+        All study write-ups live on this site in the Study Guide. Open a topic
+        below—no external links required.
+      </p>
+
+      <div class="resource-grid">
+        <a href="study-guide.html#agents" class="resource-card">
+          <h4>Building effective agents</h4>
+          <p>
+            Agentic loops, tool use, orchestration patterns, and reliability
+            design.
+          </p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+        <a href="study-guide.html#agent-sdk" class="resource-card">
+          <h4>Claude Agent SDK</h4>
+          <p>
+            Subagent spawning, hooks, session management, stop_reason handling.
+          </p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+        <a href="study-guide.html#claude-code" class="resource-card">
+          <h4>Claude Code</h4>
+          <p>
+            CLAUDE.md hierarchy, path-scoped rules, slash commands, skills, plan
+            mode.
+          </p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+        <a href="study-guide.html#mcp" class="resource-card">
+          <h4>Model Context Protocol</h4>
+          <p>
+            Tool and resource design, .mcp.json config, error patterns, server
+            scoping.
+          </p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+        <a href="study-guide.html#batches" class="resource-card">
+          <h4>Message Batches API</h4>
+          <p>
+            Async batches, 24-hour window, custom_id correlation, failure
+            handling.
+          </p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+        <a href="study-guide.html#prompt-engineering" class="resource-card">
+          <h4>Prompt engineering and structured output</h4>
+          <p>
+            Few-shot examples, structured output via tool_use, JSON schemas.
+          </p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+        <a href="study-guide.html#exam-outline" class="resource-card">
+          <h4>Exam outline summary</h4>
+          <p>Domains, format, and how this prep site maps to the exam scope.</p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+        <a href="study-guide.html#certification" class="resource-card">
+          <h4>Certification and the live exam</h4>
+          <p>
+            What the live proctored exam is; registering through the official
+            program.
+          </p>
+          <span class="rc-link">Study guide →</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span class="footer-left"
+        >CCA Foundations Prep · Unofficial study resource</span
+      >
+      <span class="footer-right">
+        <button type="button" class="js-open-disclaimer">Disclaimer</button>
+        <span class="footer-disclaimer-note"
+          >Not affiliated with Anthropic · Based on the official exam
+          guide</span
+        >
+      </span>
+    </footer>
+  </body>
 </html>

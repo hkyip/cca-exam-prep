@@ -1,173 +1,1044 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proctored Exam — CCA Foundations</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="exam-shared.css">
-<link rel="stylesheet" href="disclaimer-modal.css">
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w9178he6sz");
-</script>
-<script src="disclaimer-modal.js" defer></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Proctored Exam — CCA Foundations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="exam-shared.css" />
+    <link rel="stylesheet" href="disclaimer-modal.css" />
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "w9178he6sz");
+    </script>
+    <script src="disclaimer-modal.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-logo" href="index.html">CCA Foundations</a>
+      <div class="nav-disclaimer-wrap">
+        <a
+          class="nav-github"
+          href="https://github.com/hkyip/cca-exam-prep"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Star cca-exam-prep on GitHub"
+        >
+          GitHub
+        </a>
+        <a class="nav-back" href="index.html">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Back to home
+        </a>
+      </div>
+    </nav>
 
-<nav>
-  <a class="nav-logo" href="index.html">CCA Foundations</a>
-  <div class="nav-disclaimer-wrap">
-    <a class="nav-github" href="https://github.com/hkyip/cca-exam-prep" target="_blank" rel="noopener noreferrer" aria-label="Star cca-exam-prep on GitHub">
-      <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-      GitHub
-    </a>
-    <button type="button" class="js-open-disclaimer">Disclaimer</button>
-    <a class="nav-back" href="index.html">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to home
-    </a>
-  </div>
-</nav>
+    <main>
+      <div id="root"></div>
+    </main>
 
-<main>
-  <div id="root"></div>
-</main>
+    <script>
+      const ALL_Q = [
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 1,
+          q: "A customer contacts support saying: 'My order #44821 arrived damaged — I need a refund, and also I want to change the shipping address for my next order.' Your agent currently handles these serially. What architectural change best handles multi-concern requests while minimising resolution time?",
+          opts: [
+            "Process requests sequentially: resolve the refund first, then address the address change",
+            "Decompose the request into distinct items, investigate each in parallel using shared customer context, then synthesise a unified response",
+            "Escalate immediately since multi-concern requests exceed the agent's design scope",
+            "Use a routing classifier to split the message into two separate tickets processed by independent agent instances",
+          ],
+          c: 1,
+          exp: "Parallel decomposition with shared context is the correct pattern for multi-concern requests. Sequential handling is slower. Escalation is premature for resolvable issues. Independent ticket instances lose shared customer context needed for synthesis.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 5,
+          q: "After 18 tool calls in a long support session, your agent starts referencing the wrong customer's order history. The context window is near capacity. What's the most effective mitigation strategy?",
+          opts: [
+            "Increase max_tokens to allow the model to process more context",
+            "Extract transactional facts — order IDs, amounts, dates, statuses — into a persistent 'case facts' block injected into each prompt outside the summarised history",
+            "Restart the session and ask the customer to re-state their issue",
+            "Use progressive summarisation to condense the conversation before each new tool call",
+          ],
+          c: 1,
+          exp: "A persistent case-facts block preserves precise numerical and transactional data that progressive summarisation typically corrupts. max_tokens controls output length, not input retention. Restarting degrades customer experience. Progressive summarisation risks condensing critical values into vague summaries.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 1,
+          q: "Your agent calls <code>process_refund</code> without first calling <code>get_customer</code>, bypassing identity verification. The system prompt clearly states verification is required first. Why does this still happen, and what's the correct fix?",
+          opts: [
+            "The system prompt instruction is too vague — rewrite it to be more explicit about the required sequence",
+            "LLM compliance with prompt-based ordering instructions has a non-zero failure rate; implement a programmatic prerequisite gate that blocks <code>process_refund</code> until <code>get_customer</code> has returned a verified ID",
+            "Add few-shot examples showing <code>get_customer</code> always called first — this eliminates ordering violations",
+            "Use <code>tool_choice: 'any'</code> to force the model to call a tool, which naturally leads to correct sequencing",
+          ],
+          c: 1,
+          exp: "Prompt-based ordering instructions are probabilistic. When ordering has financial or security consequences, programmatic gates are required for deterministic compliance. More explicit prompts and few-shot examples are still probabilistic. tool_choice: any ensures a tool is called but doesn't enforce which one.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 2,
+          q: "Your MCP tool <code>get_customer</code> returns a 40-field JSON object for every call. The agent only needs 5 fields for most support tasks. What is the most effective way to handle this?",
+          opts: [
+            "Increase the context window budget to accommodate verbose tool outputs",
+            "Trim verbose tool outputs to only the fields relevant to the current task before they accumulate in context",
+            "Instruct the agent in the system prompt to ignore irrelevant fields",
+            "Create a separate lightweight tool that returns only the 5 core fields",
+          ],
+          c: 1,
+          exp: "Trimming tool outputs before they enter the context prevents token accumulation over multi-turn sessions. Larger context budgets delay but don't prevent the problem. Prompt-based ignoring doesn't prevent tokens from being consumed. A separate lightweight tool is valid but requires backend changes — trimming is the most direct fix.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 5,
+          q: "A customer explicitly says: 'I don't want to deal with a bot anymore, I need to speak with a real person.' Your agent has identified this is a straightforward return case it can resolve. What should the agent do?",
+          opts: [
+            "Acknowledge the request, briefly explain it can resolve this quickly, and offer to do so before connecting to a human",
+            "Escalate immediately without attempting to resolve — the customer has explicitly requested a human",
+            "Ask the customer to clarify whether they want help with the return or just want a human",
+            "Attempt resolution first, then offer human escalation only if the resolution fails",
+          ],
+          c: 1,
+          exp: "Honoring explicit customer requests for human agents is a hard rule. When a customer explicitly demands a human, the agent must escalate immediately — not negotiate, not clarify, not attempt resolution first.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 1,
+          q: "Your agent handles a case where the customer's address matches two different accounts in the database. <code>get_customer</code> returns both records. What should the agent do?",
+          opts: [
+            "Select the account with the most recent order as the most likely match",
+            "Ask the customer for additional identifying information (e.g., email address, order number) to disambiguate",
+            "Escalate to a human agent since identity ambiguity exceeds the agent's decision authority",
+            "Return both accounts to the customer and let them confirm which is theirs",
+          ],
+          c: 1,
+          exp: "When tool results return multiple matches, the agent should request additional identifiers from the customer rather than using heuristics. Heuristic selection risks acting on the wrong account. Immediate escalation is premature when clarification can resolve the ambiguity. Showing raw account data to customers is a privacy concern.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "A senior engineer configures detailed coding standards in <code>~/.claude/CLAUDE.md</code> on their machine but reports that junior team members on the same project aren't getting those instructions applied. What is the root cause?",
+          opts: [
+            "The ~/.claude/CLAUDE.md file has a syntax error that prevents it from loading for other users",
+            "User-level CLAUDE.md files (~/.claude/) are personal and not shared via version control — other team members need the instructions in the project-level CLAUDE.md",
+            "Claude Code doesn't support CLAUDE.md configuration for teams, only individuals",
+            "The junior engineers need to run <code>claude --sync</code> to pull the latest configuration",
+          ],
+          c: 1,
+          exp: "User-level configuration at ~/.claude/ applies only to that user's machine and is never shared via version control. Project-level configuration (.claude/CLAUDE.md or root CLAUDE.md) is version-controlled and applies to all team members.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "You have a skill at <code>.claude/skills/analyze-architecture/</code> that produces 3,000 lines of output. Team members report this output is polluting their main conversation context. What frontmatter option addresses this?",
+          opts: [
+            "Add <code>max-output: 500</code> to truncate the skill's output",
+            "Add <code>context: fork</code> to run the skill in an isolated sub-agent context, returning only a summary to the main session",
+            "Move the skill to <code>~/.claude/skills/</code> so it runs with personal scope",
+            "Add <code>allowed-tools: []</code> to restrict tool access, reducing output volume",
+          ],
+          c: 1,
+          exp: "context: fork runs the skill in an isolated sub-agent context, preventing verbose output from polluting the main conversation. max-output is not a valid frontmatter option. Moving to personal scope doesn't affect output isolation. allowed-tools restricts tool access, not output verbosity.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "You're configuring Claude Code for a monorepo with three packages: a React frontend, a Python API, and Terraform infrastructure. You want package-specific rules to load only when editing files in that package. What's the most maintainable approach?",
+          opts: [
+            "Create one root CLAUDE.md with all three packages' conventions under labelled sections",
+            "Create a CLAUDE.md in each package subdirectory",
+            "Create <code>.claude/rules/</code> files with YAML frontmatter paths fields using glob patterns scoped to each package's directory",
+            "Use @import in the root CLAUDE.md to selectively import each package's standards file",
+          ],
+          c: 2,
+          exp: "Path-scoped rules in .claude/rules/ with glob patterns (e.g., paths: ['terraform/**/*']) load only when editing matching files, preventing irrelevant context. A single root CLAUDE.md loads all conventions for every file. @import with root CLAUDE.md still loads everything always.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "A developer wants to experiment with a modified version of the team's <code>/deploy</code> slash command without affecting other team members. What's the correct approach?",
+          opts: [
+            "Edit <code>.claude/commands/deploy.md</code> and use git stash to hide changes when not experimenting",
+            "Create a personal variant in <code>~/.claude/commands/</code> with a different name (e.g., /deploy-experimental)",
+            "Fork the repository and modify the command there",
+            "Use the /memory command to temporarily override the team command's behaviour",
+          ],
+          c: 1,
+          exp: "Personal commands in ~/.claude/commands/ are user-scoped and not shared via version control, making them ideal for personal variants. Stashing changes is fragile and blocks others. Forking the repo is heavyweight for command experimentation. /memory is for inspecting loaded memory files, not overriding commands.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 1,
+          q: "Your coordinator agent receives research findings from three subagents but the final synthesis is missing citations for 40% of claims. Logs show the synthesis agent received the findings but didn't preserve source URLs. What is the most direct fix?",
+          opts: [
+            "Instruct the synthesis agent to 'always include citations' in its system prompt",
+            "Require subagents to output structured claim-source mappings (URLs, excerpts, document names) that the synthesis agent must preserve and merge",
+            "Add a post-synthesis validation step that flags uncited claims",
+            "Give the synthesis agent direct access to web search so it can look up citations itself",
+          ],
+          c: 1,
+          exp: "Structured claim-source mappings passed between agents preserve attribution through the synthesis step. Prompt instructions are probabilistic. Post-synthesis validation can flag but not reliably fix provenance lost during summarisation. Giving synthesis direct search access causes it to independently look up citations rather than preserving original sources.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 1,
+          q: "Two subagents both search for 'AI regulation 2024' and return largely overlapping results, wasting tokens and adding latency. What coordinator design change addresses this?",
+          opts: [
+            "Add a deduplication step after all subagents complete that removes duplicate findings",
+            "Partition research scope across subagents — assign distinct subtopics or source types to each to minimise duplication",
+            "Implement a shared memory store that subagents check before searching",
+            "Reduce the number of subagents from 4 to 2 to inherently reduce overlap",
+          ],
+          c: 1,
+          exp: "Partitioning scope prevents duplication at the assignment level. Post-hoc deduplication is inefficient — tokens are already wasted. A shared memory store creates coordination complexity. Reducing subagents reduces coverage, not overlap.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 5,
+          q: "Your research pipeline processes a 200-page document. The synthesis agent omits findings from pages 80–130, which were placed in the middle of its input context. What phenomenon explains this and what's the mitigation?",
+          opts: [
+            "The document is too large for the model's context window — split it into smaller chunks",
+            "Models reliably process information at the beginning and end of long inputs but may omit middle sections ('lost in the middle'); mitigate by placing key summaries at the beginning and using explicit section headers",
+            "The synthesis agent has a token budget limit — increase max_tokens",
+            "The document analysis agent failed to extract those pages — add retry logic",
+          ],
+          c: 1,
+          exp: "The 'lost in the middle' effect is documented — models under-attend to information in the middle of long contexts. Mitigation includes front-loading key summaries and using explicit section headers. Chunking addresses context limits, not position effects. max_tokens controls output length.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 2,
+          q: "Your research coordinator spawns subagents using the Task tool, but findings from the web search subagent are unavailable to the document analysis subagent. What is the correct way to share findings?",
+          opts: [
+            "Configure a shared memory object in the Agent SDK that all subagents can read and write",
+            "Include the web search subagent's findings directly in the document analysis subagent's prompt — subagents don't inherit coordinator context automatically",
+            "Set the subagents to communicate peer-to-peer by passing messages to each other's endpoints",
+            "Use a database as a shared state store that subagents read from and write to between invocations",
+          ],
+          c: 1,
+          exp: "Subagents operate with isolated context and don't automatically inherit the coordinator's history. Context must be explicitly passed in each subagent's prompt. Shared memory objects and peer-to-peer communication are not patterns in the Claude Agent SDK. A database is valid but unnecessary when the coordinator can include findings in the next subagent's prompt.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 5,
+          q: "Your multi-agent research system crashes mid-run on a long task. When it resumes, the coordinator re-runs all subagents from scratch, losing all prior work. What design pattern prevents this?",
+          opts: [
+            "Implement checkpoint files: each agent exports its state to a known location, and the coordinator loads a manifest on resume and injects state into agent prompts",
+            "Use --resume with a session name to continue from the last Claude Code checkpoint",
+            "Store all intermediate results in the coordinator's conversation history and pass the full history on resume",
+            "Reduce task complexity so runs complete before potential crashes",
+          ],
+          c: 0,
+          exp: "Structured state persistence — each agent exports to a known location, coordinator loads a manifest on resume — is the correct crash recovery pattern. --resume is a Claude Code CLI feature for resuming named sessions, not a general multi-agent recovery mechanism. Passing full conversation history grows unboundedly. Reducing complexity doesn't address recovery.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 3,
+          q: "Your CI job runs <code>claude -p 'Review this PR'</code> and exits successfully, but downstream systems fail to parse the output because it contains free-form text mixed with structured findings. What flags solve this?",
+          opts: [
+            "Pipe the output through jq to extract structured content",
+            "Use <code>--output-format json</code> with <code>--json-schema</code> to produce machine-parseable structured findings",
+            "Add 'respond only in JSON' to the prompt text",
+            "Use <code>--batch</code> flag to enable structured batch output mode",
+          ],
+          c: 1,
+          exp: "--output-format json combined with --json-schema enforces structured JSON output suitable for automated parsing. Piping through jq can't work if the input is free-form text. Prompt-based JSON instructions are not guaranteed. --batch is not a real Claude Code CLI flag.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 4,
+          q: "Your automated PR review generates 12 comments per PR on average but developers are dismissing 9 of them as false positives, eroding trust. What's the most effective intervention?",
+          opts: [
+            "Reduce the number of review categories to lower comment volume",
+            "Replace general instructions like 'flag potential issues' with specific criteria defining exactly which categories to flag (e.g., bugs, security) versus skip (e.g., minor style, local patterns)",
+            "Add a confidence threshold — only post comments the model rates above 80% confidence",
+            "Require two independent review passes and only post findings that appear in both",
+          ],
+          c: 1,
+          exp: "Explicit categorical criteria directly address the root cause of false positives. Volume reduction doesn't fix quality. LLM self-reported confidence is poorly calibrated. Consensus requirements suppress real bugs caught inconsistently.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 4,
+          q: "A PR review ran two weeks ago and flagged 8 issues. The developer fixed 5 but 3 remain. A new commit triggers another review. How should you configure the re-review to avoid duplicate comment noise?",
+          opts: [
+            "Run a fresh review ignoring all prior context so findings are independent",
+            "Include the prior review findings in context and instruct Claude to report only new or still-unaddressed issues",
+            "Diff the review outputs programmatically and suppress duplicates post-generation",
+            "Re-run the review only on files changed in the new commit",
+          ],
+          c: 1,
+          exp: "Including prior findings in context and instructing the model to report only new or unaddressed issues directly prevents duplicate comments. A fully fresh review regenerates all prior findings. Post-generation diffing requires reliable matching of free-form text. Reviewing only changed files misses cases where unchanged code now has issues relative to new changes.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 4,
+          q: "You want to generate test cases for 200 files overnight using the Message Batches API. What's the minimum batch submission frequency to guarantee a 30-hour delivery SLA, given batches can take up to 24 hours?",
+          opts: [
+            "Submit once every 24 hours",
+            "Submit once every 6 hours",
+            "Submit at most once every 30 hours",
+            "Submit every 12 hours with a retry buffer",
+          ],
+          c: 1,
+          exp: "With a 24-hour max processing window and a 30-hour SLA, you need at least 6 hours of buffer. Submitting every 6 hours guarantees results arrive within 30 hours even if a batch takes the full 24 hours.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 4,
+          q: "Your test generation batch of 200 documents partially fails — 23 documents return errors. Logs show a mix of context-limit exceeded and malformed input errors. What's the correct handling strategy?",
+          opts: [
+            "Resubmit all 200 documents with a higher token limit",
+            "Identify failed documents by custom_id, then resubmit only those — chunking context-limit failures and fixing malformed inputs separately",
+            "Mark all 23 as unresolvable and proceed with the 177 successful results",
+            "Resubmit the entire batch with reduced max_tokens to prevent overflows",
+          ],
+          c: 1,
+          exp: "custom_id allows precise identification and targeted resubmission of only failed documents. Different failure types require different fixes. Resubmitting all 200 wastes successful results. Marking failures as unresolvable when they're fixable is incorrect.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "You're extracting invoice data using tool_use with a JSON schema. The model correctly structures output but sometimes places the discount amount in the 'tax' field and vice versa. What kind of error is this and what's the fix?",
+          opts: [
+            "A schema syntax error — add stricter type constraints",
+            "A semantic error — add validation logic checking business rules (e.g., tax must be positive) and implement retry-with-error-feedback",
+            "A model capability limitation — switch to a more powerful model",
+            "A schema design error — rename the fields to make their purpose clearer",
+          ],
+          c: 1,
+          exp: "tool_use with JSON schemas eliminates syntax errors but not semantic errors (values in wrong fields). The fix is semantic validation plus retry-with-error-feedback. Schema syntax improvements don't prevent semantic misplacement. Switching models may help marginally but doesn't fix the structural validation gap.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "Your extraction pipeline achieves 97% accuracy overall but 71% on handwritten legacy forms. You're considering automating the high-confidence segment. What must you verify before reducing human review?",
+          opts: [
+            "Run a 10-document spot check on handwritten forms to confirm the 71% figure",
+            "Analyse accuracy by document type and field segment — verify consistent performance across all subgroups before reducing human review for any segment",
+            "Calculate whether 71% accuracy is acceptable given the downstream error cost",
+            "Add more few-shot examples for handwritten forms to bring accuracy above 90% first",
+          ],
+          c: 1,
+          exp: "Aggregate accuracy can mask poor subgroup performance. Before automating any segment, verify consistent performance across all document types and fields. A 10-document spot check is too small. Cost analysis doesn't replace accuracy validation. Improving accuracy first is reasonable but still requires per-segment validation.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "You need to extract data from invoices where some don't have a purchase order number. Your schema has <code>po_number</code> as a required field. What do you observe and how do you fix it?",
+          opts: [
+            "The model returns an error when po_number is absent — add a default value of 'N/A'",
+            "The model fabricates a plausible-looking PO number to satisfy the required field — make po_number optional (nullable) in the schema",
+            "The extraction fails entirely — catch the exception and retry without the po_number field",
+            "The model skips the field silently — add an explicit extraction instruction in the prompt",
+          ],
+          c: 1,
+          exp: "Required fields in JSON schemas cause the model to fabricate values rather than return null. Making the field optional/nullable is the correct fix. Default values mask the absence. Runtime retries are complex and brittle. Prompt instructions are probabilistic.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "Your schema has a <code>payment_method</code> field with enum values: <code>['credit_card', 'wire_transfer', 'check', 'paypal']</code>. A new batch includes cryptocurrency payments. What schema design handles this gracefully?",
+          opts: [
+            "Add 'crypto' to the enum list and redeploy",
+            "Add an 'other' enum value plus a separate 'payment_method_detail' string field for extensible categorisation",
+            "Change payment_method to a free-text string field",
+            "Use a post-processing step to map unrecognised values to 'other'",
+          ],
+          c: 1,
+          exp: "The 'other' + detail string pattern handles unknown values without requiring schema updates. Just adding 'crypto' requires continuous schema updates. Free-text loses the benefit of structured categorisation. Post-processing is fragile and requires maintaining a separate mapping table.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 5,
+          q: "You implement retry-with-error-feedback for failed extractions. After three retries, 15% of documents still fail. Investigation shows these documents reference pricing in an external rate card not provided to the model. What should you conclude?",
+          opts: [
+            "The model needs more retries — increase the retry limit to 10",
+            "Retries are ineffective when required information is absent from the source — flag these documents for human review",
+            "The prompts need better few-shot examples demonstrating how to handle missing external references",
+            "Switch to a model with a larger context so it can infer the missing rate card data",
+          ],
+          c: 1,
+          exp: "Retries are only effective for format or structural errors, not when information is genuinely absent. When the required information exists in an external document not provided, no number of retries will produce it. Documents requiring external data must be routed to human review.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 2,
+          q: "You configure your developer productivity agent with all available tools: Read, Write, Edit, Bash, Grep, Glob, plus 14 MCP tools for Jira, GitHub, Slack, databases, and monitoring. Tool selection reliability is poor. What structural fix most improves reliability?",
+          opts: [
+            "Add a comprehensive tool selection guide to the system prompt explaining when to use each of the 20 tools",
+            "Restrict each subagent to only the tools needed for its role — a code exploration agent gets Read/Grep/Glob, a task management agent gets Jira/GitHub tools",
+            "Set <code>tool_choice: 'any'</code> to ensure the model always calls a tool",
+            "Rename tools to have more distinctive names to reduce selection confusion",
+          ],
+          c: 1,
+          exp: "Scoped tool access per agent role is the primary fix for tool selection degradation from large tool sets. The exam guide states that 18 tools instead of 4–5 degrades reliability. A system prompt guide doesn't reduce decision complexity. tool_choice: any ensures a call is made but not the correct one.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 2,
+          q: "An engineer asks your agent 'What does the <code>handlePayment</code> function do and who calls it?' Which built-in tool sequence most efficiently answers this?",
+          opts: [
+            "Read all source files, then search for handlePayment across all of them",
+            "Use Grep to find the function definition, then Grep again to find all callers, then Read to examine the relevant files",
+            "Use Glob to find all .js files, then Read each one looking for handlePayment",
+            "Use Bash with grep -r to search recursively, avoiding multiple tool calls",
+          ],
+          c: 1,
+          exp: "Grep for content search followed by targeted Read is the correct pattern. The exam guide identifies Grep as the tool for searching code content and Read for loading file contents. Reading all files is inefficient. Glob finds files by name pattern, not content. Bash/grep works but the exam tests built-in tool roles.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 2,
+          q: "Your agent is trying to edit a configuration file using the Edit tool but keeps failing with 'anchor text not found.' The target text appears in the file but is slightly different from what the agent constructed. What's the correct fallback?",
+          opts: [
+            "Use Bash with sed to perform the replacement instead",
+            "Use Read to load the full file content, then Write to output the corrected version with the change applied",
+            "Switch to a regex-based Edit variant that accepts patterns instead of exact text",
+            "Ask the user to provide the exact text so the Edit tool can match it",
+          ],
+          c: 1,
+          exp: "When Edit fails due to non-unique or slightly different anchor text, Read + Write is the documented correct fallback. It loads the exact current content, applies the change, and writes back. A regex Edit variant doesn't exist. Asking the user breaks autonomous operation.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 1,
+          q: "Your developer productivity agent uses <code>fork_session</code>. What is the primary use case for this feature?",
+          opts: [
+            "To run two independent agents simultaneously on different tasks",
+            "To create independent branches from a shared analysis baseline for exploring divergent implementation approaches",
+            "To fork the conversation history for backup purposes before making risky changes",
+            "To spawn a subagent with a copy of the parent's tool configuration",
+          ],
+          c: 1,
+          exp: "fork_session creates independent branches from a shared analysis baseline — for example, comparing two refactoring strategies from the same codebase analysis. It's not for parallel independent agents, backups, or tool configuration copying.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 3,
+          q: "A developer runs <code>claude --resume my-auth-investigation</code> to continue a session from yesterday. They've since modified three files that the prior session analysed. What should they tell the agent when resuming?",
+          opts: [
+            "Nothing — the agent will automatically detect file changes by comparing checksums",
+            "Inform the agent about the specific files that changed for targeted re-analysis rather than requiring full re-exploration",
+            "Start a new session with a summary of prior findings — resuming with stale tool results is unreliable",
+            "Use /compact to refresh the context before describing the changes",
+          ],
+          c: 1,
+          exp: "When resuming after code modifications, explicitly inform the agent which files changed for targeted re-analysis. It cannot detect file changes automatically. Starting fresh is recommended when prior tool results are stale overall, but targeted re-analysis of changed files is the more efficient approach here.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 1,
+          q: "Your agent is exploring a large unfamiliar codebase. After 2 hours and 50+ tool calls, the agent starts referencing 'typical Spring Boot patterns' rather than the specific classes it discovered earlier, and gives inconsistent answers. What's the correct intervention?",
+          opts: [
+            "Increase max_tokens to allow more detailed responses",
+            "Have the agent maintain scratchpad files recording key findings — authentication flows, service boundaries, data models — and reference these files for subsequent questions",
+            "Restart the exploration from scratch with a fresh context window",
+            "Add more specific questions to redirect the agent's attention to the correct classes",
+          ],
+          c: 1,
+          exp: "Scratchpad files persist key findings across context boundaries, enabling the agent to reference specific discoveries. max_tokens affects output length, not context retention. Full restart wastes 2 hours of exploration. Specific questions may temporarily redirect attention but don't address the underlying context degradation.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 4,
+          q: "You want to enforce that the model always calls your <code>extract_metadata</code> tool before any enrichment tools in a pipeline. What tool_choice configuration achieves this?",
+          opts: [
+            "Set <code>tool_choice: 'auto'</code> and list <code>extract_metadata</code> first in the tools array",
+            "Set <code>tool_choice: {'type': 'tool', 'name': 'extract_metadata'}</code> for the first API call, then use auto for subsequent calls",
+            "Set <code>tool_choice: 'any'</code> to guarantee a tool is called",
+            "Add a system prompt instruction: 'Always call extract_metadata before enrichment tools'",
+          ],
+          c: 1,
+          exp: "Forced tool selection with {'type': 'tool', 'name': 'extract_metadata'} guarantees the specific tool is called first. tool_choice: auto with array ordering doesn't influence selection. tool_choice: any guarantees a call but not which one. Prompt instructions are probabilistic.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 4,
+          q: "Two credible research sources report conflicting unemployment rates for the same quarter: 4.2% and 5.1%. Your synthesis agent must include both in its report. What's the correct handling?",
+          opts: [
+            "Use the average of both values: 4.65%",
+            "Choose the more recently published figure",
+            "Annotate both values with their source attribution and flag the conflict explicitly in the report rather than arbitrarily selecting one",
+            "Escalate to human review since conflicting data prevents synthesis",
+          ],
+          c: 2,
+          exp: "Conflicting statistics from credible sources should be presented with explicit annotation — both values, both sources, and a conflict flag — rather than resolved arbitrarily. Averaging loses the conflict signal. Recency selection is an arbitrary heuristic. Human escalation is unnecessarily disruptive when reporting the conflict transparently is correct.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 2,
+          q: "Your MCP tool returns different timestamp formats depending on which backend system it queries: Unix timestamps from the orders system, ISO 8601 from billing, and human-readable strings from the CRM. This causes the agent to misinterpret dates. What's the most effective fix?",
+          opts: [
+            "Add instructions to the system prompt explaining each system's timestamp format",
+            "Implement a PostToolUse hook that normalises all timestamp formats to a single standard before the model processes them",
+            "Create three separate tools, one per backend, each with format-specific documentation",
+            "Fix the backend systems to return consistent formats",
+          ],
+          c: 1,
+          exp: "A PostToolUse hook intercepts tool results and normalises heterogeneous data formats before the model processes them — a deterministic transformation. System prompt instructions rely on the model to interpret different formats correctly, which is error-prone. Separate tools don't fix the normalisation problem. Backend fixes may be infeasible.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 4,
+          q: "You're generating test cases for a large Python codebase. The existing test suite already covers 80% of functionality. Claude keeps suggesting tests that duplicate existing coverage. What's the most effective fix?",
+          opts: [
+            "Add 'do not duplicate existing tests' to the prompt",
+            "Provide the existing test files as context when generating new tests, instructing Claude to avoid scenarios already covered",
+            "Run a coverage analysis first and only ask Claude to generate tests for uncovered lines",
+            "Filter generated tests post-generation by comparing against existing test descriptions",
+          ],
+          c: 1,
+          exp: "Providing existing test files as context lets the model directly see what's already covered and generate non-duplicate scenarios. A generic prompt instruction is vague and doesn't give the model visibility into what exists. Coverage analysis generates tests for lines rather than scenarios. Post-generation filtering wastes tokens on tests that will be discarded.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "A team is migrating a 50,000-line Java codebase from Spring Boot 2 to Spring Boot 3. 45+ files are affected and several valid migration approaches exist. After direct execution attempts, they get inconsistent results. What's the correct approach?",
+          opts: [
+            "Use direct execution with more detailed step-by-step instructions for each file",
+            "Enter plan mode to explore the codebase, understand all dependencies, and design a complete migration approach before making any changes",
+            "Split the migration into 10-file batches and use direct execution for each batch",
+            "Use the Explore subagent to analyse the codebase, then proceed with direct execution",
+          ],
+          c: 1,
+          exp: "Plan mode is designed for exactly this scenario: large-scale changes with multiple valid approaches and architectural implications. More detailed direct execution instructions don't address the underlying complexity. Batching creates consistency problems across batches without a unified plan. Explore subagent isolates verbose discovery output but doesn't replace plan mode when architectural decisions are needed.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "Your extraction pipeline processes research papers. Some use inline citations (e.g., 'Smith et al. 2023 found...'), others use numbered references ([14]), and others use footnotes. Few-shot examples only cover inline citations. What do you observe in production?",
+          opts: [
+            "The model fails entirely on non-inline citation styles and returns errors",
+            "The model extracts citations correctly for inline style but produces empty or null results for numbered references and footnotes",
+            "The model fabricates citations for numbered references and footnotes",
+            "All citation styles are handled correctly since the model generalises from the inline examples",
+          ],
+          c: 1,
+          exp: "Without few-shot examples covering varied citation structures, the model correctly handles the demonstrated style but produces empty/null results for undemonstrated variants. The exam guide specifically notes that few-shot examples for different document structures are needed to address empty/null extraction of required fields.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 5,
+          q: "Your support agent achieves 92% accuracy on standard return requests but only 58% on cases involving policy exceptions (competitor price matching, courtesy adjustments). The agent attempts autonomous resolution on policy exception cases even when policy doesn't cover the specific situation. What's the correct fix?",
+          opts: [
+            "Train the agent on more policy exception examples",
+            "Add escalation criteria: escalate when policy is ambiguous or silent on the customer's specific request, not just when cases are complex",
+            "Restrict the agent's tool access during policy exception cases",
+            "Add a confidence score check — escalate whenever the agent's confidence is below 70%",
+          ],
+          c: 1,
+          exp: "The exam guide explicitly states: escalate when policy is ambiguous or silent on the specific request. Policy exceptions are by definition not covered by existing policy — the agent should escalate rather than autonomously resolve. Training on more examples doesn't address acting outside policy scope. Confidence scores are poorly calibrated for exactly these ambiguous cases.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 1,
+          q: "Your research system needs to support both 'quick lookup' queries (answer in under 5 seconds) and 'deep research' queries (comprehensive reports taking 10+ minutes). How should the coordinator handle this?",
+          opts: [
+            "Use a single pipeline and accept variable latency",
+            "Analyse query complexity and dynamically select which subagents to invoke — simple lookups use only the synthesis agent with cached data, complex queries use the full pipeline",
+            "Always run the full pipeline to ensure consistent quality",
+            "Use a separate coordinator agent for each query type",
+          ],
+          c: 1,
+          exp: "The coordinator should analyse query requirements and dynamically select subagents rather than always routing through the full pipeline. A single pipeline with variable latency fails the quick lookup SLA. Always running the full pipeline wastes resources. Separate coordinators adds unnecessary infrastructure when dynamic routing is the designed solution.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 5,
+          q: "Your extraction pipeline produces field-level confidence scores. You find that 'date_of_service' fields have 94% model confidence but only 71% actual accuracy on documents with ambiguous date formats. What does this indicate and what should you do?",
+          opts: [
+            "The confidence scores are working correctly — a 71% accuracy on ambiguous documents is acceptable",
+            "The model's confidence is poorly calibrated for this field — use a labelled validation set to calibrate review thresholds, and route low-confidence or ambiguous extractions to human review",
+            "Increase the model's temperature to reduce overconfidence",
+            "Add more date format examples to the prompt to improve accuracy",
+          ],
+          c: 1,
+          exp: "High confidence with low accuracy indicates miscalibrated confidence scores. Calibration using a labelled validation set is required before using confidence scores for routing decisions. Temperature affects randomness, not calibration. More examples help accuracy but don't fix the calibration gap — empirical calibration against labelled data is needed.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "You want to add a skill that accepts a component name as input. When invoked without arguments (<code>/generate-component</code>), it should prompt the developer for the required name. What frontmatter option enables this?",
+          opts: [
+            "<code>required-args: [component-name]</code>",
+            "<code>argument-hint: 'Component name (e.g., UserProfile)'</code>",
+            "<code>input-prompt: true</code>",
+            "<code>args: required</code>",
+          ],
+          c: 1,
+          exp: "argument-hint in SKILL.md frontmatter displays a prompt to the developer for required parameters when the skill is invoked without arguments. The other options (required-args, input-prompt, args: required) are not valid SKILL.md frontmatter keys.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 1,
+          q: "You need a hook that blocks refund processing calls above $500 and redirects them to human escalation. Which hook pattern is correct?",
+          opts: [
+            "PostToolUse hook that checks the refund amount after processing and flags violations",
+            "A pre-execution tool call interception hook that inspects outgoing <code>process_refund</code> calls and blocks those exceeding the threshold before they execute",
+            "System prompt rule: 'Refunds above $500 require manager approval'",
+            "A validator function attached to the <code>process_refund</code> tool's input schema",
+          ],
+          c: 1,
+          exp: "Pre-execution tool call interception hooks block policy-violating actions before they execute. PostToolUse runs after the tool has already executed — too late to prevent the action. System prompt rules are probabilistic. A schema validator enforces data types, not business rule thresholds.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 4,
+          q: "You run two Claude sessions on the same pull request: one that generated the code changes and one that reviews them. Engineering management questions why you don't reuse the same session for both. What's your justification?",
+          opts: [
+            "It's cheaper to use two sessions since each is billed separately",
+            "A model retains reasoning context from generation, making it less likely to question its own decisions in the same session — an independent review instance is more effective at catching subtle issues",
+            "Two sessions allow parallel processing, reducing total review time",
+            "The generation session's context window is full after producing the code changes",
+          ],
+          c: 1,
+          exp: "Self-review limitations are documented: a model that generated code retains its reasoning context and is less likely to challenge its own decisions. Independent review instances without prior reasoning context catch more issues. Cost is not a benefit of separate sessions. Parallel processing is a benefit but not the primary architectural justification.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "You're building a multi-source synthesis that combines financial tables, news articles, and technical findings. The output should maximise readability. What rendering approach does the exam guide recommend?",
+          opts: [
+            "Convert everything to a uniform markdown format for consistency",
+            "Render different content types appropriately — financial data as tables, news as prose, technical findings as structured lists — rather than converting to a uniform format",
+            "Use JSON output for all content types to ensure machine-readability",
+            "Convert all content to prose paragraphs for maximum human readability",
+          ],
+          c: 1,
+          exp: "The exam guide explicitly recommends rendering different content types in their most appropriate format. Financial data belongs in tables, news in prose, technical findings in structured lists. Uniformity sacrifices readability and information density for consistency.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 2,
+          q: "You're building a developer productivity MCP server for your team's internal deployment pipeline. A community MCP server already exists for standard GitHub operations. How should you allocate development effort?",
+          opts: [
+            "Build all MCP tools from scratch for maximum control",
+            "Use the existing community GitHub MCP server; build custom MCP tools only for your team-specific deployment pipeline workflows",
+            "Build a unified MCP server that combines GitHub operations and deployment pipeline in a single server",
+            "Evaluate both and choose based on feature completeness",
+          ],
+          c: 1,
+          exp: "The exam guide recommends choosing existing community MCP servers over custom implementations for standard integrations (like GitHub), reserving custom server development for team-specific workflows. Building everything from scratch wastes effort. A unified server combines concerns that should be separated.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 2,
+          q: "Tool selection logs show your agent calls <code>get_order_status</code> when customers report missing packages, even though <code>initiate_trace_request</code> is the correct tool. Both tools accept order numbers. What is most likely causing this?",
+          opts: [
+            "<code>get_order_status</code> is listed first in the tools array, causing selection bias",
+            "Both tools have overlapping or insufficiently differentiated descriptions — the agent can't distinguish when to use each",
+            "The system prompt mentions 'order status' in the context of missing packages, creating keyword association with <code>get_order_status</code>",
+            "Both B and C are likely contributing factors",
+          ],
+          c: 3,
+          exp: "Tool misrouting with similar tools typically has two contributing causes: inadequate descriptions that don't differentiate use cases, and system prompt keyword associations that override description-based selection. The exam guide explicitly notes both as causes of misrouting. Array ordering doesn't influence tool selection.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 5,
+          q: "Your research pipeline's subagent produces findings that include dates, but the synthesis agent treats a 2019 finding and a 2024 finding on the same topic as contradictory rather than reflecting temporal change. What's the fix?",
+          opts: [
+            "Add a post-processing step to sort all findings chronologically before synthesis",
+            "Require subagents to include publication or data collection dates in structured outputs, enabling correct temporal interpretation by the synthesis agent",
+            "Instruct the synthesis agent to consider publication dates when evaluating contradictions",
+            "Use only findings from the past 12 months to avoid temporal confusion",
+          ],
+          c: 1,
+          exp: "Requiring dates in subagent structured outputs is the architectural fix — it makes temporal context explicit and machine-readable so the synthesis agent can interpret temporal differences correctly. Post-processing sorting doesn't fix the synthesis interpretation. Synthesis agent instructions are probabilistic and require the date to already be present. Limiting to 12 months loses historical context.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "A developer reports that Claude Code gives different code style outputs in different sessions, even though CLAUDE.md is configured. How would you diagnose this?",
+          opts: [
+            "Check if the CLAUDE.md has syntax errors using a YAML validator",
+            "Run /memory to verify which memory files are actually loaded in the current session and diagnose inconsistent loading",
+            "Check git blame to see if CLAUDE.md was recently modified",
+            "Compare the outputs across sessions to identify which style is 'correct'",
+          ],
+          c: 1,
+          exp: "/memory is the command for verifying which memory files are loaded in the current session — the correct diagnostic tool for configuration inconsistency. CLAUDE.md is markdown, not YAML. Git blame helps diagnose recent changes but doesn't verify what's loaded. Comparing outputs identifies the symptom but not the cause.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 2,
+          q: "Your research MCP server has 45 available tools. When the coordinator agent loads all tools at once, it struggles to select the right tool for each step. What MCP feature helps manage this?",
+          opts: [
+            "Implement tool categories in the MCP server and have the coordinator select a category first",
+            "Expose content catalogs as MCP resources to give agents visibility into available data, and provide detailed tool descriptions that explain capabilities and differentiate similar tools",
+            "Use <code>tool_choice: 'any'</code> to force the agent to always call a tool",
+            "Restrict the coordinator to 10 tools maximum by removing the others from the MCP server",
+          ],
+          c: 1,
+          exp: "MCP resources expose content catalogs so agents have visibility into available data without requiring exploratory tool calls, and detailed tool descriptions are the primary mechanism for improving tool selection among large toolsets. Category-first selection adds complexity. tool_choice: any ensures a call but not the correct one. Removing tools reduces capability.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "You want to guarantee that your extraction pipeline always calls a specific tool rather than returning conversational text, but there are three valid extraction schemas and you don't know which applies until the document is analysed. What tool_choice setting is correct?",
+          opts: [
+            "<code>tool_choice: 'auto'</code> — the model will choose the right schema",
+            "<code>tool_choice: 'any'</code> — guarantees the model calls one of the available tools without specifying which",
+            "<code>tool_choice: {'type': 'tool', 'name': 'extract_invoice'}</code> — force the most common schema",
+            "Set tool_choice differently per request based on a pre-classification step",
+          ],
+          c: 1,
+          exp: "tool_choice: 'any' guarantees the model calls a tool (preventing conversational text) while allowing it to select among the three schemas based on document content. auto allows the model to return text. Forcing a specific schema when the document type is unknown causes mismatches. Pre-classification adds a step and may have its own errors.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 3,
+          q: "Your team's CLAUDE.md contains testing standards, but the CI-invoked Claude Code instance generates tests that don't follow those standards. What is the most likely cause?",
+          opts: [
+            "The -p flag disables CLAUDE.md loading",
+            "CLAUDE.md is not being provided as context to the CI-invoked Claude Code instance — ensure it's at the project level where it's automatically loaded",
+            "The testing standards in CLAUDE.md are too vague — make them more specific",
+            "CI environments reset configuration between runs",
+          ],
+          c: 1,
+          exp: "CLAUDE.md at the project level is automatically loaded by CI-invoked instances. If it's at user-level or not properly scoped, the CI instance won't load it. The -p flag controls interactive mode, not CLAUDE.md loading. Vague standards cause quality issues, not non-compliance. CI environments don't reset project-level configuration.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 1,
+          q: "You're using the Claude Agent SDK and want the coordinator to analyse a codebase (verbose, 5,000-line output) before spawning specialized subagents. You don't want the analysis to consume the coordinator's context budget. What pattern addresses this?",
+          opts: [
+            "Use /compact after the analysis to reduce context usage",
+            "Use the Explore subagent for the verbose discovery phase — it isolates output and returns a summary to the coordinator, preserving context budget",
+            "Summarise the analysis manually before passing it to the coordinator",
+            "Increase the coordinator's context window allocation",
+          ],
+          c: 1,
+          exp: "The Explore subagent isolates verbose discovery output from the main coordinator context, returning only a summary. /compact reduces existing context but runs the analysis in the main session first. Manual summarisation requires human intervention. Increasing context allocation delays but doesn't prevent exhaustion.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 4,
+          q: "You want to add few-shot examples to improve your support agent's escalation decisions. The agent currently escalates 'item damaged in transit' cases and attempts to resolve policy exception cases — the reverse of what it should do. What must your few-shot examples demonstrate?",
+          opts: [
+            "Examples showing correct resolution of damaged-in-transit cases",
+            "Examples showing when to escalate (policy gaps, customer insistence) versus when to resolve autonomously (standard cases within policy), with reasoning for each decision",
+            "Examples of human agents handling escalated policy exception cases",
+            "Examples of the agent asking clarifying questions before deciding whether to escalate",
+          ],
+          c: 1,
+          exp: "Few-shot examples for escalation calibration must show the contrast: cases that should be resolved autonomously versus cases that require escalation, with reasoning. Examples of resolution only don't address the escalate/resolve decision. Examples of human handling show what happens after escalation, not when to escalate. Clarification examples don't directly calibrate the escalate-vs-resolve boundary.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 5,
+          q: "After a complex research session, your coordinator agent needs to continue work the next day. The prior session's tool results include web search results that are now 18 hours old. What's the most reliable approach?",
+          opts: [
+            "Use --resume with the session name to continue exactly where it left off",
+            "Start a new session with a structured summary of the prior session's key findings injected into the initial context, since prior tool results are stale",
+            "Use fork_session to create a branch from the prior session's state",
+            "Export the conversation history and import it into a new session",
+          ],
+          c: 1,
+          exp: "When prior tool results are stale, starting fresh with injected summaries is more reliable than resuming with stale data. --resume is better when prior context is mostly valid and tool results are still current. fork_session creates branches from a baseline, not a recovery mechanism. Exporting/importing history still carries the stale tool results.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "You're designing a self-correction validation flow for financial document extraction. Line items sum to $4,850 but the stated total is $5,200. What schema fields enable automated detection of this discrepancy?",
+          opts: [
+            "Add a 'validation_passed' boolean that the model sets to true if everything looks correct",
+            "Extract both 'calculated_total' (sum of line items) and 'stated_total' (document's total field), plus a 'conflict_detected' boolean flag",
+            "Add a post-processing step that sums line items and compares to the total",
+            "Require the model to re-verify its extraction before finalising",
+          ],
+          c: 1,
+          exp: "Extracting both calculated_total and stated_total as separate fields, plus a conflict_detected boolean, is the exam guide's recommended self-correction validation pattern. A single validation_passed boolean relies on the model's judgment — the same model that made the error. Post-processing comparison works but requires additional code. Re-verification instructions are probabilistic.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "Your team uses Claude Code for code generation, but different developers get different results when generating the same component type. Investigation shows some developers invoke skills with arguments, others don't. What's the most likely cause and fix?",
+          opts: [
+            "Skills behave non-deterministically — set temperature to 0 for consistent output",
+            "Skills invoked without arguments don't receive required parameters, producing generic output — add <code>argument-hint</code> frontmatter to prompt developers for required parameters when invoking without arguments",
+            "Some developers are using outdated skill versions — enforce a skill version requirement",
+            "The skill's allowed-tools is configured differently per user — standardise the tool configuration",
+          ],
+          c: 1,
+          exp: "When skills require arguments, invocation without arguments produces generic output. argument-hint prompts developers for the required parameters. Non-determinism is unrelated to the described symptom. Version differences are a separate issue. allowed-tools per-user differences don't explain inconsistent generation output.",
+        },
+        {
+          s: "CI/CD Pipeline",
+          sc: "sp-5",
+          d: 4,
+          q: "Your automated code review produces severity ratings (critical/high/medium/low) for each finding. Developers report identical code issues receive different severity ratings across different PRs. How do you fix this?",
+          opts: [
+            "Use a lower temperature setting for the review model",
+            "Define explicit severity criteria with concrete code examples for each severity level to achieve consistent classification",
+            "Ask the model to self-verify its severity ratings after producing them",
+            "Use a post-processing normalisation step to standardise severity distributions",
+          ],
+          c: 1,
+          exp: "Explicit severity criteria with concrete code examples per level is the recommended fix for severity inconsistency. Lower temperature reduces randomness but doesn't define the criteria. Self-verification uses the same inconsistent reasoning. Post-processing normalisation changes the distribution without fixing the underlying classification logic.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 5,
+          q: "Your document analysis subagent encounters a permission error trying to access a restricted database. The coordinator needs to decide whether to retry or use an alternative data source. What information should the subagent's error response include?",
+          opts: [
+            "Just the error code so the coordinator can look up the meaning",
+            "Structured error context: failure type ('permission'), what was attempted, whether it's retryable (false for permission errors), and potential alternatives (public data sources)",
+            "A generic 'access denied' message and the recommendation to escalate",
+            "The full stack trace for debugging purposes",
+          ],
+          c: 1,
+          exp: "Structured error context — failure type, attempted action, retryability flag, alternatives — gives the coordinator everything needed for intelligent recovery decisions. Error codes alone require the coordinator to interpret meaning. Generic messages hide the context needed for recovery. Stack traces are for debugging, not coordinator decision-making.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 5,
+          q: "You're routing extractions to human reviewers based on model confidence scores. Your reviewers can handle 200 documents per day. Your pipeline produces 1,000 documents per day, of which 30% have confidence below threshold. How should you prioritise reviewer capacity?",
+          opts: [
+            "Process 200 documents randomly from the low-confidence pool",
+            "Route all 300 low-confidence documents to review; process the 700 high-confidence ones automatically; if reviewers are over capacity, prioritise by lowest confidence score",
+            "Ask reviewers to work faster to handle all 300 low-confidence documents",
+            "Raise the confidence threshold until only 200 documents fall below it",
+          ],
+          c: 1,
+          exp: "With 300 low-confidence documents and 200 reviewer capacity, route all low-confidence docs to the queue and prioritise by lowest confidence score to maximise accuracy for the most uncertain extractions. Random sampling doesn't maximise accuracy. Asking for more speed is not an architectural solution. Raising the threshold to match capacity reduces review coverage without improving confidence calibration.",
+        },
+        {
+          s: "Developer Productivity",
+          sc: "sp-4",
+          d: 2,
+          q: "You're building an MCP server exposing your company's internal document library (10,000 documents). The coordinator agent currently spends many tool calls trying to discover what documents exist before retrieving relevant ones. What MCP feature would most directly reduce exploratory tool calls?",
+          opts: [
+            "Add a search tool that accepts natural language queries",
+            "Expose the document catalog as an MCP resource, giving the agent visibility into available documents and their metadata without requiring exploratory tool calls",
+            "Increase the agent's tool call budget",
+            "Add pagination to the retrieval tool so the agent can browse documents efficiently",
+          ],
+          c: 1,
+          exp: "MCP resources are specifically designed to expose content catalogs so agents have visibility into available data without requiring exploratory tool calls. A search tool still requires tool calls for discovery. Increasing the tool call budget doesn't reduce unnecessary calls. Pagination makes browsing more efficient but still requires the browsing calls.",
+        },
+        {
+          s: "Code Generation",
+          sc: "sp-2",
+          d: 3,
+          q: "Your team wants to add a CLAUDE.md that imports shared standards from multiple files using @import. Which import structure is correct for a project with separate API, testing, and deployment standards?",
+          opts: [
+            "<code>@import from: [api-standards.md, testing-standards.md, deployment-standards.md]</code>",
+            "<code>@import api-standards.md, @import testing-standards.md, @import deployment-standards.md</code> on separate lines",
+            "Use <code>@import</code> to reference each standards file on its own line, one @import per file",
+            "Embed all standards directly in CLAUDE.md — @import is for external URLs only",
+          ],
+          c: 2,
+          exp: "The @import syntax references external files with one @import per file on its own line. This is how the exam guide describes modular CLAUDE.md organisation. The array syntax is not valid. Combined @imports on the same line is not the correct syntax. @import is specifically for local file references, not only URLs.",
+        },
+        {
+          s: "Customer Support Agent",
+          sc: "sp-1",
+          d: 1,
+          q: "Your support agent decomposes a multi-issue request into 4 sub-tasks and investigates them in parallel. Two sub-tasks fail. What should the agent do when synthesising the final response?",
+          opts: [
+            "Return an error — the agent cannot synthesise when sub-tasks have failed",
+            "Synthesise a response using the two successful sub-tasks, explicitly noting which issues could not be resolved and why, and offer escalation for the unresolved items",
+            "Wait for manual retry of the failed sub-tasks before synthesising",
+            "Escalate the entire request to a human since partial resolution may cause customer confusion",
+          ],
+          c: 1,
+          exp: "The correct pattern is to synthesise with available results, annotate gaps (which issues weren't resolved and why), and offer escalation paths. Refusing to synthesise abandons resolvable items. Waiting for manual retry adds unacceptable latency. Full escalation abandons successfully resolved sub-tasks unnecessarily.",
+        },
+        {
+          s: "Multi-Agent Research",
+          sc: "sp-3",
+          d: 4,
+          q: "Your research synthesis agent produces reports where the same claim appears with three different phrasings, suggesting the model is independently re-deriving the same finding from different source excerpts. What technique reduces this redundancy?",
+          opts: [
+            "Instruct the synthesis agent to deduplicate claims before writing",
+            "Structure subagent outputs as claim-source mappings, then have the coordinator merge claims with multiple supporting sources before passing to synthesis — so synthesis sees one claim with multiple citations, not multiple phrasings",
+            "Reduce the number of subagents to reduce source overlap",
+            "Use a post-synthesis deduplication pass",
+          ],
+          c: 1,
+          exp: "Structured claim-source mappings merged at the coordinator level means the synthesis agent sees each unique claim once, with multiple citations. This prevents redundant phrasing architecturally. Synthesis-time deduplication instructions are probabilistic. Reducing subagents reduces coverage. Post-synthesis deduplication requires comparing free-form text, which is unreliable.",
+        },
+        {
+          s: "Structured Extraction",
+          sc: "sp-6",
+          d: 4,
+          q: "For a batch extraction job, you want to maximise first-pass success rate before submitting 10,000 documents. What's the correct sequencing?",
+          opts: [
+            "Submit all 10,000 documents immediately to minimise total processing time",
+            "Run prompt refinement on a representative sample set, validate the improved prompt, then batch-process the full volume",
+            "Submit 1,000 documents as a pilot, review results, then submit the remaining 9,000",
+            "Design the schema, write the prompt, and submit all documents — rely on retry logic to handle failures",
+          ],
+          c: 1,
+          exp: "The exam guide explicitly recommends prompt refinement on a sample set before batch-processing large volumes to maximise first-pass success and reduce iterative resubmission costs. Immediate full submission risks large-scale failures. A 1,000-document pilot is better than nothing but the exam guide specifies sample-based prompt refinement. Relying on retry logic is expensive at scale.",
+        },
+      ];
 
-<script>
-const ALL_Q = [
-  {s:"Customer Support Agent",sc:"sp-1",d:1,q:"A customer contacts support saying: 'My order #44821 arrived damaged — I need a refund, and also I want to change the shipping address for my next order.' Your agent currently handles these serially. What architectural change best handles multi-concern requests while minimising resolution time?",opts:["Process requests sequentially: resolve the refund first, then address the address change","Decompose the request into distinct items, investigate each in parallel using shared customer context, then synthesise a unified response","Escalate immediately since multi-concern requests exceed the agent's design scope","Use a routing classifier to split the message into two separate tickets processed by independent agent instances"],c:1,exp:"Parallel decomposition with shared context is the correct pattern for multi-concern requests. Sequential handling is slower. Escalation is premature for resolvable issues. Independent ticket instances lose shared customer context needed for synthesis."},
-  {s:"Customer Support Agent",sc:"sp-1",d:5,q:"After 18 tool calls in a long support session, your agent starts referencing the wrong customer's order history. The context window is near capacity. What's the most effective mitigation strategy?",opts:["Increase max_tokens to allow the model to process more context","Extract transactional facts — order IDs, amounts, dates, statuses — into a persistent 'case facts' block injected into each prompt outside the summarised history","Restart the session and ask the customer to re-state their issue","Use progressive summarisation to condense the conversation before each new tool call"],c:1,exp:"A persistent case-facts block preserves precise numerical and transactional data that progressive summarisation typically corrupts. max_tokens controls output length, not input retention. Restarting degrades customer experience. Progressive summarisation risks condensing critical values into vague summaries."},
-  {s:"Customer Support Agent",sc:"sp-1",d:1,q:"Your agent calls <code>process_refund</code> without first calling <code>get_customer</code>, bypassing identity verification. The system prompt clearly states verification is required first. Why does this still happen, and what's the correct fix?",opts:["The system prompt instruction is too vague — rewrite it to be more explicit about the required sequence","LLM compliance with prompt-based ordering instructions has a non-zero failure rate; implement a programmatic prerequisite gate that blocks <code>process_refund</code> until <code>get_customer</code> has returned a verified ID","Add few-shot examples showing <code>get_customer</code> always called first — this eliminates ordering violations","Use <code>tool_choice: 'any'</code> to force the model to call a tool, which naturally leads to correct sequencing"],c:1,exp:"Prompt-based ordering instructions are probabilistic. When ordering has financial or security consequences, programmatic gates are required for deterministic compliance. More explicit prompts and few-shot examples are still probabilistic. tool_choice: any ensures a tool is called but doesn't enforce which one."},
-  {s:"Customer Support Agent",sc:"sp-1",d:2,q:"Your MCP tool <code>get_customer</code> returns a 40-field JSON object for every call. The agent only needs 5 fields for most support tasks. What is the most effective way to handle this?",opts:["Increase the context window budget to accommodate verbose tool outputs","Trim verbose tool outputs to only the fields relevant to the current task before they accumulate in context","Instruct the agent in the system prompt to ignore irrelevant fields","Create a separate lightweight tool that returns only the 5 core fields"],c:1,exp:"Trimming tool outputs before they enter the context prevents token accumulation over multi-turn sessions. Larger context budgets delay but don't prevent the problem. Prompt-based ignoring doesn't prevent tokens from being consumed. A separate lightweight tool is valid but requires backend changes — trimming is the most direct fix."},
-  {s:"Customer Support Agent",sc:"sp-1",d:5,q:"A customer explicitly says: 'I don't want to deal with a bot anymore, I need to speak with a real person.' Your agent has identified this is a straightforward return case it can resolve. What should the agent do?",opts:["Acknowledge the request, briefly explain it can resolve this quickly, and offer to do so before connecting to a human","Escalate immediately without attempting to resolve — the customer has explicitly requested a human","Ask the customer to clarify whether they want help with the return or just want a human","Attempt resolution first, then offer human escalation only if the resolution fails"],c:1,exp:"Honoring explicit customer requests for human agents is a hard rule. When a customer explicitly demands a human, the agent must escalate immediately — not negotiate, not clarify, not attempt resolution first."},
-  {s:"Customer Support Agent",sc:"sp-1",d:1,q:"Your agent handles a case where the customer's address matches two different accounts in the database. <code>get_customer</code> returns both records. What should the agent do?",opts:["Select the account with the most recent order as the most likely match","Ask the customer for additional identifying information (e.g., email address, order number) to disambiguate","Escalate to a human agent since identity ambiguity exceeds the agent's decision authority","Return both accounts to the customer and let them confirm which is theirs"],c:1,exp:"When tool results return multiple matches, the agent should request additional identifiers from the customer rather than using heuristics. Heuristic selection risks acting on the wrong account. Immediate escalation is premature when clarification can resolve the ambiguity. Showing raw account data to customers is a privacy concern."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"A senior engineer configures detailed coding standards in <code>~/.claude/CLAUDE.md</code> on their machine but reports that junior team members on the same project aren't getting those instructions applied. What is the root cause?",opts:["The ~/.claude/CLAUDE.md file has a syntax error that prevents it from loading for other users","User-level CLAUDE.md files (~/.claude/) are personal and not shared via version control — other team members need the instructions in the project-level CLAUDE.md","Claude Code doesn't support CLAUDE.md configuration for teams, only individuals","The junior engineers need to run <code>claude --sync</code> to pull the latest configuration"],c:1,exp:"User-level configuration at ~/.claude/ applies only to that user's machine and is never shared via version control. Project-level configuration (.claude/CLAUDE.md or root CLAUDE.md) is version-controlled and applies to all team members."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"You have a skill at <code>.claude/skills/analyze-architecture/</code> that produces 3,000 lines of output. Team members report this output is polluting their main conversation context. What frontmatter option addresses this?",opts:["Add <code>max-output: 500</code> to truncate the skill's output","Add <code>context: fork</code> to run the skill in an isolated sub-agent context, returning only a summary to the main session","Move the skill to <code>~/.claude/skills/</code> so it runs with personal scope","Add <code>allowed-tools: []</code> to restrict tool access, reducing output volume"],c:1,exp:"context: fork runs the skill in an isolated sub-agent context, preventing verbose output from polluting the main conversation. max-output is not a valid frontmatter option. Moving to personal scope doesn't affect output isolation. allowed-tools restricts tool access, not output verbosity."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"You're configuring Claude Code for a monorepo with three packages: a React frontend, a Python API, and Terraform infrastructure. You want package-specific rules to load only when editing files in that package. What's the most maintainable approach?",opts:["Create one root CLAUDE.md with all three packages' conventions under labelled sections","Create a CLAUDE.md in each package subdirectory","Create <code>.claude/rules/</code> files with YAML frontmatter paths fields using glob patterns scoped to each package's directory","Use @import in the root CLAUDE.md to selectively import each package's standards file"],c:2,exp:"Path-scoped rules in .claude/rules/ with glob patterns (e.g., paths: ['terraform/**/*']) load only when editing matching files, preventing irrelevant context. A single root CLAUDE.md loads all conventions for every file. @import with root CLAUDE.md still loads everything always."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"A developer wants to experiment with a modified version of the team's <code>/deploy</code> slash command without affecting other team members. What's the correct approach?",opts:["Edit <code>.claude/commands/deploy.md</code> and use git stash to hide changes when not experimenting","Create a personal variant in <code>~/.claude/commands/</code> with a different name (e.g., /deploy-experimental)","Fork the repository and modify the command there","Use the /memory command to temporarily override the team command's behaviour"],c:1,exp:"Personal commands in ~/.claude/commands/ are user-scoped and not shared via version control, making them ideal for personal variants. Stashing changes is fragile and blocks others. Forking the repo is heavyweight for command experimentation. /memory is for inspecting loaded memory files, not overriding commands."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:1,q:"Your coordinator agent receives research findings from three subagents but the final synthesis is missing citations for 40% of claims. Logs show the synthesis agent received the findings but didn't preserve source URLs. What is the most direct fix?",opts:["Instruct the synthesis agent to 'always include citations' in its system prompt","Require subagents to output structured claim-source mappings (URLs, excerpts, document names) that the synthesis agent must preserve and merge","Add a post-synthesis validation step that flags uncited claims","Give the synthesis agent direct access to web search so it can look up citations itself"],c:1,exp:"Structured claim-source mappings passed between agents preserve attribution through the synthesis step. Prompt instructions are probabilistic. Post-synthesis validation can flag but not reliably fix provenance lost during summarisation. Giving synthesis direct search access causes it to independently look up citations rather than preserving original sources."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:1,q:"Two subagents both search for 'AI regulation 2024' and return largely overlapping results, wasting tokens and adding latency. What coordinator design change addresses this?",opts:["Add a deduplication step after all subagents complete that removes duplicate findings","Partition research scope across subagents — assign distinct subtopics or source types to each to minimise duplication","Implement a shared memory store that subagents check before searching","Reduce the number of subagents from 4 to 2 to inherently reduce overlap"],c:1,exp:"Partitioning scope prevents duplication at the assignment level. Post-hoc deduplication is inefficient — tokens are already wasted. A shared memory store creates coordination complexity. Reducing subagents reduces coverage, not overlap."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:5,q:"Your research pipeline processes a 200-page document. The synthesis agent omits findings from pages 80–130, which were placed in the middle of its input context. What phenomenon explains this and what's the mitigation?",opts:["The document is too large for the model's context window — split it into smaller chunks","Models reliably process information at the beginning and end of long inputs but may omit middle sections ('lost in the middle'); mitigate by placing key summaries at the beginning and using explicit section headers","The synthesis agent has a token budget limit — increase max_tokens","The document analysis agent failed to extract those pages — add retry logic"],c:1,exp:"The 'lost in the middle' effect is documented — models under-attend to information in the middle of long contexts. Mitigation includes front-loading key summaries and using explicit section headers. Chunking addresses context limits, not position effects. max_tokens controls output length."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:2,q:"Your research coordinator spawns subagents using the Task tool, but findings from the web search subagent are unavailable to the document analysis subagent. What is the correct way to share findings?",opts:["Configure a shared memory object in the Agent SDK that all subagents can read and write","Include the web search subagent's findings directly in the document analysis subagent's prompt — subagents don't inherit coordinator context automatically","Set the subagents to communicate peer-to-peer by passing messages to each other's endpoints","Use a database as a shared state store that subagents read from and write to between invocations"],c:1,exp:"Subagents operate with isolated context and don't automatically inherit the coordinator's history. Context must be explicitly passed in each subagent's prompt. Shared memory objects and peer-to-peer communication are not patterns in the Claude Agent SDK. A database is valid but unnecessary when the coordinator can include findings in the next subagent's prompt."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:5,q:"Your multi-agent research system crashes mid-run on a long task. When it resumes, the coordinator re-runs all subagents from scratch, losing all prior work. What design pattern prevents this?",opts:["Implement checkpoint files: each agent exports its state to a known location, and the coordinator loads a manifest on resume and injects state into agent prompts","Use --resume with a session name to continue from the last Claude Code checkpoint","Store all intermediate results in the coordinator's conversation history and pass the full history on resume","Reduce task complexity so runs complete before potential crashes"],c:0,exp:"Structured state persistence — each agent exports to a known location, coordinator loads a manifest on resume — is the correct crash recovery pattern. --resume is a Claude Code CLI feature for resuming named sessions, not a general multi-agent recovery mechanism. Passing full conversation history grows unboundedly. Reducing complexity doesn't address recovery."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:3,q:"Your CI job runs <code>claude -p 'Review this PR'</code> and exits successfully, but downstream systems fail to parse the output because it contains free-form text mixed with structured findings. What flags solve this?",opts:["Pipe the output through jq to extract structured content","Use <code>--output-format json</code> with <code>--json-schema</code> to produce machine-parseable structured findings","Add 'respond only in JSON' to the prompt text","Use <code>--batch</code> flag to enable structured batch output mode"],c:1,exp:"--output-format json combined with --json-schema enforces structured JSON output suitable for automated parsing. Piping through jq can't work if the input is free-form text. Prompt-based JSON instructions are not guaranteed. --batch is not a real Claude Code CLI flag."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:4,q:"Your automated PR review generates 12 comments per PR on average but developers are dismissing 9 of them as false positives, eroding trust. What's the most effective intervention?",opts:["Reduce the number of review categories to lower comment volume","Replace general instructions like 'flag potential issues' with specific criteria defining exactly which categories to flag (e.g., bugs, security) versus skip (e.g., minor style, local patterns)","Add a confidence threshold — only post comments the model rates above 80% confidence","Require two independent review passes and only post findings that appear in both"],c:1,exp:"Explicit categorical criteria directly address the root cause of false positives. Volume reduction doesn't fix quality. LLM self-reported confidence is poorly calibrated. Consensus requirements suppress real bugs caught inconsistently."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:4,q:"A PR review ran two weeks ago and flagged 8 issues. The developer fixed 5 but 3 remain. A new commit triggers another review. How should you configure the re-review to avoid duplicate comment noise?",opts:["Run a fresh review ignoring all prior context so findings are independent","Include the prior review findings in context and instruct Claude to report only new or still-unaddressed issues","Diff the review outputs programmatically and suppress duplicates post-generation","Re-run the review only on files changed in the new commit"],c:1,exp:"Including prior findings in context and instructing the model to report only new or unaddressed issues directly prevents duplicate comments. A fully fresh review regenerates all prior findings. Post-generation diffing requires reliable matching of free-form text. Reviewing only changed files misses cases where unchanged code now has issues relative to new changes."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:4,q:"You want to generate test cases for 200 files overnight using the Message Batches API. What's the minimum batch submission frequency to guarantee a 30-hour delivery SLA, given batches can take up to 24 hours?",opts:["Submit once every 24 hours","Submit once every 6 hours","Submit at most once every 30 hours","Submit every 12 hours with a retry buffer"],c:1,exp:"With a 24-hour max processing window and a 30-hour SLA, you need at least 6 hours of buffer. Submitting every 6 hours guarantees results arrive within 30 hours even if a batch takes the full 24 hours."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:4,q:"Your test generation batch of 200 documents partially fails — 23 documents return errors. Logs show a mix of context-limit exceeded and malformed input errors. What's the correct handling strategy?",opts:["Resubmit all 200 documents with a higher token limit","Identify failed documents by custom_id, then resubmit only those — chunking context-limit failures and fixing malformed inputs separately","Mark all 23 as unresolvable and proceed with the 177 successful results","Resubmit the entire batch with reduced max_tokens to prevent overflows"],c:1,exp:"custom_id allows precise identification and targeted resubmission of only failed documents. Different failure types require different fixes. Resubmitting all 200 wastes successful results. Marking failures as unresolvable when they're fixable is incorrect."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"You're extracting invoice data using tool_use with a JSON schema. The model correctly structures output but sometimes places the discount amount in the 'tax' field and vice versa. What kind of error is this and what's the fix?",opts:["A schema syntax error — add stricter type constraints","A semantic error — add validation logic checking business rules (e.g., tax must be positive) and implement retry-with-error-feedback","A model capability limitation — switch to a more powerful model","A schema design error — rename the fields to make their purpose clearer"],c:1,exp:"tool_use with JSON schemas eliminates syntax errors but not semantic errors (values in wrong fields). The fix is semantic validation plus retry-with-error-feedback. Schema syntax improvements don't prevent semantic misplacement. Switching models may help marginally but doesn't fix the structural validation gap."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"Your extraction pipeline achieves 97% accuracy overall but 71% on handwritten legacy forms. You're considering automating the high-confidence segment. What must you verify before reducing human review?",opts:["Run a 10-document spot check on handwritten forms to confirm the 71% figure","Analyse accuracy by document type and field segment — verify consistent performance across all subgroups before reducing human review for any segment","Calculate whether 71% accuracy is acceptable given the downstream error cost","Add more few-shot examples for handwritten forms to bring accuracy above 90% first"],c:1,exp:"Aggregate accuracy can mask poor subgroup performance. Before automating any segment, verify consistent performance across all document types and fields. A 10-document spot check is too small. Cost analysis doesn't replace accuracy validation. Improving accuracy first is reasonable but still requires per-segment validation."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"You need to extract data from invoices where some don't have a purchase order number. Your schema has <code>po_number</code> as a required field. What do you observe and how do you fix it?",opts:["The model returns an error when po_number is absent — add a default value of 'N/A'","The model fabricates a plausible-looking PO number to satisfy the required field — make po_number optional (nullable) in the schema","The extraction fails entirely — catch the exception and retry without the po_number field","The model skips the field silently — add an explicit extraction instruction in the prompt"],c:1,exp:"Required fields in JSON schemas cause the model to fabricate values rather than return null. Making the field optional/nullable is the correct fix. Default values mask the absence. Runtime retries are complex and brittle. Prompt instructions are probabilistic."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"Your schema has a <code>payment_method</code> field with enum values: <code>['credit_card', 'wire_transfer', 'check', 'paypal']</code>. A new batch includes cryptocurrency payments. What schema design handles this gracefully?",opts:["Add 'crypto' to the enum list and redeploy","Add an 'other' enum value plus a separate 'payment_method_detail' string field for extensible categorisation","Change payment_method to a free-text string field","Use a post-processing step to map unrecognised values to 'other'"],c:1,exp:"The 'other' + detail string pattern handles unknown values without requiring schema updates. Just adding 'crypto' requires continuous schema updates. Free-text loses the benefit of structured categorisation. Post-processing is fragile and requires maintaining a separate mapping table."},
-  {s:"Structured Extraction",sc:"sp-6",d:5,q:"You implement retry-with-error-feedback for failed extractions. After three retries, 15% of documents still fail. Investigation shows these documents reference pricing in an external rate card not provided to the model. What should you conclude?",opts:["The model needs more retries — increase the retry limit to 10","Retries are ineffective when required information is absent from the source — flag these documents for human review","The prompts need better few-shot examples demonstrating how to handle missing external references","Switch to a model with a larger context so it can infer the missing rate card data"],c:1,exp:"Retries are only effective for format or structural errors, not when information is genuinely absent. When the required information exists in an external document not provided, no number of retries will produce it. Documents requiring external data must be routed to human review."},
-  {s:"Developer Productivity",sc:"sp-4",d:2,q:"You configure your developer productivity agent with all available tools: Read, Write, Edit, Bash, Grep, Glob, plus 14 MCP tools for Jira, GitHub, Slack, databases, and monitoring. Tool selection reliability is poor. What structural fix most improves reliability?",opts:["Add a comprehensive tool selection guide to the system prompt explaining when to use each of the 20 tools","Restrict each subagent to only the tools needed for its role — a code exploration agent gets Read/Grep/Glob, a task management agent gets Jira/GitHub tools","Set <code>tool_choice: 'any'</code> to ensure the model always calls a tool","Rename tools to have more distinctive names to reduce selection confusion"],c:1,exp:"Scoped tool access per agent role is the primary fix for tool selection degradation from large tool sets. The exam guide states that 18 tools instead of 4–5 degrades reliability. A system prompt guide doesn't reduce decision complexity. tool_choice: any ensures a call is made but not the correct one."},
-  {s:"Developer Productivity",sc:"sp-4",d:2,q:"An engineer asks your agent 'What does the <code>handlePayment</code> function do and who calls it?' Which built-in tool sequence most efficiently answers this?",opts:["Read all source files, then search for handlePayment across all of them","Use Grep to find the function definition, then Grep again to find all callers, then Read to examine the relevant files","Use Glob to find all .js files, then Read each one looking for handlePayment","Use Bash with grep -r to search recursively, avoiding multiple tool calls"],c:1,exp:"Grep for content search followed by targeted Read is the correct pattern. The exam guide identifies Grep as the tool for searching code content and Read for loading file contents. Reading all files is inefficient. Glob finds files by name pattern, not content. Bash/grep works but the exam tests built-in tool roles."},
-  {s:"Developer Productivity",sc:"sp-4",d:2,q:"Your agent is trying to edit a configuration file using the Edit tool but keeps failing with 'anchor text not found.' The target text appears in the file but is slightly different from what the agent constructed. What's the correct fallback?",opts:["Use Bash with sed to perform the replacement instead","Use Read to load the full file content, then Write to output the corrected version with the change applied","Switch to a regex-based Edit variant that accepts patterns instead of exact text","Ask the user to provide the exact text so the Edit tool can match it"],c:1,exp:"When Edit fails due to non-unique or slightly different anchor text, Read + Write is the documented correct fallback. It loads the exact current content, applies the change, and writes back. A regex Edit variant doesn't exist. Asking the user breaks autonomous operation."},
-  {s:"Developer Productivity",sc:"sp-4",d:1,q:"Your developer productivity agent uses <code>fork_session</code>. What is the primary use case for this feature?",opts:["To run two independent agents simultaneously on different tasks","To create independent branches from a shared analysis baseline for exploring divergent implementation approaches","To fork the conversation history for backup purposes before making risky changes","To spawn a subagent with a copy of the parent's tool configuration"],c:1,exp:"fork_session creates independent branches from a shared analysis baseline — for example, comparing two refactoring strategies from the same codebase analysis. It's not for parallel independent agents, backups, or tool configuration copying."},
-  {s:"Developer Productivity",sc:"sp-4",d:3,q:"A developer runs <code>claude --resume my-auth-investigation</code> to continue a session from yesterday. They've since modified three files that the prior session analysed. What should they tell the agent when resuming?",opts:["Nothing — the agent will automatically detect file changes by comparing checksums","Inform the agent about the specific files that changed for targeted re-analysis rather than requiring full re-exploration","Start a new session with a summary of prior findings — resuming with stale tool results is unreliable","Use /compact to refresh the context before describing the changes"],c:1,exp:"When resuming after code modifications, explicitly inform the agent which files changed for targeted re-analysis. It cannot detect file changes automatically. Starting fresh is recommended when prior tool results are stale overall, but targeted re-analysis of changed files is the more efficient approach here."},
-  {s:"Developer Productivity",sc:"sp-4",d:1,q:"Your agent is exploring a large unfamiliar codebase. After 2 hours and 50+ tool calls, the agent starts referencing 'typical Spring Boot patterns' rather than the specific classes it discovered earlier, and gives inconsistent answers. What's the correct intervention?",opts:["Increase max_tokens to allow more detailed responses","Have the agent maintain scratchpad files recording key findings — authentication flows, service boundaries, data models — and reference these files for subsequent questions","Restart the exploration from scratch with a fresh context window","Add more specific questions to redirect the agent's attention to the correct classes"],c:1,exp:"Scratchpad files persist key findings across context boundaries, enabling the agent to reference specific discoveries. max_tokens affects output length, not context retention. Full restart wastes 2 hours of exploration. Specific questions may temporarily redirect attention but don't address the underlying context degradation."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:4,q:"You want to enforce that the model always calls your <code>extract_metadata</code> tool before any enrichment tools in a pipeline. What tool_choice configuration achieves this?",opts:["Set <code>tool_choice: 'auto'</code> and list <code>extract_metadata</code> first in the tools array","Set <code>tool_choice: {'type': 'tool', 'name': 'extract_metadata'}</code> for the first API call, then use auto for subsequent calls","Set <code>tool_choice: 'any'</code> to guarantee a tool is called","Add a system prompt instruction: 'Always call extract_metadata before enrichment tools'"],c:1,exp:"Forced tool selection with {'type': 'tool', 'name': 'extract_metadata'} guarantees the specific tool is called first. tool_choice: auto with array ordering doesn't influence selection. tool_choice: any guarantees a call but not which one. Prompt instructions are probabilistic."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:4,q:"Two credible research sources report conflicting unemployment rates for the same quarter: 4.2% and 5.1%. Your synthesis agent must include both in its report. What's the correct handling?",opts:["Use the average of both values: 4.65%","Choose the more recently published figure","Annotate both values with their source attribution and flag the conflict explicitly in the report rather than arbitrarily selecting one","Escalate to human review since conflicting data prevents synthesis"],c:2,exp:"Conflicting statistics from credible sources should be presented with explicit annotation — both values, both sources, and a conflict flag — rather than resolved arbitrarily. Averaging loses the conflict signal. Recency selection is an arbitrary heuristic. Human escalation is unnecessarily disruptive when reporting the conflict transparently is correct."},
-  {s:"Customer Support Agent",sc:"sp-1",d:2,q:"Your MCP tool returns different timestamp formats depending on which backend system it queries: Unix timestamps from the orders system, ISO 8601 from billing, and human-readable strings from the CRM. This causes the agent to misinterpret dates. What's the most effective fix?",opts:["Add instructions to the system prompt explaining each system's timestamp format","Implement a PostToolUse hook that normalises all timestamp formats to a single standard before the model processes them","Create three separate tools, one per backend, each with format-specific documentation","Fix the backend systems to return consistent formats"],c:1,exp:"A PostToolUse hook intercepts tool results and normalises heterogeneous data formats before the model processes them — a deterministic transformation. System prompt instructions rely on the model to interpret different formats correctly, which is error-prone. Separate tools don't fix the normalisation problem. Backend fixes may be infeasible."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:4,q:"You're generating test cases for a large Python codebase. The existing test suite already covers 80% of functionality. Claude keeps suggesting tests that duplicate existing coverage. What's the most effective fix?",opts:["Add 'do not duplicate existing tests' to the prompt","Provide the existing test files as context when generating new tests, instructing Claude to avoid scenarios already covered","Run a coverage analysis first and only ask Claude to generate tests for uncovered lines","Filter generated tests post-generation by comparing against existing test descriptions"],c:1,exp:"Providing existing test files as context lets the model directly see what's already covered and generate non-duplicate scenarios. A generic prompt instruction is vague and doesn't give the model visibility into what exists. Coverage analysis generates tests for lines rather than scenarios. Post-generation filtering wastes tokens on tests that will be discarded."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"A team is migrating a 50,000-line Java codebase from Spring Boot 2 to Spring Boot 3. 45+ files are affected and several valid migration approaches exist. After direct execution attempts, they get inconsistent results. What's the correct approach?",opts:["Use direct execution with more detailed step-by-step instructions for each file","Enter plan mode to explore the codebase, understand all dependencies, and design a complete migration approach before making any changes","Split the migration into 10-file batches and use direct execution for each batch","Use the Explore subagent to analyse the codebase, then proceed with direct execution"],c:1,exp:"Plan mode is designed for exactly this scenario: large-scale changes with multiple valid approaches and architectural implications. More detailed direct execution instructions don't address the underlying complexity. Batching creates consistency problems across batches without a unified plan. Explore subagent isolates verbose discovery output but doesn't replace plan mode when architectural decisions are needed."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"Your extraction pipeline processes research papers. Some use inline citations (e.g., 'Smith et al. 2023 found...'), others use numbered references ([14]), and others use footnotes. Few-shot examples only cover inline citations. What do you observe in production?",opts:["The model fails entirely on non-inline citation styles and returns errors","The model extracts citations correctly for inline style but produces empty or null results for numbered references and footnotes","The model fabricates citations for numbered references and footnotes","All citation styles are handled correctly since the model generalises from the inline examples"],c:1,exp:"Without few-shot examples covering varied citation structures, the model correctly handles the demonstrated style but produces empty/null results for undemonstrated variants. The exam guide specifically notes that few-shot examples for different document structures are needed to address empty/null extraction of required fields."},
-  {s:"Customer Support Agent",sc:"sp-1",d:5,q:"Your support agent achieves 92% accuracy on standard return requests but only 58% on cases involving policy exceptions (competitor price matching, courtesy adjustments). The agent attempts autonomous resolution on policy exception cases even when policy doesn't cover the specific situation. What's the correct fix?",opts:["Train the agent on more policy exception examples","Add escalation criteria: escalate when policy is ambiguous or silent on the customer's specific request, not just when cases are complex","Restrict the agent's tool access during policy exception cases","Add a confidence score check — escalate whenever the agent's confidence is below 70%"],c:1,exp:"The exam guide explicitly states: escalate when policy is ambiguous or silent on the specific request. Policy exceptions are by definition not covered by existing policy — the agent should escalate rather than autonomously resolve. Training on more examples doesn't address acting outside policy scope. Confidence scores are poorly calibrated for exactly these ambiguous cases."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:1,q:"Your research system needs to support both 'quick lookup' queries (answer in under 5 seconds) and 'deep research' queries (comprehensive reports taking 10+ minutes). How should the coordinator handle this?",opts:["Use a single pipeline and accept variable latency","Analyse query complexity and dynamically select which subagents to invoke — simple lookups use only the synthesis agent with cached data, complex queries use the full pipeline","Always run the full pipeline to ensure consistent quality","Use a separate coordinator agent for each query type"],c:1,exp:"The coordinator should analyse query requirements and dynamically select subagents rather than always routing through the full pipeline. A single pipeline with variable latency fails the quick lookup SLA. Always running the full pipeline wastes resources. Separate coordinators adds unnecessary infrastructure when dynamic routing is the designed solution."},
-  {s:"Structured Extraction",sc:"sp-6",d:5,q:"Your extraction pipeline produces field-level confidence scores. You find that 'date_of_service' fields have 94% model confidence but only 71% actual accuracy on documents with ambiguous date formats. What does this indicate and what should you do?",opts:["The confidence scores are working correctly — a 71% accuracy on ambiguous documents is acceptable","The model's confidence is poorly calibrated for this field — use a labelled validation set to calibrate review thresholds, and route low-confidence or ambiguous extractions to human review","Increase the model's temperature to reduce overconfidence","Add more date format examples to the prompt to improve accuracy"],c:1,exp:"High confidence with low accuracy indicates miscalibrated confidence scores. Calibration using a labelled validation set is required before using confidence scores for routing decisions. Temperature affects randomness, not calibration. More examples help accuracy but don't fix the calibration gap — empirical calibration against labelled data is needed."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"You want to add a skill that accepts a component name as input. When invoked without arguments (<code>/generate-component</code>), it should prompt the developer for the required name. What frontmatter option enables this?",opts:["<code>required-args: [component-name]</code>","<code>argument-hint: 'Component name (e.g., UserProfile)'</code>","<code>input-prompt: true</code>","<code>args: required</code>"],c:1,exp:"argument-hint in SKILL.md frontmatter displays a prompt to the developer for required parameters when the skill is invoked without arguments. The other options (required-args, input-prompt, args: required) are not valid SKILL.md frontmatter keys."},
-  {s:"Customer Support Agent",sc:"sp-1",d:1,q:"You need a hook that blocks refund processing calls above $500 and redirects them to human escalation. Which hook pattern is correct?",opts:["PostToolUse hook that checks the refund amount after processing and flags violations","A pre-execution tool call interception hook that inspects outgoing <code>process_refund</code> calls and blocks those exceeding the threshold before they execute","System prompt rule: 'Refunds above $500 require manager approval'","A validator function attached to the <code>process_refund</code> tool's input schema"],c:1,exp:"Pre-execution tool call interception hooks block policy-violating actions before they execute. PostToolUse runs after the tool has already executed — too late to prevent the action. System prompt rules are probabilistic. A schema validator enforces data types, not business rule thresholds."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:4,q:"You run two Claude sessions on the same pull request: one that generated the code changes and one that reviews them. Engineering management questions why you don't reuse the same session for both. What's your justification?",opts:["It's cheaper to use two sessions since each is billed separately","A model retains reasoning context from generation, making it less likely to question its own decisions in the same session — an independent review instance is more effective at catching subtle issues","Two sessions allow parallel processing, reducing total review time","The generation session's context window is full after producing the code changes"],c:1,exp:"Self-review limitations are documented: a model that generated code retains its reasoning context and is less likely to challenge its own decisions. Independent review instances without prior reasoning context catch more issues. Cost is not a benefit of separate sessions. Parallel processing is a benefit but not the primary architectural justification."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"You're building a multi-source synthesis that combines financial tables, news articles, and technical findings. The output should maximise readability. What rendering approach does the exam guide recommend?",opts:["Convert everything to a uniform markdown format for consistency","Render different content types appropriately — financial data as tables, news as prose, technical findings as structured lists — rather than converting to a uniform format","Use JSON output for all content types to ensure machine-readability","Convert all content to prose paragraphs for maximum human readability"],c:1,exp:"The exam guide explicitly recommends rendering different content types in their most appropriate format. Financial data belongs in tables, news in prose, technical findings in structured lists. Uniformity sacrifices readability and information density for consistency."},
-  {s:"Developer Productivity",sc:"sp-4",d:2,q:"You're building a developer productivity MCP server for your team's internal deployment pipeline. A community MCP server already exists for standard GitHub operations. How should you allocate development effort?",opts:["Build all MCP tools from scratch for maximum control","Use the existing community GitHub MCP server; build custom MCP tools only for your team-specific deployment pipeline workflows","Build a unified MCP server that combines GitHub operations and deployment pipeline in a single server","Evaluate both and choose based on feature completeness"],c:1,exp:"The exam guide recommends choosing existing community MCP servers over custom implementations for standard integrations (like GitHub), reserving custom server development for team-specific workflows. Building everything from scratch wastes effort. A unified server combines concerns that should be separated."},
-  {s:"Customer Support Agent",sc:"sp-1",d:2,q:"Tool selection logs show your agent calls <code>get_order_status</code> when customers report missing packages, even though <code>initiate_trace_request</code> is the correct tool. Both tools accept order numbers. What is most likely causing this?",opts:["<code>get_order_status</code> is listed first in the tools array, causing selection bias","Both tools have overlapping or insufficiently differentiated descriptions — the agent can't distinguish when to use each","The system prompt mentions 'order status' in the context of missing packages, creating keyword association with <code>get_order_status</code>","Both B and C are likely contributing factors"],c:3,exp:"Tool misrouting with similar tools typically has two contributing causes: inadequate descriptions that don't differentiate use cases, and system prompt keyword associations that override description-based selection. The exam guide explicitly notes both as causes of misrouting. Array ordering doesn't influence tool selection."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:5,q:"Your research pipeline's subagent produces findings that include dates, but the synthesis agent treats a 2019 finding and a 2024 finding on the same topic as contradictory rather than reflecting temporal change. What's the fix?",opts:["Add a post-processing step to sort all findings chronologically before synthesis","Require subagents to include publication or data collection dates in structured outputs, enabling correct temporal interpretation by the synthesis agent","Instruct the synthesis agent to consider publication dates when evaluating contradictions","Use only findings from the past 12 months to avoid temporal confusion"],c:1,exp:"Requiring dates in subagent structured outputs is the architectural fix — it makes temporal context explicit and machine-readable so the synthesis agent can interpret temporal differences correctly. Post-processing sorting doesn't fix the synthesis interpretation. Synthesis agent instructions are probabilistic and require the date to already be present. Limiting to 12 months loses historical context."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"A developer reports that Claude Code gives different code style outputs in different sessions, even though CLAUDE.md is configured. How would you diagnose this?",opts:["Check if the CLAUDE.md has syntax errors using a YAML validator","Run /memory to verify which memory files are actually loaded in the current session and diagnose inconsistent loading","Check git blame to see if CLAUDE.md was recently modified","Compare the outputs across sessions to identify which style is 'correct'"],c:1,exp:"/memory is the command for verifying which memory files are loaded in the current session — the correct diagnostic tool for configuration inconsistency. CLAUDE.md is markdown, not YAML. Git blame helps diagnose recent changes but doesn't verify what's loaded. Comparing outputs identifies the symptom but not the cause."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:2,q:"Your research MCP server has 45 available tools. When the coordinator agent loads all tools at once, it struggles to select the right tool for each step. What MCP feature helps manage this?",opts:["Implement tool categories in the MCP server and have the coordinator select a category first","Expose content catalogs as MCP resources to give agents visibility into available data, and provide detailed tool descriptions that explain capabilities and differentiate similar tools","Use <code>tool_choice: 'any'</code> to force the agent to always call a tool","Restrict the coordinator to 10 tools maximum by removing the others from the MCP server"],c:1,exp:"MCP resources expose content catalogs so agents have visibility into available data without requiring exploratory tool calls, and detailed tool descriptions are the primary mechanism for improving tool selection among large toolsets. Category-first selection adds complexity. tool_choice: any ensures a call but not the correct one. Removing tools reduces capability."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"You want to guarantee that your extraction pipeline always calls a specific tool rather than returning conversational text, but there are three valid extraction schemas and you don't know which applies until the document is analysed. What tool_choice setting is correct?",opts:["<code>tool_choice: 'auto'</code> — the model will choose the right schema","<code>tool_choice: 'any'</code> — guarantees the model calls one of the available tools without specifying which","<code>tool_choice: {'type': 'tool', 'name': 'extract_invoice'}</code> — force the most common schema","Set tool_choice differently per request based on a pre-classification step"],c:1,exp:"tool_choice: 'any' guarantees the model calls a tool (preventing conversational text) while allowing it to select among the three schemas based on document content. auto allows the model to return text. Forcing a specific schema when the document type is unknown causes mismatches. Pre-classification adds a step and may have its own errors."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:3,q:"Your team's CLAUDE.md contains testing standards, but the CI-invoked Claude Code instance generates tests that don't follow those standards. What is the most likely cause?",opts:["The -p flag disables CLAUDE.md loading","CLAUDE.md is not being provided as context to the CI-invoked Claude Code instance — ensure it's at the project level where it's automatically loaded","The testing standards in CLAUDE.md are too vague — make them more specific","CI environments reset configuration between runs"],c:1,exp:"CLAUDE.md at the project level is automatically loaded by CI-invoked instances. If it's at user-level or not properly scoped, the CI instance won't load it. The -p flag controls interactive mode, not CLAUDE.md loading. Vague standards cause quality issues, not non-compliance. CI environments don't reset project-level configuration."},
-  {s:"Developer Productivity",sc:"sp-4",d:1,q:"You're using the Claude Agent SDK and want the coordinator to analyse a codebase (verbose, 5,000-line output) before spawning specialized subagents. You don't want the analysis to consume the coordinator's context budget. What pattern addresses this?",opts:["Use /compact after the analysis to reduce context usage","Use the Explore subagent for the verbose discovery phase — it isolates output and returns a summary to the coordinator, preserving context budget","Summarise the analysis manually before passing it to the coordinator","Increase the coordinator's context window allocation"],c:1,exp:"The Explore subagent isolates verbose discovery output from the main coordinator context, returning only a summary. /compact reduces existing context but runs the analysis in the main session first. Manual summarisation requires human intervention. Increasing context allocation delays but doesn't prevent exhaustion."},
-  {s:"Customer Support Agent",sc:"sp-1",d:4,q:"You want to add few-shot examples to improve your support agent's escalation decisions. The agent currently escalates 'item damaged in transit' cases and attempts to resolve policy exception cases — the reverse of what it should do. What must your few-shot examples demonstrate?",opts:["Examples showing correct resolution of damaged-in-transit cases","Examples showing when to escalate (policy gaps, customer insistence) versus when to resolve autonomously (standard cases within policy), with reasoning for each decision","Examples of human agents handling escalated policy exception cases","Examples of the agent asking clarifying questions before deciding whether to escalate"],c:1,exp:"Few-shot examples for escalation calibration must show the contrast: cases that should be resolved autonomously versus cases that require escalation, with reasoning. Examples of resolution only don't address the escalate/resolve decision. Examples of human handling show what happens after escalation, not when to escalate. Clarification examples don't directly calibrate the escalate-vs-resolve boundary."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:5,q:"After a complex research session, your coordinator agent needs to continue work the next day. The prior session's tool results include web search results that are now 18 hours old. What's the most reliable approach?",opts:["Use --resume with the session name to continue exactly where it left off","Start a new session with a structured summary of the prior session's key findings injected into the initial context, since prior tool results are stale","Use fork_session to create a branch from the prior session's state","Export the conversation history and import it into a new session"],c:1,exp:"When prior tool results are stale, starting fresh with injected summaries is more reliable than resuming with stale data. --resume is better when prior context is mostly valid and tool results are still current. fork_session creates branches from a baseline, not a recovery mechanism. Exporting/importing history still carries the stale tool results."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"You're designing a self-correction validation flow for financial document extraction. Line items sum to $4,850 but the stated total is $5,200. What schema fields enable automated detection of this discrepancy?",opts:["Add a 'validation_passed' boolean that the model sets to true if everything looks correct","Extract both 'calculated_total' (sum of line items) and 'stated_total' (document's total field), plus a 'conflict_detected' boolean flag","Add a post-processing step that sums line items and compares to the total","Require the model to re-verify its extraction before finalising"],c:1,exp:"Extracting both calculated_total and stated_total as separate fields, plus a conflict_detected boolean, is the exam guide's recommended self-correction validation pattern. A single validation_passed boolean relies on the model's judgment — the same model that made the error. Post-processing comparison works but requires additional code. Re-verification instructions are probabilistic."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"Your team uses Claude Code for code generation, but different developers get different results when generating the same component type. Investigation shows some developers invoke skills with arguments, others don't. What's the most likely cause and fix?",opts:["Skills behave non-deterministically — set temperature to 0 for consistent output","Skills invoked without arguments don't receive required parameters, producing generic output — add <code>argument-hint</code> frontmatter to prompt developers for required parameters when invoking without arguments","Some developers are using outdated skill versions — enforce a skill version requirement","The skill's allowed-tools is configured differently per user — standardise the tool configuration"],c:1,exp:"When skills require arguments, invocation without arguments produces generic output. argument-hint prompts developers for the required parameters. Non-determinism is unrelated to the described symptom. Version differences are a separate issue. allowed-tools per-user differences don't explain inconsistent generation output."},
-  {s:"CI/CD Pipeline",sc:"sp-5",d:4,q:"Your automated code review produces severity ratings (critical/high/medium/low) for each finding. Developers report identical code issues receive different severity ratings across different PRs. How do you fix this?",opts:["Use a lower temperature setting for the review model","Define explicit severity criteria with concrete code examples for each severity level to achieve consistent classification","Ask the model to self-verify its severity ratings after producing them","Use a post-processing normalisation step to standardise severity distributions"],c:1,exp:"Explicit severity criteria with concrete code examples per level is the recommended fix for severity inconsistency. Lower temperature reduces randomness but doesn't define the criteria. Self-verification uses the same inconsistent reasoning. Post-processing normalisation changes the distribution without fixing the underlying classification logic."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:5,q:"Your document analysis subagent encounters a permission error trying to access a restricted database. The coordinator needs to decide whether to retry or use an alternative data source. What information should the subagent's error response include?",opts:["Just the error code so the coordinator can look up the meaning","Structured error context: failure type ('permission'), what was attempted, whether it's retryable (false for permission errors), and potential alternatives (public data sources)","A generic 'access denied' message and the recommendation to escalate","The full stack trace for debugging purposes"],c:1,exp:"Structured error context — failure type, attempted action, retryability flag, alternatives — gives the coordinator everything needed for intelligent recovery decisions. Error codes alone require the coordinator to interpret meaning. Generic messages hide the context needed for recovery. Stack traces are for debugging, not coordinator decision-making."},
-  {s:"Structured Extraction",sc:"sp-6",d:5,q:"You're routing extractions to human reviewers based on model confidence scores. Your reviewers can handle 200 documents per day. Your pipeline produces 1,000 documents per day, of which 30% have confidence below threshold. How should you prioritise reviewer capacity?",opts:["Process 200 documents randomly from the low-confidence pool","Route all 300 low-confidence documents to review; process the 700 high-confidence ones automatically; if reviewers are over capacity, prioritise by lowest confidence score","Ask reviewers to work faster to handle all 300 low-confidence documents","Raise the confidence threshold until only 200 documents fall below it"],c:1,exp:"With 300 low-confidence documents and 200 reviewer capacity, route all low-confidence docs to the queue and prioritise by lowest confidence score to maximise accuracy for the most uncertain extractions. Random sampling doesn't maximise accuracy. Asking for more speed is not an architectural solution. Raising the threshold to match capacity reduces review coverage without improving confidence calibration."},
-  {s:"Developer Productivity",sc:"sp-4",d:2,q:"You're building an MCP server exposing your company's internal document library (10,000 documents). The coordinator agent currently spends many tool calls trying to discover what documents exist before retrieving relevant ones. What MCP feature would most directly reduce exploratory tool calls?",opts:["Add a search tool that accepts natural language queries","Expose the document catalog as an MCP resource, giving the agent visibility into available documents and their metadata without requiring exploratory tool calls","Increase the agent's tool call budget","Add pagination to the retrieval tool so the agent can browse documents efficiently"],c:1,exp:"MCP resources are specifically designed to expose content catalogs so agents have visibility into available data without requiring exploratory tool calls. A search tool still requires tool calls for discovery. Increasing the tool call budget doesn't reduce unnecessary calls. Pagination makes browsing more efficient but still requires the browsing calls."},
-  {s:"Code Generation",sc:"sp-2",d:3,q:"Your team wants to add a CLAUDE.md that imports shared standards from multiple files using @import. Which import structure is correct for a project with separate API, testing, and deployment standards?",opts:["<code>@import from: [api-standards.md, testing-standards.md, deployment-standards.md]</code>","<code>@import api-standards.md, @import testing-standards.md, @import deployment-standards.md</code> on separate lines","Use <code>@import</code> to reference each standards file on its own line, one @import per file","Embed all standards directly in CLAUDE.md — @import is for external URLs only"],c:2,exp:"The @import syntax references external files with one @import per file on its own line. This is how the exam guide describes modular CLAUDE.md organisation. The array syntax is not valid. Combined @imports on the same line is not the correct syntax. @import is specifically for local file references, not only URLs."},
-  {s:"Customer Support Agent",sc:"sp-1",d:1,q:"Your support agent decomposes a multi-issue request into 4 sub-tasks and investigates them in parallel. Two sub-tasks fail. What should the agent do when synthesising the final response?",opts:["Return an error — the agent cannot synthesise when sub-tasks have failed","Synthesise a response using the two successful sub-tasks, explicitly noting which issues could not be resolved and why, and offer escalation for the unresolved items","Wait for manual retry of the failed sub-tasks before synthesising","Escalate the entire request to a human since partial resolution may cause customer confusion"],c:1,exp:"The correct pattern is to synthesise with available results, annotate gaps (which issues weren't resolved and why), and offer escalation paths. Refusing to synthesise abandons resolvable items. Waiting for manual retry adds unacceptable latency. Full escalation abandons successfully resolved sub-tasks unnecessarily."},
-  {s:"Multi-Agent Research",sc:"sp-3",d:4,q:"Your research synthesis agent produces reports where the same claim appears with three different phrasings, suggesting the model is independently re-deriving the same finding from different source excerpts. What technique reduces this redundancy?",opts:["Instruct the synthesis agent to deduplicate claims before writing","Structure subagent outputs as claim-source mappings, then have the coordinator merge claims with multiple supporting sources before passing to synthesis — so synthesis sees one claim with multiple citations, not multiple phrasings","Reduce the number of subagents to reduce source overlap","Use a post-synthesis deduplication pass"],c:1,exp:"Structured claim-source mappings merged at the coordinator level means the synthesis agent sees each unique claim once, with multiple citations. This prevents redundant phrasing architecturally. Synthesis-time deduplication instructions are probabilistic. Reducing subagents reduces coverage. Post-synthesis deduplication requires comparing free-form text, which is unreliable."},
-  {s:"Structured Extraction",sc:"sp-6",d:4,q:"For a batch extraction job, you want to maximise first-pass success rate before submitting 10,000 documents. What's the correct sequencing?",opts:["Submit all 10,000 documents immediately to minimise total processing time","Run prompt refinement on a representative sample set, validate the improved prompt, then batch-process the full volume","Submit 1,000 documents as a pilot, review results, then submit the remaining 9,000","Design the schema, write the prompt, and submit all documents — rely on retry logic to handle failures"],c:1,exp:"The exam guide explicitly recommends prompt refinement on a sample set before batch-processing large volumes to maximise first-pass success and reduce iterative resubmission costs. Immediate full submission risks large-scale failures. A 1,000-document pilot is better than nothing but the exam guide specifies sample-based prompt refinement. Relying on retry logic is expensive at scale."},
-];
+      const TOTAL_TIME = 120 * 60;
+      const DOMAIN_NAMES = {
+        1: "Agentic Architecture",
+        2: "Tool Design & MCP",
+        3: "Claude Code Config",
+        4: "Prompt Eng & Output",
+        5: "Context & Reliability",
+      };
+      const DOMAIN_COLORS = {
+        1: "#378ADD",
+        2: "#1D9E75",
+        3: "#BA7517",
+        4: "#7F77DD",
+        5: "#D85A30",
+      };
 
-const TOTAL_TIME = 120 * 60;
-const DOMAIN_NAMES = {1:'Agentic Architecture',2:'Tool Design & MCP',3:'Claude Code Config',4:'Prompt Eng & Output',5:'Context & Reliability'};
-const DOMAIN_COLORS = {1:'#378ADD',2:'#1D9E75',3:'#BA7517',4:'#7F77DD',5:'#D85A30'};
+      let state = {
+        phase: "intro",
+        current: 0,
+        answers: {},
+        submitted: {},
+        flagged: new Set(),
+        timeLeft: TOTAL_TIME,
+        interval: null,
+        done: false,
+        timedOut: false,
+      };
 
-let state = {
-  phase: 'intro',
-  current: 0,
-  answers: {},
-  submitted: {},
-  flagged: new Set(),
-  timeLeft: TOTAL_TIME,
-  interval: null,
-  done: false,
-  timedOut: false
-};
+      function fmt(s) {
+        const m = Math.floor(s / 60),
+          sec = s % 60;
+        return m + ":" + String(sec).padStart(2, "0");
+      }
 
-function fmt(s) {
-  const m = Math.floor(s/60), sec = s%60;
-  return m + ':' + String(sec).padStart(2,'0');
-}
+      function tClass() {
+        if (state.timeLeft <= 600) return "danger";
+        if (state.timeLeft <= 1800) return "warn";
+        return "";
+      }
 
-function tClass() {
-  if (state.timeLeft <= 600) return 'danger';
-  if (state.timeLeft <= 1800) return 'warn';
-  return '';
-}
+      function startTimer() {
+        if (state.interval) clearInterval(state.interval);
+        state.interval = setInterval(() => {
+          state.timeLeft--;
+          const el = document.getElementById("clock");
+          const pb = document.getElementById("timepbar");
+          if (el) {
+            el.textContent = fmt(state.timeLeft);
+            el.className = "t-val " + tClass();
+          }
+          if (pb) {
+            pb.style.width =
+              Math.round((state.timeLeft / TOTAL_TIME) * 100) + "%";
+            pb.className = "pbar-fill " + tClass();
+          }
+          if (state.timeLeft <= 0) {
+            clearInterval(state.interval);
+            state.timedOut = true;
+            state.done = true;
+            state.phase = "results";
+            render();
+          }
+        }, 1000);
+      }
 
-function startTimer() {
-  if (state.interval) clearInterval(state.interval);
-  state.interval = setInterval(() => {
-    state.timeLeft--;
-    const el = document.getElementById('clock');
-    const pb = document.getElementById('timepbar');
-    if (el) {
-      el.textContent = fmt(state.timeLeft);
-      el.className = 't-val ' + tClass();
-    }
-    if (pb) {
-      pb.style.width = Math.round(state.timeLeft/TOTAL_TIME*100)+'%';
-      pb.className = 'pbar-fill ' + tClass();
-    }
-    if (state.timeLeft <= 0) {
-      clearInterval(state.interval);
-      state.timedOut = true;
-      state.done = true;
-      state.phase = 'results';
-      render();
-    }
-  }, 1000);
-}
+      function render() {
+        const root = document.getElementById("root");
+        if (state.phase === "intro") root.innerHTML = introHTML();
+        else if (state.phase === "exam") root.innerHTML = examHTML();
+        else root.innerHTML = resultsHTML();
+        attachHandlers();
+      }
 
-function render() {
-  const root = document.getElementById('root');
-  if (state.phase === 'intro') root.innerHTML = introHTML();
-  else if (state.phase === 'exam') root.innerHTML = examHTML();
-  else root.innerHTML = resultsHTML();
-  attachHandlers();
-}
-
-function introHTML() {
-  return `
+      function introHTML() {
+        return `
   <div class="intro-card" style="margin-top:1.5rem">
     <div class="intro-icon">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -187,53 +1058,59 @@ function introHTML() {
       Begin exam
     </button>
   </div>`;
-}
+      }
 
-function beginExam() {
-  state.phase = 'exam';
-  state.current = 0;
-  state.answers = {};
-  state.submitted = {};
-  state.flagged = new Set();
-  state.timeLeft = TOTAL_TIME;
-  state.done = false;
-  state.timedOut = false;
-  render();
-  startTimer();
-}
+      function beginExam() {
+        state.phase = "exam";
+        state.current = 0;
+        state.answers = {};
+        state.submitted = {};
+        state.flagged = new Set();
+        state.timeLeft = TOTAL_TIME;
+        state.done = false;
+        state.timedOut = false;
+        render();
+        startTimer();
+      }
 
-function examHTML() {
-  const q = ALL_Q[state.current];
-  const total = ALL_Q.length;
-  const answered = Object.keys(state.answers).length;
-  const isSub = state.submitted[state.current] !== undefined;
-  const isFlagged = state.flagged.has(state.current);
-  const tc = tClass();
+      function examHTML() {
+        const q = ALL_Q[state.current];
+        const total = ALL_Q.length;
+        const answered = Object.keys(state.answers).length;
+        const isSub = state.submitted[state.current] !== undefined;
+        const isFlagged = state.flagged.has(state.current);
+        const tc = tClass();
 
-  const qnavHTML = ALL_Q.map((_,i) => {
-    let cls = 'qn';
-    if (i === state.current) cls += ' current';
-    else if (state.submitted[i] !== undefined) {
-      cls += state.answers[i] === ALL_Q[i].c ? ' correct-nav' : ' wrong-nav';
-    } else if (state.answers[i] !== undefined) cls += ' answered';
-    else if (state.flagged.has(i)) cls += ' flagged-nav';
-    return `<button class="${cls}" onclick="goTo(${i})">${i+1}</button>`;
-  }).join('');
+        const qnavHTML = ALL_Q.map((_, i) => {
+          let cls = "qn";
+          if (i === state.current) cls += " current";
+          else if (state.submitted[i] !== undefined) {
+            cls +=
+              state.answers[i] === ALL_Q[i].c ? " correct-nav" : " wrong-nav";
+          } else if (state.answers[i] !== undefined) cls += " answered";
+          else if (state.flagged.has(i)) cls += " flagged-nav";
+          return `<button class="${cls}" onclick="goTo(${i})">${i + 1}</button>`;
+        }).join("");
 
-  const optsHTML = q.opts.map((o,i) => {
-    let cls = 'opt';
-    if (isSub) {
-      if (i === q.c) cls += ' correct';
-      else if (state.answers[state.current] === i) cls += ' wrong';
-    } else {
-      if (state.answers[state.current] === i) cls += ' sel';
-    }
-    return `<button class="${cls}" onclick="pick(${i})" ${isSub?'disabled':''}><span class="opt-letter">${String.fromCharCode(65+i)}.</span><span>${o.replace(/`([^`]+)`/g,'<code>$1</code>')}</span></button>`;
-  }).join('');
+        const optsHTML = q.opts
+          .map((o, i) => {
+            let cls = "opt";
+            if (isSub) {
+              if (i === q.c) cls += " correct";
+              else if (state.answers[state.current] === i) cls += " wrong";
+            } else {
+              if (state.answers[state.current] === i) cls += " sel";
+            }
+            return `<button class="${cls}" onclick="pick(${i})" ${isSub ? "disabled" : ""}><span class="opt-letter">${String.fromCharCode(65 + i)}.</span><span>${o.replace(/`([^`]+)`/g, "<code>$1</code>")}</span></button>`;
+          })
+          .join("");
 
-  const expCls = 'exp'+(isSub?' show':'')+(isSub&&state.answers[state.current]!==q.c?' bad':'');
+        const expCls =
+          "exp" +
+          (isSub ? " show" : "") +
+          (isSub && state.answers[state.current] !== q.c ? " bad" : "");
 
-  return `
+        return `
   <div class="timer-bar">
     <div class="timer-left">
       <div>
@@ -246,7 +1123,7 @@ function examHTML() {
       </div>
     </div>
     <div class="pbar-wrap">
-      <div class="pbar-bg" style="width:140px"><div class="pbar-fill ${tc}" id="timepbar" style="width:${Math.round(state.timeLeft/TOTAL_TIME*100)}%"></div></div>
+      <div class="pbar-bg" style="width:140px"><div class="pbar-fill ${tc}" id="timepbar" style="width:${Math.round((state.timeLeft / TOTAL_TIME) * 100)}%"></div></div>
       <button class="btn btn-end" onclick="confirmSubmit()">Submit exam</button>
     </div>
   </div>
@@ -257,144 +1134,168 @@ function examHTML() {
     <div class="q-top">
       <div>
         <span class="scenario-pill ${q.sc}">${q.s}</span>
-        <div class="q-meta">Q${state.current+1} of ${total} &nbsp;·&nbsp; Domain ${q.d}</div>
+        <div class="q-meta">Q${state.current + 1} of ${total} &nbsp;·&nbsp; Domain ${q.d}</div>
       </div>
-      <button class="flag-btn ${isFlagged?'flagged':''}" onclick="toggleFlag()">${isFlagged?'Flagged':'Flag'}</button>
+      <button class="flag-btn ${isFlagged ? "flagged" : ""}" onclick="toggleFlag()">${isFlagged ? "Flagged" : "Flag"}</button>
     </div>
-    <div class="q-text">${q.q.replace(/`([^`]+)`/g,'<code>$1</code>')}</div>
+    <div class="q-text">${q.q.replace(/`([^`]+)`/g, "<code>$1</code>")}</div>
     <div class="opts">${optsHTML}</div>
     <div class="${expCls}">
-      <div class="exp-hdr">${isSub?(state.answers[state.current]===q.c?'Correct':'Incorrect — correct: '+String.fromCharCode(65+q.c)):'Explanation'}</div>
+      <div class="exp-hdr">${isSub ? (state.answers[state.current] === q.c ? "Correct" : "Incorrect — correct: " + String.fromCharCode(65 + q.c)) : "Explanation"}</div>
       ${q.exp}
     </div>
     <div class="nav-row">
-      <button class="btn btn-submit-ans" onclick="submitOne()" ${(state.answers[state.current]===undefined||isSub)?'disabled':''}>${isSub?'Submitted':'Submit answer'}</button>
-      ${state.current>0?`<button class="btn" onclick="goTo(${state.current-1})">← Prev</button>`:''}
-      ${state.current<total-1?`<button class="btn" onclick="goTo(${state.current+1})" ${!isSub?'disabled':''}>Next →</button>`:
-        `<button class="btn btn-submit-ans" onclick="confirmSubmit()" ${!isSub?'disabled':''}>Finish exam →</button>`}
+      <button class="btn btn-submit-ans" onclick="submitOne()" ${state.answers[state.current] === undefined || isSub ? "disabled" : ""}>${isSub ? "Submitted" : "Submit answer"}</button>
+      ${state.current > 0 ? `<button class="btn" onclick="goTo(${state.current - 1})">← Prev</button>` : ""}
+      ${
+        state.current < total - 1
+          ? `<button class="btn" onclick="goTo(${state.current + 1})" ${!isSub ? "disabled" : ""}>Next →</button>`
+          : `<button class="btn btn-submit-ans" onclick="confirmSubmit()" ${!isSub ? "disabled" : ""}>Finish exam →</button>`
+      }
       <button class="skip-link" onclick="skipOne()">skip</button>
     </div>
   </div>`;
-}
+      }
 
-function resultsHTML() {
-  const total = ALL_Q.length;
-  const correct = ALL_Q.filter((q,i) => state.answers[i] === q.c).length;
-  const skipped = ALL_Q.filter((_,i) => state.answers[i] === undefined).length;
-  const pct = Math.round(correct/total*100);
-  const scaled = Math.round(100+(correct/total)*900);
-  const pass = scaled >= 720;
-  const timeUsed = TOTAL_TIME - state.timeLeft;
+      function resultsHTML() {
+        const total = ALL_Q.length;
+        const correct = ALL_Q.filter((q, i) => state.answers[i] === q.c).length;
+        const skipped = ALL_Q.filter(
+          (_, i) => state.answers[i] === undefined,
+        ).length;
+        const pct = Math.round((correct / total) * 100);
+        const scaled = Math.round(100 + (correct / total) * 900);
+        const pass = scaled >= 720;
+        const timeUsed = TOTAL_TIME - state.timeLeft;
 
-  const dMap = {};
-  ALL_Q.forEach((q,i) => {
-    if (!dMap[q.d]) dMap[q.d] = {c:0,t:0};
-    dMap[q.d].t++;
-    if (state.answers[i]===q.c) dMap[q.d].c++;
-  });
+        const dMap = {};
+        ALL_Q.forEach((q, i) => {
+          if (!dMap[q.d]) dMap[q.d] = { c: 0, t: 0 };
+          dMap[q.d].t++;
+          if (state.answers[i] === q.c) dMap[q.d].c++;
+        });
 
-  return `
+        return `
   <div style="margin-top:1rem">
-    ${state.timedOut?`<div class="timed-out">Time expired — exam automatically submitted</div>`:''}
+    ${state.timedOut ? `<div class="timed-out">Time expired — exam automatically submitted</div>` : ""}
     <div class="score-grid">
-      <div class="score-cell"><span class="score-num" style="color:${pass?'var(--green)':'var(--red)'}">${correct}/${total}</span><span class="score-lbl">Score</span></div>
-      <div class="score-cell"><span class="score-num" style="color:${pass?'var(--green)':'var(--red)'}">${scaled}</span><span class="score-lbl">Scaled</span></div>
-      <div class="score-cell"><span class="score-num" style="color:${pass?'var(--green)':'var(--red)'};">${pass?'Pass':'Fail'}</span><span class="score-lbl">Result</span></div>
+      <div class="score-cell"><span class="score-num" style="color:${pass ? "var(--green)" : "var(--red)"}">${correct}/${total}</span><span class="score-lbl">Score</span></div>
+      <div class="score-cell"><span class="score-num" style="color:${pass ? "var(--green)" : "var(--red)"}">${scaled}</span><span class="score-lbl">Scaled</span></div>
+      <div class="score-cell"><span class="score-num" style="color:${pass ? "var(--green)" : "var(--red)"};">${pass ? "Pass" : "Fail"}</span><span class="score-lbl">Result</span></div>
       <div class="score-cell"><span class="score-num" style="font-size:2rem">${fmt(timeUsed)}</span><span class="score-lbl">Time used</span></div>
     </div>
     <div class="domain-breakdown">
       <div class="db-header">Performance by domain</div>
-      ${Object.entries(dMap).map(([d,s]) => `
+      ${Object.entries(dMap)
+        .map(
+          ([d, s]) => `
         <div class="db-row">
-          <div class="db-label">D${d}: ${DOMAIN_NAMES[d]||''}</div>
-          <div class="db-bar-bg"><div class="db-bar" style="width:${Math.round(s.c/s.t*100)}%;background:${DOMAIN_COLORS[d]||'#888'}"></div></div>
-          <div class="db-pct">${s.c}/${s.t} (${Math.round(s.c/s.t*100)}%)</div>
-        </div>`).join('')}
+          <div class="db-label">D${d}: ${DOMAIN_NAMES[d] || ""}</div>
+          <div class="db-bar-bg"><div class="db-bar" style="width:${Math.round((s.c / s.t) * 100)}%;background:${DOMAIN_COLORS[d] || "#888"}"></div></div>
+          <div class="db-pct">${s.c}/${s.t} (${Math.round((s.c / s.t) * 100)}%)</div>
+        </div>`,
+        )
+        .join("")}
     </div>
     <div class="review-section">
       <div class="db-header">Question review</div>
-      ${ALL_Q.map((q,i) => {
+      ${ALL_Q.map((q, i) => {
         const ans = state.answers[i];
         const ok = ans === q.c;
         const skip = ans === undefined;
         return `<div class="review-item">
-          <div class="ri ${skip?'ri-skip':ok?'ri-correct':'ri-wrong'}">${skip?'—':ok?'✓':'✗'}</div>
+          <div class="ri ${skip ? "ri-skip" : ok ? "ri-correct" : "ri-wrong"}">${skip ? "—" : ok ? "✓" : "✗"}</div>
           <div class="ri-body">
-            <div class="ri-meta">Q${i+1} · D${q.d} · ${q.s}</div>
-            <div class="ri-q">${q.q.replace(/<[^>]+>/g,'').replace(/`([^`]+)`/g,'$1').substring(0,100)}…</div>
-            ${!ok&&!skip?`<div class="ri-correction">Your: ${ans!==undefined?String.fromCharCode(65+ans):'—'} · Correct: ${String.fromCharCode(65+q.c)}</div>`:''}
-            ${ok?`<div class="ri-ok">Correct</div>`:''}
+            <div class="ri-meta">Q${i + 1} · D${q.d} · ${q.s}</div>
+            <div class="ri-q">${q.q
+              .replace(/<[^>]+>/g, "")
+              .replace(/`([^`]+)`/g, "$1")
+              .substring(0, 100)}…</div>
+            ${!ok && !skip ? `<div class="ri-correction">Your: ${ans !== undefined ? String.fromCharCode(65 + ans) : "—"} · Correct: ${String.fromCharCode(65 + q.c)}</div>` : ""}
+            ${ok ? `<div class="ri-ok">Correct</div>` : ""}
           </div>
         </div>`;
-      }).join('')}
+      }).join("")}
     </div>
     <div style="display:flex;gap:1rem;flex-wrap:wrap">
       <button class="restart-btn" onclick="resetExam()">← Retake exam</button>
       <a href="practice.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:2px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:13px;text-decoration:none;margin-top:1.5rem">Practice mode →</a>
     </div>
   </div>`;
-}
+      }
 
-function pick(i) {
-  if (state.submitted[state.current] !== undefined) return;
-  state.answers[state.current] = i;
-  document.querySelectorAll('.opt').forEach((el,idx) => {
-    el.className = 'opt'+(idx===i?' sel':'');
-  });
-  const sb = document.querySelector('.btn-submit-ans');
-  if (sb) sb.disabled = false;
-}
+      function pick(i) {
+        if (state.submitted[state.current] !== undefined) return;
+        state.answers[state.current] = i;
+        document.querySelectorAll(".opt").forEach((el, idx) => {
+          el.className = "opt" + (idx === i ? " sel" : "");
+        });
+        const sb = document.querySelector(".btn-submit-ans");
+        if (sb) sb.disabled = false;
+      }
 
-function submitOne() {
-  if (state.answers[state.current] === undefined) return;
-  if (state.submitted[state.current] !== undefined) return;
-  state.submitted[state.current] = true;
-  render();
-}
+      function submitOne() {
+        if (state.answers[state.current] === undefined) return;
+        if (state.submitted[state.current] !== undefined) return;
+        state.submitted[state.current] = true;
+        render();
+      }
 
-function skipOne() {
-  state.submitted[state.current] = true;
-  if (state.current < ALL_Q.length-1) goTo(state.current+1);
-  else render();
-}
+      function skipOne() {
+        state.submitted[state.current] = true;
+        if (state.current < ALL_Q.length - 1) goTo(state.current + 1);
+        else render();
+      }
 
-function toggleFlag() {
-  if (state.flagged.has(state.current)) state.flagged.delete(state.current);
-  else state.flagged.add(state.current);
-  render();
-}
+      function toggleFlag() {
+        if (state.flagged.has(state.current))
+          state.flagged.delete(state.current);
+        else state.flagged.add(state.current);
+        render();
+      }
 
-function goTo(i) { state.current = i; render(); }
+      function goTo(i) {
+        state.current = i;
+        render();
+      }
 
-function confirmSubmit() {
-  const unanswered = ALL_Q.filter((_,i) => state.answers[i]===undefined).length;
-  if (unanswered > 0 && !state.timedOut) {
-    if (!confirm(unanswered + ' questions are unanswered and will be marked incorrect. Submit anyway?')) return;
-  }
-  if (state.interval) clearInterval(state.interval);
-  state.done = true;
-  state.phase = 'results';
-  render();
-}
+      function confirmSubmit() {
+        const unanswered = ALL_Q.filter(
+          (_, i) => state.answers[i] === undefined,
+        ).length;
+        if (unanswered > 0 && !state.timedOut) {
+          if (
+            !confirm(
+              unanswered +
+                " questions are unanswered and will be marked incorrect. Submit anyway?",
+            )
+          )
+            return;
+        }
+        if (state.interval) clearInterval(state.interval);
+        state.done = true;
+        state.phase = "results";
+        render();
+      }
 
-function resetExam() {
-  if (state.interval) clearInterval(state.interval);
-  state.phase = 'intro';
-  render();
-}
+      function resetExam() {
+        if (state.interval) clearInterval(state.interval);
+        state.phase = "intro";
+        render();
+      }
 
-function attachHandlers() {
-  window.beginExam = beginExam;
-  window.pick = pick;
-  window.submitOne = submitOne;
-  window.skipOne = skipOne;
-  window.toggleFlag = toggleFlag;
-  window.goTo = goTo;
-  window.confirmSubmit = confirmSubmit;
-  window.resetExam = resetExam;
-}
+      function attachHandlers() {
+        window.beginExam = beginExam;
+        window.pick = pick;
+        window.submitOne = submitOne;
+        window.skipOne = skipOne;
+        window.toggleFlag = toggleFlag;
+        window.goTo = goTo;
+        window.confirmSubmit = confirmSubmit;
+        window.resetExam = resetExam;
+      }
 
-render();
-</script>
-</body>
+      render();
+    </script>
+  </body>
 </html>
