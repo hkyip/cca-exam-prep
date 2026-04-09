@@ -133,6 +133,29 @@ body.disclaimer-modal-open {
   gap: 0.75rem;
 }
 
+/* GitHub repo link (star on GitHub) */
+a.nav-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted, #7a7890);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+a.nav-github:hover {
+  color: var(--text, #f0ede8);
+}
+
+a.nav-github svg {
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+
 /* Home page nav: match .nav-links link style */
 .nav-links button.js-open-disclaimer {
   font-family: 'Outfit', sans-serif;

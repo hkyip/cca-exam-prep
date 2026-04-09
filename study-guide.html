@@ -1,432 +1,745 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Guide — CCA Foundations</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="exam-shared.css">
-<style>
-  .guide-hero {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 2rem;
-    margin-bottom: 1.25rem;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Guide — CCA Foundations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="exam-shared.css" />
+    <style>
+      .guide-hero {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 2rem;
+        margin-bottom: 1.25rem;
+      }
 
-  .guide-kicker {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-    display: inline-block;
-  }
+      .guide-kicker {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+        display: inline-block;
+      }
 
-  .guide-hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    line-height: 1.1;
-    margin-bottom: 0.75rem;
-    font-weight: 400;
-  }
+      .guide-hero h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        line-height: 1.1;
+        margin-bottom: 0.75rem;
+        font-weight: 400;
+      }
 
-  .guide-hero p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 720px;
-  }
+      .guide-hero p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 720px;
+      }
 
-  .anchor-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 1.25rem;
-  }
+      .anchor-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 1.25rem;
+      }
 
-  .anchor-link {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    text-decoration: none;
-    border: 1px solid var(--border2);
-    color: var(--muted);
-    background: var(--bg);
-    padding: 6px 10px;
-    border-radius: 2px;
-  }
+      .anchor-link {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        text-decoration: none;
+        border: 1px solid var(--border2);
+        color: var(--muted);
+        background: var(--bg);
+        padding: 6px 10px;
+        border-radius: 2px;
+      }
 
-  .anchor-link:hover { color: var(--text); border-color: var(--accent); }
+      .anchor-link:hover {
+        color: var(--text);
+        border-color: var(--accent);
+      }
 
-  .guide-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-  }
+      .guide-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
 
-  .guide-card h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 0.75rem;
-  }
+      .guide-card h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 0.75rem;
+      }
 
-  .guide-card p {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 0.75rem;
-  }
+      .guide-card p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 0.75rem;
+      }
 
-  .domain-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 10px;
-    margin-top: 0.75rem;
-  }
+      .domain-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 10px;
+        margin-top: 0.75rem;
+      }
 
-  .domain-box {
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 0.85rem;
-    background: var(--bg);
-  }
+      .domain-box {
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 0.85rem;
+        background: var(--bg);
+      }
 
-  .domain-box h3 {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    margin-bottom: 0.4rem;
-    font-weight: 500;
-  }
+      .domain-box h3 {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        margin-bottom: 0.4rem;
+        font-weight: 500;
+      }
 
-  .domain-box p {
-    margin: 0;
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
+      .domain-box p {
+        margin: 0;
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
 
-  .checklist {
-    display: grid;
-    gap: 8px;
-    margin-top: 0.75rem;
-  }
+      .checklist {
+        display: grid;
+        gap: 8px;
+        margin-top: 0.75rem;
+      }
 
-  .check {
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    background: var(--bg);
-    padding: 0.75rem 0.85rem;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.55;
-  }
+      .check {
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        background: var(--bg);
+        padding: 0.75rem 0.85rem;
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.55;
+      }
 
-  .resource-list {
-    display: grid;
-    gap: 8px;
-    margin-top: 0.75rem;
-  }
+      .resource-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 0.75rem;
+      }
 
-  .resource-list a {
-    text-decoration: none;
-    color: var(--text);
-    border: 1px solid var(--border);
-    background: var(--bg);
-    border-radius: 3px;
-    padding: 0.7rem 0.85rem;
-    font-size: 13px;
-    line-height: 1.5;
-  }
+      .resource-list a {
+        text-decoration: none;
+        color: var(--text);
+        border: 1px solid var(--border);
+        background: var(--bg);
+        border-radius: 3px;
+        padding: 0.7rem 0.85rem;
+        font-size: 13px;
+        line-height: 1.5;
+      }
 
-  .resource-list a:hover { border-color: var(--accent); }
+      .resource-list a:hover {
+        border-color: var(--accent);
+      }
 
-  .resource-list span {
-    display: block;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 2px;
-  }
+      .resource-list span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 2px;
+      }
 
-  .guide-card h3 {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent2);
-    margin: 1.25rem 0 0.5rem;
-    font-weight: 500;
-  }
+      .guide-card h3 {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--accent2);
+        margin: 1.25rem 0 0.5rem;
+        font-weight: 500;
+      }
 
-  .guide-card ul {
-    margin: 0 0 0.75rem 1.1rem;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
+      .guide-card ul {
+        margin: 0 0 0.75rem 1.1rem;
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
 
-  .guide-card li { margin-bottom: 0.35rem; }
+      .guide-card li {
+        margin-bottom: 0.35rem;
+      }
 
-  .back-to-top {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 0.75rem;
-  }
+      .back-to-top {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--accent);
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 0.75rem;
+      }
 
-  .back-to-top:hover { text-decoration: underline; }
+      .back-to-top:hover {
+        text-decoration: underline;
+      }
 
-  .topic-toc {
-    display: grid;
-    gap: 8px;
-    margin-top: 0.75rem;
-  }
+      .topic-toc {
+        display: grid;
+        gap: 8px;
+        margin-top: 0.75rem;
+      }
 
-  .topic-toc .toc-item {
-    display: block;
-    padding: 0.65rem 0.85rem;
-  }
-
-</style>
-<link rel="stylesheet" href="disclaimer-modal.css">
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w9178he6sz");
-</script>
-<script src="disclaimer-modal.js" defer></script>
-</head>
-<body>
-
-<nav>
-  <a class="nav-logo" href="index.html">CCA Foundations</a>
-  <div class="nav-disclaimer-wrap">
-    <button type="button" class="js-open-disclaimer">Disclaimer</button>
-    <a class="nav-back" href="index.html">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to home
-    </a>
-  </div>
-</nav>
-
-<main>
-  <section class="guide-hero">
-    <span class="guide-kicker">Study guide</span>
-    <h1>On-site preparation roadmap</h1>
-    <p>
-      Use this guide with the mock exams: build domain mastery first, then tighten timing and decision quality for proctored conditions.
-      The sequence below mirrors the official CCA Foundations exam scope.
-    </p>
-    <div class="anchor-row">
-      <a class="anchor-link" href="#domains">Domains</a>
-      <a class="anchor-link" href="#sequence">Study sequence</a>
-      <a class="anchor-link" href="#exam-day">Exam day</a>
-      <a class="anchor-link" href="#topics">Topic library</a>
-    </div>
-  </section>
-
-  <section id="domains" class="guide-card">
-    <h2>Domain-by-domain focus (D1-D5)</h2>
-    <p>Use these as your mastery checkpoints before you sit the full simulation.</p>
-    <div class="domain-grid">
-      <div class="domain-box">
-        <h3>D1 Agentic Architecture (27%)</h3>
-        <p>Parallel decomposition, synthesis, deterministic guardrails for high-risk actions.</p>
+      .topic-toc .toc-item {
+        display: block;
+        padding: 0.65rem 0.85rem;
+      }
+    </style>
+    <link rel="stylesheet" href="disclaimer-modal.css" />
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "w9178he6sz");
+    </script>
+    <script src="disclaimer-modal.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-logo" href="index.html">CCA Foundations</a>
+      <div class="nav-disclaimer-wrap">
+        <a
+          class="nav-github"
+          href="https://github.com/hkyip/cca-exam-prep"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Star cca-exam-prep on GitHub"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+            />
+          </svg>
+          GitHub
+        </a>
+        <button type="button" class="js-open-disclaimer">Disclaimer</button>
+        <a class="nav-back" href="index.html">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Back to home
+        </a>
       </div>
-      <div class="domain-box">
-        <h3>D2 Tool Design and MCP (18%)</h3>
-        <p>Clear tool boundaries, explicit descriptions, normalized outputs, scoped toolsets.</p>
-      </div>
-      <div class="domain-box">
-        <h3>D3 Claude Code Workflows (20%)</h3>
-        <p>Project versus user memory, path-scoped rules, command and skill usage, session hygiene.</p>
-      </div>
-      <div class="domain-box">
-        <h3>D4 Prompting and Structured Output (20%)</h3>
-        <p>Schema-safe extraction, semantic validation, retry-with-feedback, severity criteria.</p>
-      </div>
-      <div class="domain-box">
-        <h3>D5 Context and Reliability (15%)</h3>
-        <p>Fact preservation, stale-context recovery, escalation boundaries, temporal consistency.</p>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <section id="sequence" class="guide-card">
-    <h2>Recommended study sequence</h2>
-    <p>Follow this loop until your score and reasoning consistency stabilize.</p>
-    <div class="checklist">
-      <div class="check">1) Read one topic section below and write decision rules in your own words.</div>
-      <div class="check">2) Run domain-filtered Practice mode and review every explanation, including correct guesses.</div>
-      <div class="check">3) Track recurring misses by failure type: tool choice, escalation, schema semantics, or context decay.</div>
-      <div class="check">4) Re-run the weakest domain until you can explain why each distractor is wrong.</div>
-      <div class="check">5) Finish with a full Proctored exam to validate speed, stamina, and final answer discipline.</div>
-    </div>
-  </section>
+    <main>
+      <section class="guide-hero">
+        <span class="guide-kicker">Study guide</span>
+        <h1>On-site preparation roadmap</h1>
+        <p>
+          Use this guide with the mock exams: build domain mastery first, then
+          tighten timing and decision quality for proctored conditions. The
+          sequence below mirrors the official CCA Foundations exam scope.
+        </p>
+        <div class="anchor-row">
+          <a class="anchor-link" href="#domains">Domains</a>
+          <a class="anchor-link" href="#sequence">Study sequence</a>
+          <a class="anchor-link" href="#exam-day">Exam day</a>
+          <a class="anchor-link" href="#topics">Topic library</a>
+        </div>
+      </section>
 
-  <section id="exam-day" class="guide-card">
-    <h2>Exam-day strategy</h2>
-    <p>Target disciplined tradeoffs under time pressure, not just recall.</p>
-    <div class="checklist">
-      <div class="check">Start with high-confidence questions first, then return to flags with remaining time.</div>
-      <div class="check">Prioritize deterministic controls over prompt-only instructions for safety-critical scenarios.</div>
-      <div class="check">For extraction questions, separate syntax reliability from semantic correctness.</div>
-      <div class="check">For multi-agent questions, prefer explicit structured handoffs over implicit context sharing.</div>
-      <div class="check">Before submit, clear unanswered questions because blanks are scored incorrect.</div>
-    </div>
-  </section>
+      <section id="domains" class="guide-card">
+        <h2>Domain-by-domain focus (D1-D5)</h2>
+        <p>
+          Use these as your mastery checkpoints before you sit the full
+          simulation.
+        </p>
+        <div class="domain-grid">
+          <div class="domain-box">
+            <h3>D1 Agentic Architecture (27%)</h3>
+            <p>
+              Parallel decomposition, synthesis, deterministic guardrails for
+              high-risk actions.
+            </p>
+          </div>
+          <div class="domain-box">
+            <h3>D2 Tool Design and MCP (18%)</h3>
+            <p>
+              Clear tool boundaries, explicit descriptions, normalized outputs,
+              scoped toolsets.
+            </p>
+          </div>
+          <div class="domain-box">
+            <h3>D3 Claude Code Workflows (20%)</h3>
+            <p>
+              Project versus user memory, path-scoped rules, command and skill
+              usage, session hygiene.
+            </p>
+          </div>
+          <div class="domain-box">
+            <h3>D4 Prompting and Structured Output (20%)</h3>
+            <p>
+              Schema-safe extraction, semantic validation, retry-with-feedback,
+              severity criteria.
+            </p>
+          </div>
+          <div class="domain-box">
+            <h3>D5 Context and Reliability (15%)</h3>
+            <p>
+              Fact preservation, stale-context recovery, escalation boundaries,
+              temporal consistency.
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <section id="topics" class="guide-card">
-    <h2>Topic library</h2>
-    <p>Everything below lives on this site. Use the home page cards to jump here, or open a section directly.</p>
-    <div class="topic-toc">
-      <a class="anchor-link toc-item" href="#agents">Building effective agents</a>
-      <a class="anchor-link toc-item" href="#agent-sdk">Claude Agent SDK</a>
-      <a class="anchor-link toc-item" href="#claude-code">Claude Code</a>
-      <a class="anchor-link toc-item" href="#mcp">Model Context Protocol</a>
-      <a class="anchor-link toc-item" href="#batches">Message Batches API</a>
-      <a class="anchor-link toc-item" href="#prompt-engineering">Prompt engineering and structured output</a>
-      <a class="anchor-link toc-item" href="#exam-outline">Exam outline summary</a>
-      <a class="anchor-link toc-item" href="#certification">Certification and the live exam</a>
-    </div>
-  </section>
+      <section id="sequence" class="guide-card">
+        <h2>Recommended study sequence</h2>
+        <p>
+          Follow this loop until your score and reasoning consistency stabilize.
+        </p>
+        <div class="checklist">
+          <div class="check">
+            1) Read one topic section below and write decision rules in your own
+            words.
+          </div>
+          <div class="check">
+            2) Run domain-filtered Practice mode and review every explanation,
+            including correct guesses.
+          </div>
+          <div class="check">
+            3) Track recurring misses by failure type: tool choice, escalation,
+            schema semantics, or context decay.
+          </div>
+          <div class="check">
+            4) Re-run the weakest domain until you can explain why each
+            distractor is wrong.
+          </div>
+          <div class="check">
+            5) Finish with a full Proctored exam to validate speed, stamina, and
+            final answer discipline.
+          </div>
+        </div>
+      </section>
 
-  <section id="agents" class="guide-card">
-    <h2>Building effective agents</h2>
-    <p>Production agent design balances autonomy with control: decompose work, preserve shared context, and enforce policy before side effects.</p>
-    <h3>Core patterns</h3>
-    <ul>
-      <li><strong>Multi-concern requests:</strong> Split into distinct work items, investigate in parallel with shared customer or case context, then synthesize one reply.</li>
-      <li><strong>Ordering and prerequisites:</strong> Prompts alone cannot guarantee tool order. Use programmatic gates (for example block a refund tool until identity is verified).</li>
-      <li><strong>Partial failure:</strong> Synthesize what succeeded, state what failed and why, and offer escalation for unresolved items.</li>
-      <li><strong>Escalation:</strong> Honor explicit human requests immediately. Escalate when policy is silent or ambiguous, not only when the case is “hard.”</li>
-    </ul>
-    <h3>Multi-agent coordination</h3>
-    <ul>
-      <li>Pass structured claim-to-source mappings between agents so synthesis preserves citations and avoids redundant phrasing.</li>
-      <li>Partition research scope across subagents to reduce duplicate search results.</li>
-      <li>Route simple vs deep queries differently to meet latency SLAs.</li>
-    </ul>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="exam-day" class="guide-card">
+        <h2>Exam-day strategy</h2>
+        <p>
+          Target disciplined tradeoffs under time pressure, not just recall.
+        </p>
+        <div class="checklist">
+          <div class="check">
+            Start with high-confidence questions first, then return to flags
+            with remaining time.
+          </div>
+          <div class="check">
+            Prioritize deterministic controls over prompt-only instructions for
+            safety-critical scenarios.
+          </div>
+          <div class="check">
+            For extraction questions, separate syntax reliability from semantic
+            correctness.
+          </div>
+          <div class="check">
+            For multi-agent questions, prefer explicit structured handoffs over
+            implicit context sharing.
+          </div>
+          <div class="check">
+            Before submit, clear unanswered questions because blanks are scored
+            incorrect.
+          </div>
+        </div>
+      </section>
 
-  <section id="agent-sdk" class="guide-card">
-    <h2>Claude Agent SDK</h2>
-    <p>The SDK is how you orchestrate subagents, hooks, and tool use with explicit control flow.</p>
-    <h3>What to internalize</h3>
-    <ul>
-      <li><strong>Subagents:</strong> Isolated context; findings are not automatically visible to siblings. Pass outputs explicitly in the next prompt.</li>
-      <li><strong>Explore-style isolation:</strong> Run verbose discovery in a subagent so the coordinator keeps a summary, not thousands of lines.</li>
-      <li><strong>Hooks:</strong> Pre-execution hooks can block or reshape tool calls; post-hooks can normalize outputs.</li>
-      <li><strong>tool_choice:</strong> Use forced tool selection when a specific tool must run first; <code>any</code> only guarantees some tool call, not which one.</li>
-      <li><strong>fork_session:</strong> Branch from a shared baseline to compare strategies (not for backups or parallel unrelated agents).</li>
-    </ul>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="topics" class="guide-card">
+        <h2>Topic library</h2>
+        <p>
+          Everything below lives on this site. Use the home page cards to jump
+          here, or open a section directly.
+        </p>
+        <div class="topic-toc">
+          <a class="anchor-link toc-item" href="#agents"
+            >Building effective agents</a
+          >
+          <a class="anchor-link toc-item" href="#agent-sdk">Claude Agent SDK</a>
+          <a class="anchor-link toc-item" href="#claude-code">Claude Code</a>
+          <a class="anchor-link toc-item" href="#mcp">Model Context Protocol</a>
+          <a class="anchor-link toc-item" href="#batches"
+            >Message Batches API</a
+          >
+          <a class="anchor-link toc-item" href="#prompt-engineering"
+            >Prompt engineering and structured output</a
+          >
+          <a class="anchor-link toc-item" href="#exam-outline"
+            >Exam outline summary</a
+          >
+          <a class="anchor-link toc-item" href="#certification"
+            >Certification and the live exam</a
+          >
+        </div>
+      </section>
 
-  <section id="claude-code" class="guide-card">
-    <h2>Claude Code</h2>
-    <p>Configuration, commands, and skills must be scoped so the right rules load for the right files and users.</p>
-    <h3>Memory and rules</h3>
-    <ul>
-      <li><strong>~/.claude/</strong> is user-local and not shared by git. Team standards belong in the project (for example <code>.claude/</code> or project <code>CLAUDE.md</code>).</li>
-      <li><strong>Path-scoped rules:</strong> Use glob patterns so Terraform, API, and frontend rules load only when editing matching paths.</li>
-      <li><strong>Skills:</strong> Use <code>context: fork</code> when a skill would flood the main session. Use <code>argument-hint</code> when parameters are required.</li>
-      <li><strong>Plan mode:</strong> Prefer for large migrations with multiple valid approaches and cross-cutting dependencies.</li>
-    </ul>
-    <h3>CLI and CI</h3>
-    <ul>
-      <li>Structured CI output: use machine-readable JSON with a schema, not “please respond in JSON” in free text.</li>
-      <li>Project-level <code>CLAUDE.md</code> loads in CI when present in the repo; user-only paths do not.</li>
-    </ul>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="agents" class="guide-card">
+        <h2>Building effective agents</h2>
+        <p>
+          Production agent design balances autonomy with control: decompose
+          work, preserve shared context, and enforce policy before side effects.
+        </p>
+        <h3>Core patterns</h3>
+        <ul>
+          <li>
+            <strong>Multi-concern requests:</strong> Split into distinct work
+            items, investigate in parallel with shared customer or case context,
+            then synthesize one reply.
+          </li>
+          <li>
+            <strong>Ordering and prerequisites:</strong> Prompts alone cannot
+            guarantee tool order. Use programmatic gates (for example block a
+            refund tool until identity is verified).
+          </li>
+          <li>
+            <strong>Partial failure:</strong> Synthesize what succeeded, state
+            what failed and why, and offer escalation for unresolved items.
+          </li>
+          <li>
+            <strong>Escalation:</strong> Honor explicit human requests
+            immediately. Escalate when policy is silent or ambiguous, not only
+            when the case is “hard.”
+          </li>
+        </ul>
+        <h3>Multi-agent coordination</h3>
+        <ul>
+          <li>
+            Pass structured claim-to-source mappings between agents so synthesis
+            preserves citations and avoids redundant phrasing.
+          </li>
+          <li>
+            Partition research scope across subagents to reduce duplicate search
+            results.
+          </li>
+          <li>
+            Route simple vs deep queries differently to meet latency SLAs.
+          </li>
+        </ul>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
 
-  <section id="mcp" class="guide-card">
-    <h2>Model Context Protocol (MCP)</h2>
-    <p>MCP connects tools and data to agents; design shapes reliability and token use.</p>
-    <h3>Design principles</h3>
-    <ul>
-      <li><strong>Descriptions:</strong> Differentiate similar tools clearly; overlapping schemas cause misrouting.</li>
-      <li><strong>Verbose outputs:</strong> Trim or map fields before they accumulate in context across turns.</li>
-      <li><strong>Normalization:</strong> Use hooks to unify timestamps, IDs, and formats before the model reads them.</li>
-      <li><strong>Large tool sets:</strong> Narrow tools per role or expose catalogs as resources so agents browse less blindly.</li>
-      <li><strong>Community vs custom:</strong> Prefer maintained servers for generic integrations; build custom servers for internal workflows.</li>
-    </ul>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="agent-sdk" class="guide-card">
+        <h2>Claude Agent SDK</h2>
+        <p>
+          The SDK is how you orchestrate subagents, hooks, and tool use with
+          explicit control flow.
+        </p>
+        <h3>What to internalize</h3>
+        <ul>
+          <li>
+            <strong>Subagents:</strong> Isolated context; findings are not
+            automatically visible to siblings. Pass outputs explicitly in the
+            next prompt.
+          </li>
+          <li>
+            <strong>Explore-style isolation:</strong> Run verbose discovery in a
+            subagent so the coordinator keeps a summary, not thousands of lines.
+          </li>
+          <li>
+            <strong>Hooks:</strong> Pre-execution hooks can block or reshape
+            tool calls; post-hooks can normalize outputs.
+          </li>
+          <li>
+            <strong>tool_choice:</strong> Use forced tool selection when a
+            specific tool must run first; <code>any</code> only guarantees some
+            tool call, not which one.
+          </li>
+          <li>
+            <strong>fork_session:</strong> Branch from a shared baseline to
+            compare strategies (not for backups or parallel unrelated agents).
+          </li>
+        </ul>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
 
-  <section id="batches" class="guide-card">
-    <h2>Message Batches API</h2>
-    <p>Asynchronous batch processing trades latency for cost and throughput.</p>
-    <ul>
-      <li>Batches can take up to about 24 hours; plan submission frequency so deadlines still fit your SLA.</li>
-      <li>Use <code>custom_id</code> to correlate requests and to resubmit only failed items after fixing root causes.</li>
-      <li>Do not resubmit the whole batch when a subset fails for different reasons (for example context limit vs bad input).</li>
-    </ul>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="claude-code" class="guide-card">
+        <h2>Claude Code</h2>
+        <p>
+          Configuration, commands, and skills must be scoped so the right rules
+          load for the right files and users.
+        </p>
+        <h3>Memory and rules</h3>
+        <ul>
+          <li>
+            <strong>~/.claude/</strong> is user-local and not shared by git.
+            Team standards belong in the project (for example
+            <code>.claude/</code> or project <code>CLAUDE.md</code>).
+          </li>
+          <li>
+            <strong>Path-scoped rules:</strong> Use glob patterns so Terraform,
+            API, and frontend rules load only when editing matching paths.
+          </li>
+          <li>
+            <strong>Skills:</strong> Use <code>context: fork</code> when a skill
+            would flood the main session. Use <code>argument-hint</code> when
+            parameters are required.
+          </li>
+          <li>
+            <strong>Plan mode:</strong> Prefer for large migrations with
+            multiple valid approaches and cross-cutting dependencies.
+          </li>
+        </ul>
+        <h3>CLI and CI</h3>
+        <ul>
+          <li>
+            Structured CI output: use machine-readable JSON with a schema, not
+            “please respond in JSON” in free text.
+          </li>
+          <li>
+            Project-level <code>CLAUDE.md</code> loads in CI when present in the
+            repo; user-only paths do not.
+          </li>
+        </ul>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
 
-  <section id="prompt-engineering" class="guide-card">
-    <h2>Prompt engineering and structured output</h2>
-    <p>Schemas constrain shape, not meaning; pair them with validation and review workflows.</p>
-    <ul>
-      <li><strong>Semantic errors:</strong> Values in wrong fields need business-rule checks and retry-with-error-feedback, not just stricter JSON types.</li>
-      <li><strong>Required fields:</strong> Required keys can cause fabrication when data is missing; prefer optional or nullable fields when absence is valid.</li>
-      <li><strong>Enums and unknowns:</strong> Use <code>other</code> plus a detail string for extensibility instead of endless enum patches.</li>
-      <li><strong>Few-shot coverage:</strong> Match document structures in examples; otherwise you get empty or null fields on unseen layouts.</li>
-      <li><strong>Rendering:</strong> Prefer tables for numeric data, prose for narrative, lists for technical findings—uniform markdown everywhere often hurts clarity.</li>
-      <li><strong>Reviews:</strong> Define explicit severity rubrics with examples; separate reviewer from author session to reduce self-approval bias.</li>
-    </ul>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="mcp" class="guide-card">
+        <h2>Model Context Protocol (MCP)</h2>
+        <p>
+          MCP connects tools and data to agents; design shapes reliability and
+          token use.
+        </p>
+        <h3>Design principles</h3>
+        <ul>
+          <li>
+            <strong>Descriptions:</strong> Differentiate similar tools clearly;
+            overlapping schemas cause misrouting.
+          </li>
+          <li>
+            <strong>Verbose outputs:</strong> Trim or map fields before they
+            accumulate in context across turns.
+          </li>
+          <li>
+            <strong>Normalization:</strong> Use hooks to unify timestamps, IDs,
+            and formats before the model reads them.
+          </li>
+          <li>
+            <strong>Large tool sets:</strong> Narrow tools per role or expose
+            catalogs as resources so agents browse less blindly.
+          </li>
+          <li>
+            <strong>Community vs custom:</strong> Prefer maintained servers for
+            generic integrations; build custom servers for internal workflows.
+          </li>
+        </ul>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
 
-  <section id="exam-outline" class="guide-card">
-    <h2>Exam outline summary</h2>
-    <p>The CCA Foundations exam weights domains to reflect solution architecture for production Claude applications. This site’s mock exams follow the same five domains and six scenario families.</p>
-    <ul>
-      <li><strong>Format (as simulated here):</strong> Proctored mode uses 60 questions in 120 minutes with scaled scoring; passing is 720 on a 200–1000 scale.</li>
-      <li><strong>Domains:</strong> D1 Agentic architecture and orchestration; D2 Tool design and MCP; D3 Claude Code configuration and workflows; D4 Prompt engineering and structured output; D5 Context management and reliability.</li>
-      <li><strong>Study approach:</strong> Pair domain-filtered practice with this topic library, then validate under time with the full proctored simulation.</li>
-    </ul>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="batches" class="guide-card">
+        <h2>Message Batches API</h2>
+        <p>
+          Asynchronous batch processing trades latency for cost and throughput.
+        </p>
+        <ul>
+          <li>
+            Batches can take up to about 24 hours; plan submission frequency so
+            deadlines still fit your SLA.
+          </li>
+          <li>
+            Use <code>custom_id</code> to correlate requests and to resubmit
+            only failed items after fixing root causes.
+          </li>
+          <li>
+            Do not resubmit the whole batch when a subset fails for different
+            reasons (for example context limit vs bad input).
+          </li>
+        </ul>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
 
-  <section id="certification" class="guide-card">
-    <h2>Certification and the live exam</h2>
-    <p>The live proctored certification is offered through Anthropic’s official training and exam flow (for example via their access and scheduling portal). This prep site is unofficial: use it to practice; register and schedule through the official program when you are ready.</p>
-    <p style="margin-bottom:0">No outbound links are required to study here—the topic sections above are sufficient for exam-style reasoning alongside the mock exams.</p>
-    <a class="back-to-top" href="#topics">↑ Back to topic list</a>
-  </section>
+      <section id="prompt-engineering" class="guide-card">
+        <h2>Prompt engineering and structured output</h2>
+        <p>
+          Schemas constrain shape, not meaning; pair them with validation and
+          review workflows.
+        </p>
+        <ul>
+          <li>
+            <strong>Semantic errors:</strong> Values in wrong fields need
+            business-rule checks and retry-with-error-feedback, not just
+            stricter JSON types.
+          </li>
+          <li>
+            <strong>Required fields:</strong> Required keys can cause
+            fabrication when data is missing; prefer optional or nullable fields
+            when absence is valid.
+          </li>
+          <li>
+            <strong>Enums and unknowns:</strong> Use <code>other</code> plus a
+            detail string for extensibility instead of endless enum patches.
+          </li>
+          <li>
+            <strong>Few-shot coverage:</strong> Match document structures in
+            examples; otherwise you get empty or null fields on unseen layouts.
+          </li>
+          <li>
+            <strong>Rendering:</strong> Prefer tables for numeric data, prose
+            for narrative, lists for technical findings—uniform markdown
+            everywhere often hurts clarity.
+          </li>
+          <li>
+            <strong>Reviews:</strong> Define explicit severity rubrics with
+            examples; separate reviewer from author session to reduce
+            self-approval bias.
+          </li>
+        </ul>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
 
-  <section id="external-links" class="guide-card">
-    <h2>External links (official sources)</h2>
-    <p>Optional references if you want to cross-check the on-site material against source documentation.</p>
-    <div class="resource-list">
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use" target="_blank" rel="noopener noreferrer">Building effective agents<span>Official guide to orchestration and reliability patterns</span></a>
-      <a href="https://docs.anthropic.com/en/docs/agent-sdk/overview" target="_blank" rel="noopener noreferrer">Claude Agent SDK<span>Subagents, hooks, and coordinator architecture</span></a>
-      <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener noreferrer">Claude Code docs<span>Memory, rules, commands, and workflows</span></a>
-      <a href="https://docs.anthropic.com/en/docs/mcp" target="_blank" rel="noopener noreferrer">Model Context Protocol<span>Tool and resource design fundamentals</span></a>
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/batch-processing" target="_blank" rel="noopener noreferrer">Message Batches API<span>Asynchronous batch processing and error handling</span></a>
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener noreferrer">Prompt engineering overview<span>Few-shot usage and structured output patterns</span></a>
-      <a href="https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F8lsy243ftffjjy1cx9lm3o2bw%2Fpublic%2F1773274827%2FClaude+Certified+Architect+%E2%80%93+Foundations+Certification+Exam+Guide.pdf" target="_blank" rel="noopener noreferrer">Official exam guide (PDF)<span>Domain weights, scope, and sample framing</span></a>
-      <a href="https://anthropic.skilljar.com/claude-code-in-action" target="_blank" rel="noopener noreferrer">Certification access and scheduling<span>Official Skilljar course page currently available</span></a>
-    </div>
-  </section>
-</main>
+      <section id="exam-outline" class="guide-card">
+        <h2>Exam outline summary</h2>
+        <p>
+          The CCA Foundations exam weights domains to reflect solution
+          architecture for production Claude applications. This site’s mock
+          exams follow the same five domains and six scenario families.
+        </p>
+        <ul>
+          <li>
+            <strong>Format (as simulated here):</strong> Proctored mode uses 60
+            questions in 120 minutes with scaled scoring; passing is 720 on a
+            200–1000 scale.
+          </li>
+          <li>
+            <strong>Domains:</strong> D1 Agentic architecture and orchestration;
+            D2 Tool design and MCP; D3 Claude Code configuration and workflows;
+            D4 Prompt engineering and structured output; D5 Context management
+            and reliability.
+          </li>
+          <li>
+            <strong>Study approach:</strong> Pair domain-filtered practice with
+            this topic library, then validate under time with the full proctored
+            simulation.
+          </li>
+        </ul>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
 
-</body>
+      <section id="certification" class="guide-card">
+        <h2>Certification and the live exam</h2>
+        <p>
+          The live proctored certification is offered through Anthropic’s
+          official training and exam flow (for example via their access and
+          scheduling portal). This prep site is unofficial: use it to practice;
+          register and schedule through the official program when you are ready.
+        </p>
+        <p style="margin-bottom: 0">
+          No outbound links are required to study here—the topic sections above
+          are sufficient for exam-style reasoning alongside the mock exams.
+        </p>
+        <a class="back-to-top" href="#topics">↑ Back to topic list</a>
+      </section>
+
+      <section id="external-links" class="guide-card">
+        <h2>External links (official sources)</h2>
+        <p>
+          Optional references if you want to cross-check the on-site material
+          against source documentation.
+        </p>
+        <div class="resource-list">
+          <a
+            href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Building effective agents<span
+              >Official guide to orchestration and reliability patterns</span
+            ></a
+          >
+          <a
+            href="https://docs.anthropic.com/en/docs/agent-sdk/overview"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Claude Agent SDK<span
+              >Subagents, hooks, and coordinator architecture</span
+            ></a
+          >
+          <a
+            href="https://docs.anthropic.com/en/docs/claude-code/overview"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Claude Code docs<span
+              >Memory, rules, commands, and workflows</span
+            ></a
+          >
+          <a
+            href="https://docs.anthropic.com/en/docs/mcp"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Model Context Protocol<span
+              >Tool and resource design fundamentals</span
+            ></a
+          >
+          <a
+            href="https://docs.anthropic.com/en/docs/build-with-claude/batch-processing"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Message Batches API<span
+              >Asynchronous batch processing and error handling</span
+            ></a
+          >
+          <a
+            href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Prompt engineering overview<span
+              >Few-shot usage and structured output patterns</span
+            ></a
+          >
+          <a
+            href="https://everpath-course-content.s3-accelerate.amazonaws.com/instructor%2F8lsy243ftffjjy1cx9lm3o2bw%2Fpublic%2F1773274827%2FClaude+Certified+Architect+%E2%80%93+Foundations+Certification+Exam+Guide.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Official exam guide (PDF)<span
+              >Domain weights, scope, and sample framing</span
+            ></a
+          >
+          <a
+            href="https://anthropic.skilljar.com/claude-code-in-action"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Certification access and scheduling<span
+              >Official Skilljar course page currently available</span
+            ></a
+          >
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
